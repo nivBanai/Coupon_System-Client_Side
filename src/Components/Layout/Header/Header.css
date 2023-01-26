@@ -1,0 +1,8 @@
+.Header {
+	grid-column: 12 span;
+    grid-row: 1 span;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #00ABB3;
+}

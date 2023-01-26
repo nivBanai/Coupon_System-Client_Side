@@ -1,0 +1,11 @@
+.Menu {
+	grid-column: 2 span;
+    grid-row: 10 span;
+    background-color: #3C4048;
+    display: flex;
+    flex-direction: column;
+}
+
+.Link{
+    color: white;
+}

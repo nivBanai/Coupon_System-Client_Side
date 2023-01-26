@@ -1,0 +1,7 @@
+.Footer {
+    grid-column: 12 span;
+    grid-row: 1 span;
+	display: flex;
+    justify-content: center;
+    background-color: #352c48;
+}

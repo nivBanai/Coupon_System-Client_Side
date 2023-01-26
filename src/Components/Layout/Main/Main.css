@@ -1,0 +1,6 @@
+.Main {
+	grid-column: 10 span;
+	grid-row: 10 span;
+	overflow-y: auto;
+    background-color: #B2B2B2;
+}
