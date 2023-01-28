@@ -4,7 +4,6 @@ import { CompanyModel } from "../../../../../Models/Company";
 import { gotAllCompaniesAction } from "../../../../../Redux/AppStates/AdminAppState";
 import store from "../../../../../Redux/Store";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
-import DeleteCompany from "../DeleteCompany/DeleteCompany";
 import "./GetAllCompanies.css";
 
 function GetAllCompanies(): JSX.Element {

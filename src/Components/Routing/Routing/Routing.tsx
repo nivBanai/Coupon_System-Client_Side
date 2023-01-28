@@ -12,6 +12,7 @@ import AddCustomer from "../../UsersArea/AdminArea/CustomersSection/AddCustomer/
 import DeleteCustomer from "../../UsersArea/AdminArea/CustomersSection/DeleteCustomer/DeleteCustomer";
 import GetAllCustomers from "../../UsersArea/AdminArea/CustomersSection/GetAllCustomers/GetAllCustomers";
 import UpdateCustomer from "../../UsersArea/AdminArea/CustomersSection/UpdateCustomer/UpdateCustomer";
+import GetCompanyCoupons from "../../UsersArea/CompanyArea/GetCompanyCoupons/GetCompanyCoupons";
 import "./Routing.css";
 
 function Routing(): JSX.Element {
@@ -31,6 +32,7 @@ function Routing(): JSX.Element {
                 <Route path="customers/add" element={<AddCustomer />} />
                 <Route path="customers/delete/:id" element={<DeleteCustomer />} />
                 <Route path="customers/update/:id" element={<UpdateCustomer />} />
+                <Route path="companies/coupons" element={<GetCompanyCoupons />} />
                 <Route path="*" element={<Page404 />} />
             </Routes>
         </div>

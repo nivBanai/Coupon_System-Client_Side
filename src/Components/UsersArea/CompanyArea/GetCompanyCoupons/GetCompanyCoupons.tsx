@@ -45,15 +45,23 @@ function GetCompanyCoupons(): JSX.Element {
 
     return (
         <div className="GetCompanyCoupons">
-             {
+            {
                 (coupons?.length > 0) ?
-                <>{coupons.map((coup, idx) => 
-                <div key={idx}>
-<span></span>
-                </div>
-                )}</>
-            
-            : <div></div>
+                    <>{coupons.map((coup, idx) =>
+                        <div key={idx}>
+                            <span>{coup.id}</span>
+                            <span>{coup.category}</span>
+                            <span>{coup.title}</span>
+                            <span>{coup.description}</span>
+                            <span>{coup.startDate}</span>
+                            <span>{coup.endDate}</span>
+                            <span>{coup.amount}</span>
+                            <span>{coup.price}</span>
+                            <span>{coup.image}</span>
+                        </div>
+                    )}</>
+
+                    : <div></div>
             }
 
         </div>

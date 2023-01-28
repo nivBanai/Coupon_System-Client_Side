@@ -10,6 +10,7 @@ function Menu(): JSX.Element {
             <Link className="Link" to={"companies/add"}>Add Company</Link>
             <Link className="Link" to={"customers"}>Customers</Link>
             <Link className="Link" to={"customers/add"}>Add Customer</Link>
+            <Link className="Link" to={"companies/coupons"}>Company Coupons</Link>
         </div>
     );
 }
