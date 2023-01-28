@@ -6,6 +6,10 @@ function Menu(): JSX.Element {
         <div className="Menu">
             <Link className="Link" to={"home"}>Home</Link>
             <Link className="Link" to={"about"}>About</Link>
+            <Link className="Link" to={"companies"}>Companies</Link>
+            <Link className="Link" to={"companies/add"}>Add Company</Link>
+            <Link className="Link" to={"customers"}>Customers</Link>
+            <Link className="Link" to={"customers/add"}>Add Customer</Link>
         </div>
     );
 }

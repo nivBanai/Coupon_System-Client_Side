@@ -2,27 +2,24 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
-import { CustomerModel, CustomerPayloadModel } from "../../../../../Models/Customer";
-import { updatedCustomerAction } from "../../../../../Redux/AppStates/AdminAppState";
+import { useParams, useNavigate } from "react-router-dom";
 import store from "../../../../../Redux/Store";
+import "./UpdateCompany.css";
+import { CompanyModel, CompanyPayloadModel } from "../../../../../Models/Company";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
-import "./UpdateCustomer.css";
+import { updatedCompanyAction } from "../../../../../Redux/AppStates/AdminAppState";
 
-function UpdateCustomer(): JSX.Element {
+function UpdateCompany(): JSX.Element {
 
     const navigate = useNavigate();
     const params = useParams();
     const id = +(params.id || 0)
-    const cusToUpdate = store.getState().adminReducer.customers.filter(cus => cus.id === id)[0]
-    const [obj, setObj] = useState<CustomerModel>(cusToUpdate);
-    let defaultValuesObj = { ...obj };
+    const compToUpdate = store.getState().adminReducer.companies.filter(comp => comp.id === id)[0]
+    const [obj, setObj] = useState<CompanyModel>(compToUpdate);
+    let defaultValuesObj = { ...obj};
 
     const schema = yup.object().shape({
-        firstName:
-            yup.string()
-                .required("name is required"),
-        lastName:
+        name:
             yup.string()
                 .required("name is required"),
         email:
@@ -39,15 +36,15 @@ function UpdateCustomer(): JSX.Element {
 
 
     const { register, handleSubmit, control, formState: { errors, isDirty, isValid } } =
-        useForm<CustomerModel>({ defaultValues: defaultValuesObj, mode: "all", resolver: yupResolver(schema) });
+        useForm<CompanyModel>({ defaultValues: defaultValuesObj, mode: "all", resolver: yupResolver(schema) });
 
     // const { dirtyFields } = useFormState({ control });
 
-    const putCustomer = async (customer: CustomerPayloadModel) => {
-        await adminWebApi.updateCustomer(id, customer)
+    const putCompany = async (company: CompanyPayloadModel) => {
+        await adminWebApi.updateCompany(id, company)
             .then(res => {
-                store.dispatch(updatedCustomerAction(res.data))
-                navigate("/customers");
+                store.dispatch(updatedCompanyAction(res.data))
+                navigate("/companies");
             })
             .catch(err => {
                 console.log(err);
@@ -55,24 +52,22 @@ function UpdateCustomer(): JSX.Element {
     }
 
     return (
-        <div className="UpdateCustomer">
-            <form onSubmit={handleSubmit(putCustomer)}>
+        <div className="UpdateCompany">
+            <form onSubmit={handleSubmit(putCompany)}>
                 <label htmlFor="id">Id</label>
                 <input disabled id="id" name="id" type="number" value={id} />
 
-                {(errors.firstName) ? <span>{errors.firstName?.message}</span> : <label htmlFor="firstName">First Name</label>}
-                <input {...register("firstName")} id="firstName" name="firstName" type="text" placeholder="First Name" />
-                {(errors.lastName) ? <span>{errors.lastName?.message}</span> : <label htmlFor="lastName">Last Name</label>}
-                <input {...register("lastName")} id="lastName" name="lastName" type="text" placeholder="Last Name" />
+                {(errors.name) ? <span>{errors.name?.message}</span> : <label htmlFor="name">Name</label>}
+                <input {...register("name")} id="name" name="name" type="text" placeholder="Name" />
                 {(errors.email) ? <span>{errors.email?.message}</span> : <label htmlFor="email">Email</label>}
                 <input {...register("email")} id="email" name="email" type="email" placeholder="Email" />
                 {(errors.password) ? <span>{errors.password?.message}</span> : <label htmlFor="password">Password</label>}
                 <input {...register("password")} id="password" name="password" type="password" placeholder="Password" />
-                <button disabled={!isValid || !isDirty}>Update Customer</button>
+                <button disabled={!isValid || !isDirty}>Update Company</button>
 
             </form>
         </div>
     );
 }
 
-export default UpdateCustomer;
+export default UpdateCompany;

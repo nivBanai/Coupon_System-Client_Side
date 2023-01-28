@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { LoginModel } from "../../../Models/Auth";
 import store from "../../../Redux/Store";
-import { loggedIn } from "../../../Redux/UserAppState";
+import { loggedIn } from "../../../Redux/AppStates/UserAppState";
 import loginWebApi from "../../../Services/WebApi/LoginWebApi";
 
 function Login(): JSX.Element {
@@ -37,8 +37,8 @@ function Login(): JSX.Element {
         <div className="Login">
             <form onSubmit={handleSubmit(postLogin)}>
                 {(!errors.clientType) ? <label htmlFor="clientType">Client</label> : <span>{errors.clientType.message}</span>}
-                <select id="clientType" {...register("clientType")}>
-                    <option disabled selected value={""}>Client</option>
+                <select id="clientType" defaultValue={""} {...register("clientType")}>
+                    <option disabled value={""}>Client</option>
                     <option value={"ADMINISTRATOR"}>Admin</option>
                     <option value={"COMPANY"}>Company</option>
                     <option value={"CUSTOMER"}>Customer</option>

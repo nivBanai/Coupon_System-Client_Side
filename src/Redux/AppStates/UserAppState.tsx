@@ -1,4 +1,4 @@
-import { User } from '../Models/Auth';
+import { User } from '../../Models/Auth';
 export class UserAppState {
     // Step 1 - Define User global App State
     public user: User = { token: "" };

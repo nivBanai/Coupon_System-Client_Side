@@ -4,13 +4,17 @@ abstract class Config{
 
 class Development extends Config{
     public urls = {
-        "base":"http://localhost:8080/api/coupon_system"
+        "base":"http://localhost:8080/api/coupon_system",
+        "companies":"http://localhost:8080/api/coupon_system/companies",
+        "customers":"http://localhost:8080/api/coupon_system/customers"
     }
 }
 
 class Production extends Config{
     public urls = {
-        "base":"http://localhost:8080/api/coupon_system"
+        "base":"http://localhost:8080/api/coupon_system",
+        "companies":"http://localhost:8080/api/coupon_system/companies",
+        "customers":"http://localhost:8080/api/coupon_system/customers"
     }
 }
 

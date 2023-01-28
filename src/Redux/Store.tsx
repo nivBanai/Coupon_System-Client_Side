@@ -1,8 +1,10 @@
 
 import { combineReducers, createStore } from "redux";
-import { userReducer } from "./UserAppState";
+import { adminReducer } from "./AppStates/AdminAppState";
+import { companyReducer } from "./AppStates/CompanyAppState";
+import { userReducer } from "./AppStates/UserAppState";
 
-const reducers = combineReducers({userReducer:userReducer});
+const reducers = combineReducers({ userReducer: userReducer, adminReducer: adminReducer, companyReducer: companyReducer});
 const store = createStore(reducers);
 
 
