@@ -1,6 +1,5 @@
-import { CompanyModel, CompanyPayloadModel } from '../../Models/Company';
 import { CouponModel } from '../../Models/Coupon';
-import { CustomerModel } from '../../Models/Customer';
+
 export class CompanyAppState {
     // Step 1 - create the app state object
     public coupons: CouponModel[] = [];
@@ -11,8 +10,9 @@ export enum ActionType {
     GOT_ALL_COUPONS = "GOT_ALL_COUPONS",
     ADDED_COUPON = "ADDED_COUPON",
     UPDATED_COUPON = "UPDATED_COUPON",
-    DELETED_COUPON = "DELETED_COUPON"
-}
+    DELETED_COUPON = "DELETED_COUPON",
+    REMOVED_COUPONS = "REMOVED_COUPON"
+};
 
 // Step 3 - define what is action in terms of data
 export interface CompanyAction {
@@ -42,11 +42,18 @@ export function deletedCouponAction(id: number): CompanyAction {
     }
 }
 
-export function gotAllCouponsAction(coupons: CouponModel[]): CompanyAction {
+export function gotAllCompanyCouponsAction(coupons: CouponModel[]): CompanyAction {
     return {
         type: ActionType.GOT_ALL_COUPONS,
         payload: coupons
     };
+}
+
+export function removeCoupons(): CompanyAction {
+    return {
+        type: ActionType.REMOVED_COUPONS,
+        payload: {}
+    }
 }
 
 // Step 5 - Reducer function perform the required action
@@ -74,6 +81,11 @@ export function companyReducer(currentState: CompanyAppState = new CompanyAppSta
 
         case ActionType.GOT_ALL_COUPONS: {
             newState.coupons = action.payload;
+            break;
+        }
+
+        case ActionType.REMOVED_COUPONS: {
+            newState.coupons = [];
             break;
         }
     }

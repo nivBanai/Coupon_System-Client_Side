@@ -6,8 +6,11 @@ import { LoginModel } from "../../../Models/Auth";
 import store from "../../../Redux/Store";
 import { loggedIn } from "../../../Redux/AppStates/UserAppState";
 import loginWebApi from "../../../Services/WebApi/LoginWebApi";
+import { useNavigate } from "react-router-dom";
 
 function Login(): JSX.Element {
+
+    const navigate = useNavigate();
 
     const schema = yup.object().shape({
         email:
@@ -30,6 +33,21 @@ function Login(): JSX.Element {
         const credentials = { email: obj.email, password: obj.password, clientType: obj.clientType };
         await loginWebApi.login(credentials).then(res => {
             store.dispatch(loggedIn(res.data));
+
+            switch (obj.clientType) {
+
+                case "ADMINISTRATOR":
+                    navigate("/home");
+                    break;
+
+                case "COMPANY":
+                    navigate("/companies/coupons");
+                    break;
+
+                case "CUSTOMER":
+                    navigate("/customers/coupons");
+                    break;
+            }
         }).catch(err => console.log(err));
     }
 
@@ -37,7 +55,7 @@ function Login(): JSX.Element {
         <div className="Login">
             <form onSubmit={handleSubmit(postLogin)}>
                 {(!errors.clientType) ? <label htmlFor="clientType">Client</label> : <span>{errors.clientType.message}</span>}
-                <select id="clientType" defaultValue={""} {...register("clientType")}>
+                <select {...register("clientType")} id="clientType" defaultValue={""} >
                     <option disabled value={""}>Client</option>
                     <option value={"ADMINISTRATOR"}>Admin</option>
                     <option value={"COMPANY"}>Company</option>

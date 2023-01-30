@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom";
 import store from "../../../../../Redux/Store";
@@ -17,6 +17,12 @@ function UpdateCompany(): JSX.Element {
     const compToUpdate = store.getState().adminReducer.companies.filter(comp => comp.id === id)[0]
     const [obj, setObj] = useState<CompanyModel>(compToUpdate);
     let defaultValuesObj = { ...obj};
+
+    useEffect(() => {
+        if (!store.getState().userReducer.user.token) {
+            navigate("/login");
+        }
+    }, []);
 
     const schema = yup.object().shape({
         name:

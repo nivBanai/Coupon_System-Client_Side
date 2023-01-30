@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CompanyModel } from "../../../../Models/Company";
 import { CouponModel } from "../../../../Models/Coupon";
-import { gotAllCompaniesAction } from "../../../../Redux/AppStates/AdminAppState";
-import { gotAllCouponsAction } from "../../../../Redux/AppStates/CompanyAppState";
+import { gotAllCompanyCouponsAction } from "../../../../Redux/AppStates/CompanyAppState";
+
 import store from "../../../../Redux/Store";
-import adminWebApi from "../../../../Services/WebApi/AdminWebApi";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
 import "./GetCompanyCoupons.css";
 
@@ -35,7 +33,7 @@ function GetCompanyCoupons(): JSX.Element {
 
                     // Update app state
 
-                    store.dispatch(gotAllCouponsAction(res.data));
+                    store.dispatch(gotAllCompanyCouponsAction(res.data))
 
                     // notify.success('Woho I got my element from server side!!!')
                 })
@@ -49,15 +47,22 @@ function GetCompanyCoupons(): JSX.Element {
                 (coupons?.length > 0) ?
                     <>{coupons.map((coup, idx) =>
                         <div key={idx}>
-                            <span>{coup.id}</span>
-                            <span>{coup.category}</span>
-                            <span>{coup.title}</span>
-                            <span>{coup.description}</span>
-                            <span>{coup.startDate}</span>
-                            <span>{coup.endDate}</span>
-                            <span>{coup.amount}</span>
-                            <span>{coup.price}</span>
-                            <span>{coup.image}</span>
+                            <ol>
+                                <li>{coup.id}</li>
+                                <li>{coup.category}</li>
+                                <li>{coup.title}</li>
+                                <li>{coup.description}</li>
+                                <li>{coup.startDate}</li>
+                                <li>{coup.endDate}</li>
+                                <li>{coup.amount}</li>
+                                <li>{coup.price}</li>
+                                <li><img src={coup.image} alt="N/A" /></li>
+                                <li>
+                                    <button onClick={() => deleteCoupon(coup.id)}>Delete</button>
+                                    <button onClick={() => updateCoupon(coup.id)}>Update</button>
+                                </li>
+                            </ol>
+
                         </div>
                     )}</>
 

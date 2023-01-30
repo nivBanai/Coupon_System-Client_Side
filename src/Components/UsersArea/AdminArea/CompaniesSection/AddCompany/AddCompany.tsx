@@ -59,6 +59,7 @@ function AddCompany(): JSX.Element {
                 <input {...register("email")} id="email" name="email" type="email" placeholder="Email" />
                 {(errors.password) ? <span>{errors.password?.message}</span> : <label htmlFor="password">Password</label>}
                 <input {...register("password")} id="password" name="password" type="password" placeholder="Password" />
+                
                 <button disabled={!isValid}>Add Company</button>
 
             </form>

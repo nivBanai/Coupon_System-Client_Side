@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import App from "../../../App";
 import Login from "../../Authentication/Login/Login";
+import Logout from "../../Authentication/Logout/Logout";
 import About from "../../Pages/About/About";
 import Home from "../../Pages/Home/Home";
 import Page404 from "../../Pages/Page404/Page404";
@@ -12,7 +13,14 @@ import AddCustomer from "../../UsersArea/AdminArea/CustomersSection/AddCustomer/
 import DeleteCustomer from "../../UsersArea/AdminArea/CustomersSection/DeleteCustomer/DeleteCustomer";
 import GetAllCustomers from "../../UsersArea/AdminArea/CustomersSection/GetAllCustomers/GetAllCustomers";
 import UpdateCustomer from "../../UsersArea/AdminArea/CustomersSection/UpdateCustomer/UpdateCustomer";
+import AddCoupon from "../../UsersArea/CompanyArea/AddCoupon/AddCoupon";
+import DeleteCoupon from "../../UsersArea/CompanyArea/DeleteCoupon/DeleteCoupon";
 import GetCompanyCoupons from "../../UsersArea/CompanyArea/GetCompanyCoupons/GetCompanyCoupons";
+import GetCompanyDetails from "../../UsersArea/CompanyArea/GetCompanyDetails/GetCompanyDetails";
+import UpdateCoupon from "../../UsersArea/CompanyArea/UpdateCoupon/UpdateCoupon";
+import GetCustomerCoupons from "../../UsersArea/CustomerArea/GetCustomerCoupons/GetCustomerCoupons";
+import GetCustomerDetails from "../../UsersArea/CustomerArea/GetCustomerDetails/GetCustomerDetails";
+import PurchaseCoupon from "../../UsersArea/CustomerArea/PurchaseCoupon/PurchaseCoupon";
 import "./Routing.css";
 
 function Routing(): JSX.Element {
@@ -23,7 +31,9 @@ function Routing(): JSX.Element {
                 <Route path="home" element={<Home />} />
                 <Route index element={<Home />} />
                 <Route path="login" element={<Login />} />
+                <Route path="logout" element={<Logout />} />
                 <Route path="about" element={<About />} />
+                <Route path="coupons" element={<PurchaseCoupon />} />
                 <Route path="companies" element={<GetAllCompanies />} />
                 <Route path="companies/add" element={<AddCompany />} />
                 <Route path="companies/delete/:id" element={<DeleteCompany />} />
@@ -33,6 +43,12 @@ function Routing(): JSX.Element {
                 <Route path="customers/delete/:id" element={<DeleteCustomer />} />
                 <Route path="customers/update/:id" element={<UpdateCustomer />} />
                 <Route path="companies/coupons" element={<GetCompanyCoupons />} />
+                <Route path="companies/coupons/add" element={<AddCoupon />} />
+                <Route path="companies/coupons/delete/:id" element={<DeleteCoupon />} />
+                <Route path="companies/coupons/update/:id" element={<UpdateCoupon />} />
+                <Route path="companies/details" element={<GetCompanyDetails />} />
+                <Route path="customers/coupons" element={<GetCustomerCoupons />} />
+                <Route path="customers/details" element={<GetCustomerDetails />} />
                 <Route path="*" element={<Page404 />} />
             </Routes>
         </div>
