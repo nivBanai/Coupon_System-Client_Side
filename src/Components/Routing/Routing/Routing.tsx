@@ -18,6 +18,7 @@ import DeleteCoupon from "../../UsersArea/CompanyArea/DeleteCoupon/DeleteCoupon"
 import GetCompanyCoupons from "../../UsersArea/CompanyArea/GetCompanyCoupons/GetCompanyCoupons";
 import GetCompanyDetails from "../../UsersArea/CompanyArea/GetCompanyDetails/GetCompanyDetails";
 import UpdateCoupon from "../../UsersArea/CompanyArea/UpdateCoupon/UpdateCoupon";
+import GetAllCoupons from "../../UsersArea/CouponArea/GetAllCoupons/GetAllCoupons";
 import GetCustomerCoupons from "../../UsersArea/CustomerArea/GetCustomerCoupons/GetCustomerCoupons";
 import GetCustomerDetails from "../../UsersArea/CustomerArea/GetCustomerDetails/GetCustomerDetails";
 import PurchaseCoupon from "../../UsersArea/CustomerArea/PurchaseCoupon/PurchaseCoupon";
@@ -33,7 +34,8 @@ function Routing(): JSX.Element {
                 <Route path="login" element={<Login />} />
                 <Route path="logout" element={<Logout />} />
                 <Route path="about" element={<About />} />
-                <Route path="coupons" element={<PurchaseCoupon />} />
+                <Route path="coupons" element={<GetAllCoupons />} />
+                <Route path="coupons/purchase/:id" element={<PurchaseCoupon />} />
                 <Route path="companies" element={<GetAllCompanies />} />
                 <Route path="companies/add" element={<AddCompany />} />
                 <Route path="companies/delete/:id" element={<DeleteCompany />} />

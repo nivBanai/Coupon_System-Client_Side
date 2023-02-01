@@ -21,15 +21,15 @@ class CompanyWebApi {
         return tokenAxios.delete<any>(this.couponApi + "/" + id);
     }
 
-    public getAllCoupons(): Promise<AxiosResponse<CouponModel[]>> {
+    public getAllCompanyCoupons(): Promise<AxiosResponse<CouponModel[]>> {
         return tokenAxios.get<CouponModel[]>(this.couponApi);
     }
 
-    public getCouponsByCategory(category: string): Promise<AxiosResponse<CouponModel[]>> {
+    public getCompanyCouponsByCategory(category: string): Promise<AxiosResponse<CouponModel[]>> {
         return tokenAxios.get<CouponModel[]>(this.couponApi + "/filter/categories/" + category);
     }
 
-    public getCouponsByPrice(price: number): Promise<AxiosResponse<CouponModel[]>> {
+    public getCompanyCouponsByPrice(price: number): Promise<AxiosResponse<CouponModel[]>> {
         return tokenAxios.get<CouponModel[]>(this.couponApi + "/filter/price/max-price?price=" + price);
     }
 

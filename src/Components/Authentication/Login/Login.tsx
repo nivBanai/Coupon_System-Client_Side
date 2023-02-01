@@ -32,6 +32,7 @@ function Login(): JSX.Element {
     const postLogin = async (obj: LoginModel) => {
         const credentials = { email: obj.email, password: obj.password, clientType: obj.clientType };
         await loginWebApi.login(credentials).then(res => {
+            
             store.dispatch(loggedIn(res.data));
 
             switch (obj.clientType) {

@@ -9,7 +9,9 @@ import "./GetAllCompanies.css";
 function GetAllCompanies(): JSX.Element {
 
     const navigate = useNavigate();
-    const [companies, setCompanies] = useState<CompanyModel[]>(store.getState().adminReducer.companies);
+    const [originalCompanies, setOriginalCompanies] = useState<CompanyModel[]>(store.getState().adminReducer.companies);
+    const [companies, setCompanies] = useState<CompanyModel[]>(originalCompanies);
+    const [search, setSearch] = useState("");
 
     const deleteCompany = (id: number) => {
         navigate("delete/" + id);
@@ -29,6 +31,7 @@ function GetAllCompanies(): JSX.Element {
             adminWebApi.getAllCompanies()
                 .then(res => {
                     // Update local state
+                    setOriginalCompanies(res.data);
                     setCompanies(res.data);
 
                     // Update app state
@@ -41,30 +44,45 @@ function GetAllCompanies(): JSX.Element {
         }
     }, []);
 
+    useEffect(() => {
+        if (search) {
+            setCompanies(originalCompanies.filter(comp =>
+                comp.id.toString().includes(search) || comp.name.toLowerCase().includes(search.toLowerCase()) || comp.email.toLowerCase().includes(search.toLowerCase())));
+        }
+        else {
+            setCompanies(originalCompanies);
+        }
+    }, [search]);
+
     return (
         <div className="GetAllCompanies">
             {
-                (companies?.length > 0) ?
+                (companies?.length > 0 || originalCompanies?.length > 0) ?
 
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Actions</th>
-                            </tr>
-                            {companies.map((comp, idx) => <tr key={idx}>
-                                <td>{comp.id})</td>
-                                <td>{comp.name}</td>
-                                <td>{comp.email}</td>
-                                <td>
-                                    <button onClick={() => deleteCompany(comp.id)}>Delete</button>
-                                    <button onClick={() => updateCompany(comp.id)}>Update</button>
-                                </td>
-                            </tr>)}
-                        </tbody>
-                    </table>
+                    <>
+                        <span>Search</span>
+                        <input onChange={(val) => setSearch(val.target.value)} id="search" name="search" type="text" placeholder="search" />
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                    <span>{search}</span>
+                                </tr>
+                                {companies.map((comp, idx) => <tr key={idx}>
+                                    <td>{comp.id})</td>
+                                    <td>{comp.name}</td>
+                                    <td>{comp.email}</td>
+                                    <td>
+                                        <button onClick={() => deleteCompany(comp.id)}>Delete</button>
+                                        <button onClick={() => updateCompany(comp.id)}>Update</button>
+                                    </td>
+                                </tr>)}
+                            </tbody>
+                        </table>
+                    </>
                     : <div></div>
             }
         </div>

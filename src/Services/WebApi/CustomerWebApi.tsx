@@ -11,10 +11,6 @@ class CustomerWebApi {
     private customerCouponApi = global.urls.customers + "/coupons";
     private couponApi = global.urls.coupons;
 
-    public purchaseCoupon(coupon: CouponModel): Promise<AxiosResponse<CouponModel>> {
-        return tokenAxios.post<CouponModel>(this.customerCouponApi, coupon);
-    }
-
     public getAllCustomerCoupons(): Promise<AxiosResponse<CouponModel[]>> {
         return tokenAxios.get<CouponModel[]>(this.customerCouponApi);
     }

@@ -7,7 +7,7 @@ export class CompanyAppState {
 
 // Step 2 - define all required actions
 export enum ActionType {
-    GOT_ALL_COUPONS = "GOT_ALL_COUPONS",
+    GOT_ALL_COMPANY_COUPONS = "GOT_ALL_COMPANY_COUPONS",
     ADDED_COUPON = "ADDED_COUPON",
     UPDATED_COUPON = "UPDATED_COUPON",
     DELETED_COUPON = "DELETED_COUPON",
@@ -44,7 +44,7 @@ export function deletedCouponAction(id: number): CompanyAction {
 
 export function gotAllCompanyCouponsAction(coupons: CouponModel[]): CompanyAction {
     return {
-        type: ActionType.GOT_ALL_COUPONS,
+        type: ActionType.GOT_ALL_COMPANY_COUPONS,
         payload: coupons
     };
 }
@@ -79,7 +79,7 @@ export function companyReducer(currentState: CompanyAppState = new CompanyAppSta
             break;
         }
 
-        case ActionType.GOT_ALL_COUPONS: {
+        case ActionType.GOT_ALL_COMPANY_COUPONS: {
             newState.coupons = action.payload;
             break;
         }

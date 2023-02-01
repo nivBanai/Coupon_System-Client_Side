@@ -1,38 +1,20 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { CouponModel } from "../../../../Models/Coupon";
-import { gotAllPurchasableCouponsAction, purchasedCouponAction } from "../../../../Redux/AppStates/CustomerAppState";
+import { useNavigate, useParams } from "react-router-dom";
+import { purchasedCouponAction } from "../../../../Redux/AppStates/CustomerAppState";
 import store from "../../../../Redux/Store";
-import customerWebApi from "../../../../Services/WebApi/CustomerWebApi";
+import couponWebApi from "../../../../Services/WebApi/CouponWebApi";
 import "./PurchaseCoupon.css";
 
 function PurchaseCoupon(): JSX.Element {
 
     const navigate = useNavigate();
-    const [purchasableCoupons, setPurchasableCoupons] = useState<CouponModel[]>(store.getState().customerReducer.purchasableCoupons);
+    const params = useParams();
+    const id = +(params.id || 0)
+    const coupToPurchase = store.getState().couponReducer.allCoupons.filter(coup => coup.id === id)[0]
 
-    useEffect(() => {
-
-        if (purchasableCoupons.length === 0) {
-            customerWebApi.getAllPurchasableCoupons()
-                .then(res => {
-                    // Update local state
-                    setPurchasableCoupons(res.data);
-
-                    // Update app state
-
-                    store.dispatch(gotAllPurchasableCouponsAction(res.data))
-
-                    // notify.success('Woho I got my element from server side!!!')
-                })
-                .catch(err => console.log(err));
-        }
-    }, []);
-
-    const purchaseCoupon = async (coupon: CouponModel) => {
-        await customerWebApi.purchaseCoupon(coupon)
-            .then(res => {
-                store.dispatch(purchasedCouponAction(res.data))
+    const confirm = async () => {
+        couponWebApi.purchaseCoupon(id)
+            .then(() => {
+                store.dispatch(purchasedCouponAction(coupToPurchase));
                 navigate("/customers/coupons");
             })
             .catch(err => {
@@ -40,32 +22,19 @@ function PurchaseCoupon(): JSX.Element {
             })
     }
 
+    const cancel = async () => {
+        navigate("/coupons");
+    }
+
     return (
         <div className="PurchaseCoupon">
-            {
-                (purchasableCoupons?.length > 0) ?
-                    <>{purchasableCoupons.map((coup, idx) =>
-                        <div key={idx}>
-                            <ol>
-                                <li>{coup.id}</li>
-                                <li>{coup.category}</li>
-                                <li>{coup.title}</li>
-                                <li>{coup.description}</li>
-                                <li>{coup.startDate}</li>
-                                <li>{coup.endDate}</li>
-                                <li>{coup.amount}</li>
-                                <li>{coup.price}</li>
-                                <li><img src={coup.image} alt="N/A" /></li>
-                                <li>
-                                    <button onClick={() => purchaseCoupon(coup)}>Purchase</button>
-                                </li>
-                            </ol>
-
-                        </div>
-                    )}</>
-
-                    : <div></div>
-            }
+              <div>
+                <p>Are you sure you want to purchase #{coupToPurchase.id} ({coupToPurchase.title}) ?</p>
+            </div>
+            <div>
+                <button onClick={cancel}>Cancel</button>
+                <button onClick={confirm}>Confirm</button>
+            </div>
         </div>
     );
 }

@@ -111,7 +111,8 @@ function UpdateCoupon(): JSX.Element {
                 <input {...register("description")} id="description" name="description" type="text" placeholder="Description" />
                 <label htmlFor="startDate">Start Date</label>
                 <input disabled id="startDate" name="startDate" type="date" value={obj.startDate} />
-                {(errors.endDate) ? <span>{errors.endDate?.message}</span> : <label htmlFor="endDate">End Date</label>}
+                {(errors.endDate) ? <span>{errors.endDate?.message }</span> : <label htmlFor="endDate">End Date</label>}
+                
                 <input {...register("endDate")} id="endDate" name="endDate" type="date" />
                 {(errors.amount) ? <span>{errors.amount?.message}</span> : <label htmlFor="amount">Amount</label>}
                 <input {...register("amount")} id="amount" name="amount" type="number" placeholder="Amount" />

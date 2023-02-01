@@ -10,7 +10,15 @@ import "./GetCompanyCoupons.css";
 function GetCompanyCoupons(): JSX.Element {
 
     const navigate = useNavigate();
-    const [coupons, setCoupons] = useState<CouponModel[]>(store.getState().companyReducer.coupons);
+    const [originalCoupons, setOriginalCoupons] = useState<CouponModel[]>(store.getState().companyReducer.coupons);
+    const [coupons, setCoupons] = useState<CouponModel[]>(originalCoupons);
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedPrice, setSelectedPrice] = useState<number>(0);
+
+    const fixedCategory =(category: string): string => {
+        category = category.toLowerCase();
+        return category.replace("_", " ").split(" ").map((word) => word[0].toUpperCase() + word.slice(1)).join(" ");
+    }
 
     const deleteCoupon = (id: number) => {
         navigate("delete/" + id);
@@ -26,47 +34,74 @@ function GetCompanyCoupons(): JSX.Element {
             navigate("/login");
         }
         else if (coupons.length === 0) {
-            companyWebApi.getAllCoupons()
+            companyWebApi.getAllCompanyCoupons()
                 .then(res => {
-                    // Update local state
+                    setOriginalCoupons(res.data);
                     setCoupons(res.data);
-
-                    // Update app state
-
                     store.dispatch(gotAllCompanyCouponsAction(res.data))
-
-                    // notify.success('Woho I got my element from server side!!!')
                 })
                 .catch(err => console.log(err));
         }
     }, []);
 
+    useEffect(() => {
+        if (selectedCategory === "All" && selectedPrice === 0) {
+            setCoupons(originalCoupons);
+        }
+        if (selectedCategory === "All" && selectedPrice !== 0) {
+            setCoupons(originalCoupons.filter(coup => coup.price < selectedPrice));
+        }
+        if (selectedCategory !== "All" && selectedPrice === 0) {
+            setCoupons(originalCoupons.filter(coup => coup.category.match(selectedCategory)));
+        }
+        if (selectedCategory !== "All" && selectedPrice !== 0) {
+            setCoupons(originalCoupons.filter(coup => coup.category.match(selectedCategory) && coup.price < selectedPrice));
+        }
+    }, [selectedCategory, selectedPrice]);
+    
+
     return (
         <div className="GetCompanyCoupons">
+
             {
-                (coupons?.length > 0) ?
-                    <>{coupons.map((coup, idx) =>
-                        <div key={idx}>
-                            <ol>
-                                <li>{coup.id}</li>
-                                <li>{coup.category}</li>
-                                <li>{coup.title}</li>
-                                <li>{coup.description}</li>
-                                <li>{coup.startDate}</li>
-                                <li>{coup.endDate}</li>
-                                <li>{coup.amount}</li>
-                                <li>{coup.price}</li>
-                                <li><img src={coup.image} alt="N/A" /></li>
-                                <li>
-                                    <button onClick={() => deleteCoupon(coup.id)}>Delete</button>
-                                    <button onClick={() => updateCoupon(coup.id)}>Update</button>
-                                </li>
-                            </ol>
+                (coupons?.length > 0 || originalCoupons?.length > 0) ?
 
-                        </div>
-                    )}</>
+                    <>
+                        <span>Filter By Category </span>
+                        <select onChange={val => { {setSelectedCategory(val.target.value); console.log("coups:"+coupons);console.log("ogCoupos:"+originalCoupons); }}} id="category" defaultValue={"All"} >
+                            <option value={"All"}>All</option>
+                            <option value={"CINEMA"}>Cinema</option>
+                            <option value={"FOOD"}>Food</option>
+                            <option value={"SPORTS_GEAR"}>Sports Gear</option>
+                            <option value={"TRADING_CARDS"}>Trading Cards</option>
+                            <option value={"VIDEO_GAMES"}>Video Games</option>
+                        </select>
 
-                    : <div></div>
+                        <span>Filter By Price</span>
+                        <input onChange={(val) => setSelectedPrice(+val.target.value)} id="price" name="price" type="number" placeholder="price" />
+
+                        {coupons.map((coup, idx) =>
+                            <div key={idx}>
+                                <ol>
+                                    <li>{coup.id}</li>
+                                    <li>{fixedCategory(coup.category)}</li>
+                                    <li>{coup.title}</li>
+                                    <li>{coup.description}</li>
+                                    <li>{coup.startDate}</li>
+                                    <li>{coup.endDate}</li>
+                                    <li>{coup.amount}</li>
+                                    <li>{coup.price}</li>
+                                    <li><img src={coup.image} alt="N/A" /></li>
+                                    <li>
+                                        <button onClick={() => deleteCoupon(coup.id)}>Delete</button>
+                                        <button onClick={() => updateCoupon(coup.id)}>Update</button>
+                                    </li>
+                                </ol>
+
+                            </div>
+                        )}</>
+
+                    : <div>No Coupons Currently</div>
             }
 
         </div>

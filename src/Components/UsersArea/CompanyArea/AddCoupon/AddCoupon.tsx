@@ -103,18 +103,25 @@ function AddCoupon(): JSX.Element {
                     <option value={"TRADING_CARDS"}>Trading Cards</option>
                     <option value={"VIDEO_GAMES"}>Video Games</option>
                 </select>
+
                 {(errors.title) ? <span>{errors.title?.message}</span> : <label htmlFor="title">Title</label>}
                 <input {...register("title",)} id="title" name="title" type="text" placeholder="Title" />
+
                 {(errors.description) ? <span>{errors.description?.message}</span> : <label htmlFor="description">Description</label>}
                 <input {...register("description")} id="description" name="description" type="text" placeholder="Description" />
-                {(errors.startDate) ? <span>{errors.startDate?.message}</span> : <label htmlFor="startDate">Start Date</label>}
+                
+                {(errors.startDate) ? <span>{errors.endDate && errors.startDate?.message}</span> : <label htmlFor="startDate">Start Date</label>}
                 <input {...register("startDate")} id="startDate" name="startDate" type="date" />
+                
                 {(errors.endDate) ? <span>{errors.endDate?.message}</span> : <label htmlFor="endDate">End Date</label>}
                 <input {...register("endDate")} id="endDate" name="endDate" type="date" />
+                
                 {(errors.amount) ? <span>{errors.amount?.message}</span> : <label htmlFor="amount">Amount</label>}
                 <input {...register("amount")} id="amount" name="amount" type="number" placeholder="Amount" />
+
                 {(errors.price) ? <span>{errors.price?.message}</span> : <label htmlFor="price">Price</label>}
                 <input {...register("price")} id="price" name="price" type="number" step=".01" placeholder="Price" />
+                
                 {(errors.image) ? <span>{errors.image?.message}</span> : <label htmlFor="image">Image</label>}
                 <input {...register("image")} id="image" name="image" type="url" placeholder="Image" />
 
