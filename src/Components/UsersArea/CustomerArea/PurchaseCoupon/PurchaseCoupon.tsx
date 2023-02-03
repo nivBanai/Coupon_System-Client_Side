@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { purchasedCouponAction } from "../../../../Redux/AppStates/CustomerAppState";
 import store from "../../../../Redux/Store";
@@ -28,7 +29,7 @@ function PurchaseCoupon(): JSX.Element {
 
     return (
         <div className="PurchaseCoupon">
-              <div>
+            <div>
                 <p>Are you sure you want to purchase #{coupToPurchase.id} ({coupToPurchase.title}) ?</p>
             </div>
             <div>

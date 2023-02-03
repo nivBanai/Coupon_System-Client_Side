@@ -5,6 +5,7 @@ import { gotAllCompanyCouponsAction } from "../../../../Redux/AppStates/CompanyA
 
 import store from "../../../../Redux/Store";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
+import utils from "../../../../Utils/Utils";
 import "./GetCompanyCoupons.css";
 
 function GetCompanyCoupons(): JSX.Element {
@@ -15,9 +16,8 @@ function GetCompanyCoupons(): JSX.Element {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedPrice, setSelectedPrice] = useState<number>(0);
 
-    const fixedCategory =(category: string): string => {
-        category = category.toLowerCase();
-        return category.replace("_", " ").split(" ").map((word) => word[0].toUpperCase() + word.slice(1)).join(" ");
+    const addCoupon = () => {
+        navigate("add");
     }
 
     const deleteCoupon = (id: number) => {
@@ -58,7 +58,7 @@ function GetCompanyCoupons(): JSX.Element {
             setCoupons(originalCoupons.filter(coup => coup.category.match(selectedCategory) && coup.price < selectedPrice));
         }
     }, [selectedCategory, selectedPrice]);
-    
+
 
     return (
         <div className="GetCompanyCoupons">
@@ -67,8 +67,9 @@ function GetCompanyCoupons(): JSX.Element {
                 (coupons?.length > 0 || originalCoupons?.length > 0) ?
 
                     <>
+                     <button onClick={() => addCoupon()}>Add Coupon</button>
                         <span>Filter By Category </span>
-                        <select onChange={val => { {setSelectedCategory(val.target.value); console.log("coups:"+coupons);console.log("ogCoupos:"+originalCoupons); }}} id="category" defaultValue={"All"} >
+                        <select onChange={val => { { setSelectedCategory(val.target.value); console.log("coups:" + coupons); console.log("ogCoupos:" + originalCoupons); } }} id="category" defaultValue={"All"} >
                             <option value={"All"}>All</option>
                             <option value={"CINEMA"}>Cinema</option>
                             <option value={"FOOD"}>Food</option>
@@ -83,8 +84,8 @@ function GetCompanyCoupons(): JSX.Element {
                         {coupons.map((coup, idx) =>
                             <div key={idx}>
                                 <ol>
-                                    <li>{coup.id}</li>
-                                    <li>{fixedCategory(coup.category)}</li>
+                                    <li>{originalCoupons.indexOf(coup) + 1}</li>
+                                    <li>{utils.fixedCategory(coup.category)}</li>
                                     <li>{coup.title}</li>
                                     <li>{coup.description}</li>
                                     <li>{coup.startDate}</li>

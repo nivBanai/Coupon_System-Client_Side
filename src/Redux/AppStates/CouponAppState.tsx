@@ -8,6 +8,7 @@ export class CouponAppState {
 // Step 2 - define all required actions
 export enum ActionType {
     GOT_ALL_COUPONS = "GOT_ALL_COUPONS",
+    DELETED_COMPANY_COUPONS = "DELETED_COMPANY_COUPONS"
 };
 
 // Step 3 - define what is action in terms of data
@@ -24,6 +25,13 @@ export function gotAllCouponsAction(coupons: CouponModel[]): CouponAction {
     };
 }
 
+export function deletedCompanyCouponsAction(coupons: CouponModel[]): CouponAction {
+    return {
+        type: ActionType.DELETED_COMPANY_COUPONS,
+        payload: coupons
+    };
+}
+
 // Step 5 - Reducer function perform the required action
 export function couponReducer(currentState: CouponAppState = new CouponAppState(), action: CouponAction): CouponAppState {
 
@@ -33,6 +41,11 @@ export function couponReducer(currentState: CouponAppState = new CouponAppState(
 
         case ActionType.GOT_ALL_COUPONS: {
             newState.allCoupons = action.payload;
+            break;
+        }
+
+        case ActionType.DELETED_COMPANY_COUPONS: {
+            newState.allCoupons = newState.allCoupons.filter(coupon => !action.payload.map((coup: { id: number}) => coup.id).includes(coupon.id));
             break;
         }
     }

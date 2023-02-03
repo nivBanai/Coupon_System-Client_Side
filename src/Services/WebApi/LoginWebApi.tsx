@@ -4,10 +4,10 @@ import global from "../ConstService";
 
 class LoginWebApi {
 
-    private baseUrl = global.urls.base;
-    
+    private loginApi = global.urls.base + "/" + "login";
+
     public login(credentials: Credentials): Promise<AxiosResponse<User>> {
-        return axios.post<User>(this.baseUrl + "/" + "login", credentials);
+        return axios.post<User>(this.loginApi, credentials);
     }
 }
 

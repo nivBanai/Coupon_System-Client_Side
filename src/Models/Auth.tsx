@@ -12,5 +12,11 @@ export interface Credentials {
 
 export interface User {
     token: string;
-    // name: string;
+    name: string;
+}
+
+export interface ActiveUser {
+    token: string;
+    name: string;
+    clientType: string;
 }

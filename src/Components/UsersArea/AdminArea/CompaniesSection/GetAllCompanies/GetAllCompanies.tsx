@@ -13,6 +13,10 @@ function GetAllCompanies(): JSX.Element {
     const [companies, setCompanies] = useState<CompanyModel[]>(originalCompanies);
     const [search, setSearch] = useState("");
 
+    const addCompany = () => {
+        navigate("add");
+    }
+
     const deleteCompany = (id: number) => {
         navigate("delete/" + id);
     }
@@ -82,6 +86,7 @@ function GetAllCompanies(): JSX.Element {
                                 </tr>)}
                             </tbody>
                         </table>
+                        <button onClick={() => addCompany()}>Add Company</button>
                     </>
                     : <div></div>
             }

@@ -2,7 +2,7 @@ import "./Login.css";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { LoginModel } from "../../../Models/Auth";
+import { ActiveUser, LoginModel } from "../../../Models/Auth";
 import store from "../../../Redux/Store";
 import { loggedIn } from "../../../Redux/AppStates/UserAppState";
 import loginWebApi from "../../../Services/WebApi/LoginWebApi";
@@ -32,8 +32,14 @@ function Login(): JSX.Element {
     const postLogin = async (obj: LoginModel) => {
         const credentials = { email: obj.email, password: obj.password, clientType: obj.clientType };
         await loginWebApi.login(credentials).then(res => {
-            
-            store.dispatch(loggedIn(res.data));
+
+            const activeUser: ActiveUser = {
+                token: res.data.token,
+                name: res.data.name,
+                clientType: obj.clientType
+            }
+
+            store.dispatch(loggedIn(activeUser));
 
             switch (obj.clientType) {
 

@@ -12,6 +12,10 @@ function GetAllCustomers(): JSX.Element {
     const navigate = useNavigate();
     const [customers, setCustomers] = useState<CustomerModel[]>(store.getState().adminReducer.customers);
 
+    const addCustomer = () => {
+        navigate("add");
+    }
+
     const deleteCustomer = (id: number) => {
         navigate("delete/" + id);
     }
@@ -46,7 +50,7 @@ function GetAllCustomers(): JSX.Element {
         <div className="GetAllCustomers">
             {
                 (customers?.length > 0) ?
-
+<>
                     <table>
                         <tbody>
                             <tr>
@@ -68,6 +72,8 @@ function GetAllCustomers(): JSX.Element {
                             </tr>)}
                         </tbody>
                     </table>
+                    <button onClick={() => addCustomer()}>Add Customer</button>
+                    </>
                     : <div></div>
             }
         </div>

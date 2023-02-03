@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CompanyModel } from "../../../../../Models/Company";
 import { deletedCompanyAction } from "../../../../../Redux/AppStates/AdminAppState";
+import { deletedCompanyCouponsAction } from "../../../../../Redux/AppStates/CouponAppState";
 import store from "../../../../../Redux/Store";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
 import "./DeleteCompany.css";
@@ -17,6 +18,7 @@ function DeleteCompany(): JSX.Element {
         adminWebApi.deleteCompany(id)
             .then(() => {
                 store.dispatch(deletedCompanyAction(id));
+                store.dispatch(deletedCompanyCouponsAction(company.coupons))
                 navigate("/companies");
             })
             .catch(err => {

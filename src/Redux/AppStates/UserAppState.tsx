@@ -1,7 +1,7 @@
-import { User } from '../../Models/Auth';
+import { ActiveUser, User } from '../../Models/Auth';
 export class UserAppState {
     // Step 1 - Define User global App State
-    public user: User = { token: "" };
+    public user: ActiveUser = { token: "", name: "", clientType: "" };
 }
 
 // Step 2 - Define all actions
@@ -17,7 +17,7 @@ export interface UserAction {
 }
 
 // Step 4- create creator function
-export function loggedIn(user: User): UserAction {
+export function loggedIn(user: ActiveUser): UserAction {
     return {
         type: ActionType.LOGGED_IN,
         payload: user
@@ -35,12 +35,15 @@ export function loggedOut(): UserAction {
 export function userReducer(currentState: UserAppState = new UserAppState(), action: UserAction): UserAppState {
     const newState = { ...currentState } // copy
     switch (action.type) {
+
         case ActionType.LOGGED_IN: {
             newState.user = action.payload;
+
             break;
+
         }
         case ActionType.LOGGED_OUT: {
-            newState.user = { token: "" };
+            newState.user = { token: "", name: "", clientType: "" };
             break;
         }
     }

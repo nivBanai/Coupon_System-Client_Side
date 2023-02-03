@@ -4,6 +4,7 @@ import { CouponModel } from "../../../../Models/Coupon";
 import { gotAllCustomerCouponsAction } from "../../../../Redux/AppStates/CustomerAppState";
 import store from "../../../../Redux/Store";
 import customerWebApi from "../../../../Services/WebApi/CustomerWebApi";
+import utils from "../../../../Utils/Utils";
 import "./GetCustomerCoupons.css";
 
 function GetCustomerCoupons(): JSX.Element {
@@ -11,13 +12,8 @@ function GetCustomerCoupons(): JSX.Element {
     const navigate = useNavigate();
     const [originalCoupons, setOriginalCoupons] = useState<CouponModel[]>(store.getState().customerReducer.coupons);
     const [coupons, setCoupons] = useState<CouponModel[]>(originalCoupons);
-    const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("All");
     const [selectedPrice, setSelectedPrice] = useState<number>(0);
-
-    const fixedCategory =(category: string): string => {
-        category = category.toLowerCase();
-        return category.replace("_", " ").split(" ").map((word) => word[0].toUpperCase() + word.slice(1)).join(" ");
-    }
 
     useEffect(() => {
 
@@ -80,7 +76,7 @@ function GetCustomerCoupons(): JSX.Element {
                             <div key={idx}>
                                 <ol>
                                     <li>{coup.id}</li>
-                                    <li>{fixedCategory(coup.category)}</li>
+                                    <li>{utils.fixedCategory(coup.category)}</li>
                                     <li>{coup.title}</li>
                                     <li>{coup.description}</li>
                                     <li>{coup.startDate}</li>
