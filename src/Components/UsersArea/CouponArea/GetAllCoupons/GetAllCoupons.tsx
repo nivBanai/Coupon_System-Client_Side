@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { CouponModel } from "../../../../Models/Coupon";
 import { gotAllCouponsAction } from "../../../../Redux/AppStates/CouponAppState";
 import store from "../../../../Redux/Store";
+import notificationsService from "../../../../Services/NotificationsService";
 import couponWebApi from "../../../../Services/WebApi/CouponWebApi";
 import utils from "../../../../Utils/Utils";
 import "./GetAllCoupons.css";
@@ -17,7 +18,7 @@ function GetAllCoupons(): JSX.Element {
     const [selectedPrice, setSelectedPrice] = useState<number>(0);
 
     const couponsWithOutCustomerCoupons = (coupons: CouponModel[]): CouponModel[] => {
-        return originalCoupons.filter(coup => !customerCoupons.map(coup => coup.id).includes(coup.id))
+        return coupons.filter(coup => !customerCoupons.map(coup => coup.id).includes(coup.id))
     }
 
     const purchaseCoupon = (id: number) => {
@@ -50,7 +51,8 @@ function GetAllCoupons(): JSX.Element {
 
                     // notify.success('Woho I got my element from server side!!!')
                 })
-                .catch(err => console.log(err));
+                .catch(err =>
+                    notificationsService.errorNotification(err.response.data.message));
         }
     }, []);
 

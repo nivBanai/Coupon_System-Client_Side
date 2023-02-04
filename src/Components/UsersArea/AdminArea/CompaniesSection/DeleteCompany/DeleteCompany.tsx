@@ -4,6 +4,7 @@ import { CompanyModel } from "../../../../../Models/Company";
 import { deletedCompanyAction } from "../../../../../Redux/AppStates/AdminAppState";
 import { deletedCompanyCouponsAction } from "../../../../../Redux/AppStates/CouponAppState";
 import store from "../../../../../Redux/Store";
+import notificationsService from "../../../../../Services/NotificationsService";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
 import "./DeleteCompany.css";
 
@@ -22,7 +23,7 @@ function DeleteCompany(): JSX.Element {
                 navigate("/companies");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.message);
             })
     }
 

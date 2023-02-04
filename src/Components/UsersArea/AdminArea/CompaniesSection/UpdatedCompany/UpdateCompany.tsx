@@ -8,6 +8,7 @@ import "./UpdateCompany.css";
 import { CompanyModel, CompanyPayloadModel } from "../../../../../Models/Company";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
 import { updatedCompanyAction } from "../../../../../Redux/AppStates/AdminAppState";
+import notificationsService from "../../../../../Services/NotificationsService";
 
 function UpdateCompany(): JSX.Element {
 
@@ -53,7 +54,7 @@ function UpdateCompany(): JSX.Element {
                 navigate("/companies");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.data.value);
             })
     }
 

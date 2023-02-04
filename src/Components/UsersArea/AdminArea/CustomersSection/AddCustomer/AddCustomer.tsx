@@ -9,6 +9,7 @@ import store from "../../../../../Redux/Store";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
 import "./AddCustomer.css";
 import { CustomerPayloadModel } from "../../../../../Models/Customer";
+import notificationsService from "../../../../../Services/NotificationsService";
 
 function AddCustomer(): JSX.Element {
 
@@ -49,7 +50,7 @@ function AddCustomer(): JSX.Element {
                 navigate("/customers");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.data.value);
             })
     }
 

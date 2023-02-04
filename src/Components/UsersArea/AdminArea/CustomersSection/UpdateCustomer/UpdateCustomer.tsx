@@ -8,6 +8,7 @@ import { updatedCustomerAction } from "../../../../../Redux/AppStates/AdminAppSt
 import store from "../../../../../Redux/Store";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
 import "./UpdateCustomer.css";
+import notificationsService from "../../../../../Services/NotificationsService";
 
 function UpdateCustomer(): JSX.Element {
 
@@ -50,7 +51,7 @@ function UpdateCustomer(): JSX.Element {
                 navigate("/customers");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.data.value);
             })
     }
 

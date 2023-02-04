@@ -7,6 +7,9 @@ import store from "../../../Redux/Store";
 import { loggedIn } from "../../../Redux/AppStates/UserAppState";
 import loginWebApi from "../../../Services/WebApi/LoginWebApi";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import notificationsService from "../../../Services/NotificationsService";
 
 function Login(): JSX.Element {
 
@@ -55,12 +58,15 @@ function Login(): JSX.Element {
                     navigate("/customers/coupons");
                     break;
             }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            notificationsService.errorNotification(err.response.data.value);
+        });
     }
 
     return (
         <div className="Login">
             <form onSubmit={handleSubmit(postLogin)}>
+
                 {(!errors.clientType) ? <label htmlFor="clientType">Client</label> : <span>{errors.clientType.message}</span>}
                 <select {...register("clientType")} id="clientType" defaultValue={""} >
                     <option disabled value={""}>Client</option>
@@ -72,7 +78,9 @@ function Login(): JSX.Element {
                 <input {...register("email")} type="email" placeholder="Email" />
                 {(!errors.password) ? <label htmlFor="password">Password</label> : <span>{errors.password.message}</span>}
                 <input {...register("password")} type="password" placeholder="Password" />
+
                 <button>Login</button>
+
             </form>
         </div>
     );

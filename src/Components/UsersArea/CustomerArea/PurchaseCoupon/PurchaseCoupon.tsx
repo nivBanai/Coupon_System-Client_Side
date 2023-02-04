@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { purchasedCouponAction } from "../../../../Redux/AppStates/CustomerAppState";
 import store from "../../../../Redux/Store";
+import notificationsService from "../../../../Services/NotificationsService";
 import couponWebApi from "../../../../Services/WebApi/CouponWebApi";
 import "./PurchaseCoupon.css";
 
@@ -19,7 +20,7 @@ function PurchaseCoupon(): JSX.Element {
                 navigate("/customers/coupons");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.data.value);
             })
     }
 

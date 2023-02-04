@@ -4,6 +4,7 @@ import { CouponModel } from "../../../../Models/Coupon";
 import { gotAllCompanyCouponsAction } from "../../../../Redux/AppStates/CompanyAppState";
 
 import store from "../../../../Redux/Store";
+import notificationsService from "../../../../Services/NotificationsService";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
 import utils from "../../../../Utils/Utils";
 import "./GetCompanyCoupons.css";
@@ -40,7 +41,8 @@ function GetCompanyCoupons(): JSX.Element {
                     setCoupons(res.data);
                     store.dispatch(gotAllCompanyCouponsAction(res.data))
                 })
-                .catch(err => console.log(err));
+                .catch(err => notificationsService.errorNotification(err.response.data.message));
+
         }
     }, []);
 

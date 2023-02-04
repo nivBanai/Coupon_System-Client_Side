@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { CompanyModel } from "../../../../../Models/Company";
 import { gotAllCompaniesAction } from "../../../../../Redux/AppStates/AdminAppState";
 import store from "../../../../../Redux/Store";
+import notificationsService from "../../../../../Services/NotificationsService";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
 import "./GetAllCompanies.css";
 
@@ -44,7 +45,7 @@ function GetAllCompanies(): JSX.Element {
 
                     // notify.success('Woho I got my element from server side!!!')
                 })
-                .catch(err => console.log(err));
+                .catch(err => notificationsService.errorNotification(err.response.message));
         }
     }, []);
 

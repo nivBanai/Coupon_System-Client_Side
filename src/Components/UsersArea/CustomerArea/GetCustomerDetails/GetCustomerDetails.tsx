@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { CompanyModel } from "../../../../Models/Company";
 import { CustomerModel } from "../../../../Models/Customer";
 import store from "../../../../Redux/Store";
+import notificationsService from "../../../../Services/NotificationsService";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
 import customerWebApi from "../../../../Services/WebApi/CustomerWebApi";
 import "./GetCustomerDetails.css";
@@ -37,7 +38,7 @@ function GetCustomerDetails(): JSX.Element {
 
                     // notify.success('Woho I got my element from server side!!!')
                 })
-                .catch(err => console.log(err));
+                .catch(err => notificationsService.errorNotification(err.response.data.message));
         }
     }, []);
 

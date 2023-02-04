@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { deletedCompanyAction, deletedCustomerAction } from "../../../../../Redux/AppStates/AdminAppState";
 import store from "../../../../../Redux/Store";
+import notificationsService from "../../../../../Services/NotificationsService";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
 import "./DeleteCustomer.css";
 
@@ -18,7 +19,7 @@ function DeleteCustomer(): JSX.Element {
                 navigate("/customers");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.data.message);
             })
     }
 

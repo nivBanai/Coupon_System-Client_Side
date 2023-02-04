@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { CouponModel } from "../../../../Models/Coupon";
 import { gotAllCustomerCouponsAction } from "../../../../Redux/AppStates/CustomerAppState";
 import store from "../../../../Redux/Store";
+import notificationsService from "../../../../Services/NotificationsService";
 import customerWebApi from "../../../../Services/WebApi/CustomerWebApi";
 import utils from "../../../../Utils/Utils";
 import "./GetCustomerCoupons.css";
@@ -33,7 +34,7 @@ function GetCustomerCoupons(): JSX.Element {
 
                     // notify.success('Woho I got my element from server side!!!')
                 })
-                .catch(err => console.log(err));
+                .catch(err => notificationsService.errorNotification(err.response.data.message));
         }
     }, []);
 

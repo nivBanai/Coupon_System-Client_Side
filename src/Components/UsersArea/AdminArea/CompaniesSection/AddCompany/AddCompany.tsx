@@ -8,6 +8,7 @@ import store from "../../../../../Redux/Store";
 import "./AddCompany.css";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
 import { addedCompanyAction } from "../../../../../Redux/AppStates/AdminAppState";
+import notificationsService from "../../../../../Services/NotificationsService";
 
 function AddCompany(): JSX.Element {
 
@@ -45,7 +46,7 @@ function AddCompany(): JSX.Element {
                 navigate("/companies");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.data.value);
             })
     }
 

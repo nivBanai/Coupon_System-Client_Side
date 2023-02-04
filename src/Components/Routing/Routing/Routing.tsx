@@ -30,13 +30,17 @@ function Routing(): JSX.Element {
 
     const [user, setUser] = useState(store.getState().userReducer.user);
 
-    const validAdmin = (): boolean => {
+    const isLoggedIn = (): boolean => {
+        return (user.token) ? true : false;
+    };
+
+    const isValidAdmin = (): boolean => {
         return (user.token && user.clientType === "ADMINISTRATOR") ? true : false;
     };
-    const validCompany = (): boolean => {
+    const isValidCompany = (): boolean => {
         return (user.token && user.clientType === "COMPANY") ? true : false;
     };
-    const validCustomer = (): boolean => {
+    const isValidCustomer = (): boolean => {
         return (user.token && user.clientType === "CUSTOMER") ? true : false;
     };
 
@@ -56,46 +60,46 @@ function Routing(): JSX.Element {
 
                 <Route index element={<Home />} />
 
-                <Route path="login" element={<Login />} />
-
-                <Route path="logout" element={<Logout />} />
-
                 <Route path="about" element={<About />} />
 
                 <Route path="coupons" element={<GetAllCoupons />} />
 
-                <Route path="companies" element={(validAdmin()) ? <GetAllCompanies /> : <Page404 />} />
+                <Route path="login" element={(isLoggedIn()) ? <Home /> : <Login />} />
 
-                <Route path="companies/add" element={(validAdmin()) ? <AddCompany /> : <Page404 />} />
+                <Route path="logout" element={(isLoggedIn()) ? <Logout /> : <Login />} />
 
-                <Route path="companies/delete/:id" element={(validAdmin()) ? <DeleteCompany /> : <Page404 />} />
+                <Route path="companies" element={(isValidAdmin()) ? <GetAllCompanies /> : <Page404 />} />
 
-                <Route path="companies/update/:id" element={(validAdmin()) ? <UpdateCompany /> : <Page404 />} />
+                <Route path="companies/add" element={(isValidAdmin()) ? <AddCompany /> : <Page404 />} />
 
-                <Route path="customers" element={(validAdmin()) ? <GetAllCustomers /> : <Page404 />} />
+                <Route path="companies/delete/:id" element={(isValidAdmin()) ? <DeleteCompany /> : <Page404 />} />
 
-                <Route path="customers/add" element={(validAdmin()) ? <AddCustomer /> : <Page404 />} />
+                <Route path="companies/update/:id" element={(isValidAdmin()) ? <UpdateCompany /> : <Page404 />} />
 
-                <Route path="customers/delete/:id" element={(validAdmin()) ? <DeleteCustomer /> : <Page404 />} />
+                <Route path="customers" element={(isValidAdmin()) ? <GetAllCustomers /> : <Page404 />} />
 
-                <Route path="customers/update/:id" element={(validAdmin()) ? <UpdateCustomer /> : <Page404 />} />
+                <Route path="customers/add" element={(isValidAdmin()) ? <AddCustomer /> : <Page404 />} />
 
-                <Route path="companies/coupons" element={(validCompany()) ? <GetCompanyCoupons /> : <Page404 />} />
+                <Route path="customers/delete/:id" element={(isValidAdmin()) ? <DeleteCustomer /> : <Page404 />} />
 
-                <Route path="companies/coupons/add" element={(validCompany()) ? <AddCoupon /> : <Page404 />} />
+                <Route path="customers/update/:id" element={(isValidAdmin()) ? <UpdateCustomer /> : <Page404 />} />
 
-                <Route path="companies/coupons/delete/:id" element={(validCompany()) ? <DeleteCoupon /> : <Page404 />} />
+                <Route path="companies/coupons" element={(isValidCompany()) ? <GetCompanyCoupons /> : <Page404 />} />
 
-                <Route path="companies/coupons/update/:id" element={(validCompany()) ? <UpdateCoupon /> : <Page404 />} />
+                <Route path="companies/coupons/add" element={(isValidCompany()) ? <AddCoupon /> : <Page404 />} />
 
-                <Route path="companies/details" element={(validCompany()) ? <GetCompanyDetails /> : <Page404 />} />
+                <Route path="companies/coupons/delete/:id" element={(isValidCompany()) ? <DeleteCoupon /> : <Page404 />} />
 
-                <Route path="coupons/purchase/:id" element={(validCustomer()) ? <PurchaseCoupon /> : <Page404 />} />
+                <Route path="companies/coupons/update/:id" element={(isValidCompany()) ? <UpdateCoupon /> : <Page404 />} />
 
-                <Route path="customers/coupons" element={(validCustomer()) ? <GetCustomerCoupons /> : <Page404 />} />
+                <Route path="companies/details" element={(isValidCompany()) ? <GetCompanyDetails /> : <Page404 />} />
 
-                <Route path="customers/details" element={(validCustomer()) ? <GetCustomerDetails /> : <Page404 />} />
-                
+                <Route path="coupons/purchase/:id" element={(isValidCustomer()) ? <PurchaseCoupon /> : <Page404 />} />
+
+                <Route path="customers/coupons" element={(isValidCustomer()) ? <GetCustomerCoupons /> : <Page404 />} />
+
+                <Route path="customers/details" element={(isValidCustomer()) ? <GetCustomerDetails /> : <Page404 />} />
+
                 <Route path="*" element={<Page404 />} />
             </Routes>
         </div>

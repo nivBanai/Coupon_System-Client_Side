@@ -8,6 +8,7 @@ import { CouponModel, CouponPayloadModel } from "../../../../Models/Coupon";
 import { updatedCompanyAction } from "../../../../Redux/AppStates/AdminAppState";
 import { updatedCouponAction } from "../../../../Redux/AppStates/CompanyAppState";
 import store from "../../../../Redux/Store";
+import notificationsService from "../../../../Services/NotificationsService";
 import adminWebApi from "../../../../Services/WebApi/AdminWebApi";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
 import "./UpdateCoupon.css";
@@ -86,7 +87,7 @@ function UpdateCoupon(): JSX.Element {
                 navigate("/companies/coupons");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.data.value);
             })
     }
 

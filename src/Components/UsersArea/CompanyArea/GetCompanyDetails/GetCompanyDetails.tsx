@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CompanyModel } from "../../../../Models/Company";
 import store from "../../../../Redux/Store";
+import notificationsService from "../../../../Services/NotificationsService";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
 import "./GetCompanyDetails.css";
 
@@ -35,7 +36,8 @@ function GetCompanyDetails(): JSX.Element {
 
                     // notify.success('Woho I got my element from server side!!!')
                 })
-                .catch(err => console.log(err));
+                .catch(err => 
+                    notificationsService.errorNotification(err.response.data.message));
         }
     }, []);
 

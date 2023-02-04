@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { CompanyPayloadModel } from "../../../../Models/Company";
@@ -11,6 +11,7 @@ import "./AddCoupon.css";
 import { CouponPayloadModel } from "../../../../Models/Coupon";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
 import { addedCouponAction } from "../../../../Redux/AppStates/CompanyAppState";
+import notificationsService from "../../../../Services/NotificationsService";
 
 function AddCoupon(): JSX.Element {
 
@@ -85,7 +86,7 @@ function AddCoupon(): JSX.Element {
                 navigate("/companies/coupons");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.data.value);
             })
     }
 
@@ -109,19 +110,19 @@ function AddCoupon(): JSX.Element {
 
                 {(errors.description) ? <span>{errors.description?.message}</span> : <label htmlFor="description">Description</label>}
                 <input {...register("description")} id="description" name="description" type="text" placeholder="Description" />
-                
+
                 {(errors.startDate) ? <span>{errors.endDate && errors.startDate?.message}</span> : <label htmlFor="startDate">Start Date</label>}
                 <input {...register("startDate")} id="startDate" name="startDate" type="date" />
-                
+
                 {(errors.endDate) ? <span>{errors.endDate?.message}</span> : <label htmlFor="endDate">End Date</label>}
                 <input {...register("endDate")} id="endDate" name="endDate" type="date" />
-                
+
                 {(errors.amount) ? <span>{errors.amount?.message}</span> : <label htmlFor="amount">Amount</label>}
                 <input {...register("amount")} id="amount" name="amount" type="number" placeholder="Amount" />
 
                 {(errors.price) ? <span>{errors.price?.message}</span> : <label htmlFor="price">Price</label>}
                 <input {...register("price")} id="price" name="price" type="number" step=".01" placeholder="Price" />
-                
+
                 {(errors.image) ? <span>{errors.image?.message}</span> : <label htmlFor="image">Image</label>}
                 <input {...register("image")} id="image" name="image" type="url" placeholder="Image" />
 

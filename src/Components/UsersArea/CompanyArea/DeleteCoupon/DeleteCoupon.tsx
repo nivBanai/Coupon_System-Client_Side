@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { deletedCouponAction } from "../../../../Redux/AppStates/CompanyAppState";
 import store from "../../../../Redux/Store";
+import notificationsService from "../../../../Services/NotificationsService";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
 import "./DeleteCoupon.css";
 
@@ -18,7 +19,7 @@ function DeleteCoupon(): JSX.Element {
                 navigate("/companies/coupons");
             })
             .catch(err => {
-                console.log(err);
+                notificationsService.errorNotification(err.response.data.message);
             })
     }
 
