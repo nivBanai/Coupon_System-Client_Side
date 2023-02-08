@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Store } from "redux";
+import { ActiveUser } from "../../../../Models/Auth";
 import { CompanyModel } from "../../../../Models/Company";
 import { CustomerModel } from "../../../../Models/Customer";
 import store from "../../../../Redux/Store";
@@ -19,6 +21,7 @@ function GetCustomerDetails(): JSX.Element {
     //     coupons: []
     // };
     const [customer, setCustomer] = useState<CustomerModel>();
+    const [user, setUser] = useState<ActiveUser>(store.getState().userReducer.user);
 
     useEffect(() => {
         const token = store.getState().userReducer.user.token;
@@ -44,10 +47,14 @@ function GetCustomerDetails(): JSX.Element {
 
     return (
         <div className="GetCustomerDetails">
-			<p>{customer?.firstName} {customer?.lastName}</p>
-            <p>{customer?.email}</p>
-            <p>{customer?.password}</p>
-        </div>
+            <div className="CardContainer">
+                <img className="ProfilePic" src={(user.profilePic) ? user.profilePic : "https://i1.sndcdn.com/avatars-000737858602-z63nw0-t500x500.jpg"} />
+                <div className="TextContainer">
+                    <h1 >{customer?.firstName} {customer?.lastName}</h1>
+                    <p className="Email">{customer?.email}</p>
+                </div>
+            </div>
+        </div >
     );
 }
 

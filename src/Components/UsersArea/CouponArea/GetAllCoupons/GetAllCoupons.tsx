@@ -11,11 +11,16 @@ import "./GetAllCoupons.css";
 function GetAllCoupons(): JSX.Element {
 
     const navigate = useNavigate();
+    const [user, setUser] = useState(store.getState().userReducer.user);
     const [originalCoupons, setOriginalCoupons] = useState<CouponModel[]>(store.getState().couponReducer.allCoupons);
     const [coupons, setCoupons] = useState<CouponModel[]>(originalCoupons);
     const [customerCoupons, setCustomerCoupons] = useState<CouponModel[]>(store.getState().customerReducer.coupons);
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [selectedPrice, setSelectedPrice] = useState<number>(0);
+
+    const isValidCustomer = (): boolean => {
+        return (user.token && user.clientType === "CUSTOMER") ? true : false;
+    };
 
     const couponsWithOutCustomerCoupons = (coupons: CouponModel[]): CouponModel[] => {
         return coupons.filter(coup => !customerCoupons.map(coup => coup.id).includes(coup.id))
@@ -80,41 +85,59 @@ function GetAllCoupons(): JSX.Element {
 
     return (
         <div className="GetAllCoupons">
+
             {
                 (coupons.length > 0 || originalCoupons.length > 0) ?
                     <>
-                        <span>Filter By Category </span>
-                        <select onChange={val => { setSelectedCategory(val.target.value) }} id="category" defaultValue={"All"} >
-                            <option value={"All"}>All</option>
-                            <option value={"CINEMA"}>Cinema</option>
-                            <option value={"FOOD"}>Food</option>
-                            <option value={"SPORTS_GEAR"}>Sports Gear</option>
-                            <option value={"TRADING_CARDS"}>Trading Cards</option>
-                            <option value={"VIDEO_GAMES"}>Video Games</option>
-                        </select>
-
-                        <span>Filter By Price</span>
-                        <input onChange={(val) => setSelectedPrice(+val.target.value)} id="price" name="price" type="number" placeholder="price" />
-
-                        {coupons.map((coup, idx) =>
-                            <div key={idx}>
-                                <ol>
-                                    <li>{coup.id}</li>
-                                    <li>{utils.fixedCategory(coup.category)}</li>
-                                    <li>{coup.title}</li>
-                                    <li>{coup.description}</li>
-                                    <li>{coup.startDate}</li>
-                                    <li>{coup.endDate}</li>
-                                    <li>{coup.amount}</li>
-                                    <li>{coup.price}</li>
-                                    <li><img src={coup.image} alt="N/A" /></li>
-                                    <li>
-                                        <button onClick={() => purchaseCoupon(coup.id)}>Purchase</button>
-                                    </li>
-                                </ol>
-
+                        <div className="SearchBarsContainer">
+                            <div className="SearchBar">
+                                <h3>Filter By Category </h3>
+                                <select onChange={val => { setSelectedCategory(val.target.value) }} id="category" defaultValue={"All"} >
+                                    <option value={"All"}>All</option>
+                                    <option value={"CINEMA"}>Cinema</option>
+                                    <option value={"FOOD"}>Food</option>
+                                    <option value={"SPORTS_GEAR"}>Sports Gear</option>
+                                    <option value={"TRADING_CARDS"}>Trading Cards</option>
+                                    <option value={"VIDEO_GAMES"}>Video Games</option>
+                                </select>
                             </div>
-                        )}</>
+                            <div className="SearchBar">
+                                <h3>Filter By Max Price</h3>
+                                <input onChange={(val) => setSelectedPrice(+val.target.value)} id="price" name="price" type="number"
+                                    placeholder="Insert Price" />
+                            </div>
+                        </div>
+                        <div className="Coupons">
+                            {coupons.map((coup, idx) =>
+
+                                <div className="Coupon" key={idx}>
+
+                                    <p>#{coup.id} {coup.title}</p>
+                                    <p><img src={"https://images.immediate.co.uk/production/volatile/sites/30/2022/08/Corndogs-7832ef6.jpg?quality=90&resize=556,505"} alt="N/A" /></p>
+                                    <p>{utils.fixedCategory(coup.category)}</p>
+
+                                    <p>{coup.description}</p>
+                                    <p> Start Date:{utils.fixedDate(coup.startDate)} - Expired:{utils.fixedDate(coup.endDate)}</p>
+                                    {(coup.amount > 0) ?
+                                        <p>{coup.amount} Left</p>
+                                        : <p>Out Of Stock</p>
+                                    }
+
+
+
+                                    <p>
+                                        {coup.price} &#x20AA;
+                                        {(isValidCustomer()) ?
+
+                                            <button disabled={(coup.amount === 0)} onClick={() => purchaseCoupon(coup.id)}>Purchase</button>
+
+                                            : <></>}
+                                    </p>
+
+                                </div>
+                            )}
+                        </div>
+                    </>
 
                     : <div>No Coupons</div>
             }

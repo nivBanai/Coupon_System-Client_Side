@@ -8,42 +8,39 @@ function Menu(): JSX.Element {
     const [userClientType, setUserClientType] = useState(store.getState().userReducer.user.clientType);
 
     useEffect(() => {
-    
+
         return store.subscribe(() => {
-            setUserClientType(store.getState().userReducer.user.clientType); // Will let us notify
+            setUserClientType(store.getState().userReducer.user.clientType); 
         });
     },
-    []);
+        []);
 
     return (
         <div className="Menu">
 
-            <Link className="Link" to={"home"}>Home</Link>
+            <Link to={"home"}>Home</Link>
 
-            <Link className="Link" to={"about"}>About</Link>
+            <Link to={"about"}>About</Link>
 
-            <Link className="Link" to={"coupons"}>Coupons</Link>
+            <Link to={"coupons"}>Coupons</Link>
 
             {(userClientType === "ADMINISTRATOR") ?
                 <>
-                    <Link className="Link" to={"companies"}>Companies</Link>
+                    <Link to={"companies"}>Companies</Link>
 
-                    <Link className="Link" to={"customers"}>Customers</Link>
+                    <Link to={"customers"}>Customers</Link>
 
                 </>
                 : <></>}
             {(userClientType === "COMPANY") ?
                 <>
-                    <Link className="Link" to={"companies/coupons"}>Company Coupons</Link>
+                    <Link to={"companies/coupons"}>My Coupons</Link>
 
-                    <Link className="Link" to={"companies/details"}>Company Details</Link>
                 </>
                 : <></>}
             {(userClientType === "CUSTOMER") ?
                 <>
-                    <Link className="Link" to={"customers/coupons"}>Customer Coupons</Link>
-
-                    <Link className="Link" to={"customers/details"}>Customer Details</Link>
+                    <Link to={"customers/coupons"}>My Coupons</Link>
                 </>
                 : <></>}
 

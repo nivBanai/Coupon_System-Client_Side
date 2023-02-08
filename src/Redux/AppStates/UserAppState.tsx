@@ -1,7 +1,7 @@
 import { ActiveUser, User } from '../../Models/Auth';
 export class UserAppState {
     // Step 1 - Define User global App State
-    public user: ActiveUser = { token: "", name: "", clientType: "" };
+    public user: ActiveUser = { token: "", name: "", clientType: "", profilePic: "" };
 }
 
 // Step 2 - Define all actions
@@ -33,7 +33,7 @@ export function loggedOut(): UserAction {
 
 // Step 5 - Reducer function perform the required action
 export function userReducer(currentState: UserAppState = new UserAppState(), action: UserAction): UserAppState {
-    const newState = { ...currentState } // copy
+    const newState = { ...currentState }
     switch (action.type) {
 
         case ActionType.LOGGED_IN: {
@@ -43,7 +43,7 @@ export function userReducer(currentState: UserAppState = new UserAppState(), act
 
         }
         case ActionType.LOGGED_OUT: {
-            newState.user = { token: "", name: "", clientType: "" };
+            newState.user = { token: "", name: "", clientType: "", profilePic:""};
             break;
         }
     }

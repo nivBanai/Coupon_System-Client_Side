@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ActiveUser } from "../../../../Models/Auth";
 import { CompanyModel } from "../../../../Models/Company";
 import store from "../../../../Redux/Store";
 import notificationsService from "../../../../Services/NotificationsService";
@@ -9,14 +10,8 @@ import "./GetCompanyDetails.css";
 function GetCompanyDetails(): JSX.Element {
 
     const navigate = useNavigate();
-    // const initialCompany:CompanyModel = {
-    //     id: 0,
-    //     name: "",
-    //     email: "",
-    //     password: "",
-    //     coupons: []
-    // };
     const [company, setCompany] = useState<CompanyModel>();
+    const [user, setUser] = useState<ActiveUser>(store.getState().userReducer.user);
 
     useEffect(() => {
         const token = store.getState().userReducer.user.token;
@@ -43,9 +38,13 @@ function GetCompanyDetails(): JSX.Element {
 
     return (
         <div className="GetCompanyDetails">
-            <p>{company?.name}</p>
-            <p>{company?.email}</p>
-            <p>{company?.password}</p>
+            <div className="CardContainer">
+                <img className="ProfilePic" src={(user.profilePic) ? user.profilePic : "https://i1.sndcdn.com/avatars-000737858602-z63nw0-t500x500.jpg"} />
+                <div className="TextContainer">
+                    <h1 >{company?.name}</h1>
+                    <p className="Email">{company?.email}</p>
+                </div>
+            </div>
         </div>
     );
 }

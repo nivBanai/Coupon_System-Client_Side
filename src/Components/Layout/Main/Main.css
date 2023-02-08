@@ -1,6 +1,8 @@
 .Main {
-	grid-column: 10 span;
-	grid-row: 10 span;
+	grid-column: 17 span;
+	grid-row: 18 span;
+	background-color: var(--primaryColor);
+	height: 100%;
+	width: 100%;
 	overflow-y: auto;
-    background-color: #B2B2B2;
 }

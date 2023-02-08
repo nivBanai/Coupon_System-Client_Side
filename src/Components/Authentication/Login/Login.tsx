@@ -7,7 +7,6 @@ import store from "../../../Redux/Store";
 import { loggedIn } from "../../../Redux/AppStates/UserAppState";
 import loginWebApi from "../../../Services/WebApi/LoginWebApi";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import notificationsService from "../../../Services/NotificationsService";
 
@@ -26,6 +25,7 @@ function Login(): JSX.Element {
         clientType:
             yup.string()
                 .required("Client type is required")
+                .typeError("Client type is required")
 
     });
 
@@ -33,12 +33,13 @@ function Login(): JSX.Element {
         useForm<LoginModel>({ mode: "all", resolver: yupResolver(schema) });
 
     const postLogin = async (obj: LoginModel) => {
-        const credentials = { email: obj.email, password: obj.password, clientType: obj.clientType };
+        const credentials = { email: obj.email, password: obj.password, profilePic: obj.profilePic, clientType: obj.clientType };
         await loginWebApi.login(credentials).then(res => {
 
             const activeUser: ActiveUser = {
                 token: res.data.token,
                 name: res.data.name,
+                profilePic: res.data.profilePic,
                 clientType: obj.clientType
             }
 
@@ -67,19 +68,24 @@ function Login(): JSX.Element {
         <div className="Login">
             <form onSubmit={handleSubmit(postLogin)}>
 
-                {(!errors.clientType) ? <label htmlFor="clientType">Client</label> : <span>{errors.clientType.message}</span>}
-                <select {...register("clientType")} id="clientType" defaultValue={""} >
-                    <option disabled value={""}>Client</option>
-                    <option value={"ADMINISTRATOR"}>Admin</option>
-                    <option value={"COMPANY"}>Company</option>
-                    <option value={"CUSTOMER"}>Customer</option>
-                </select>
                 {(!errors.email) ? <label htmlFor="email">Email</label> : <span>{errors.email.message}</span>}
-                <input {...register("email")} type="email" placeholder="Email" />
+                <input {...register("email")} className="Credentials" type="email" placeholder="Email" />
                 {(!errors.password) ? <label htmlFor="password">Password</label> : <span>{errors.password.message}</span>}
-                <input {...register("password")} type="password" placeholder="Password" />
+                <input {...register("password")} className="Credentials" type="password" placeholder="Password" />
 
-                <button>Login</button>
+                {(!errors.clientType) ? <label htmlFor="clientType">Client</label> : <span>{errors.clientType.message}</span>}
+                <div className="ClientType">
+                    <label htmlFor="admin">Admin</label>
+                    <input {...register("clientType")} className="ClientTypes" type="radio" id="admin" name="clientType" value="ADMINISTRATOR" />
+
+                    <label htmlFor="company">Company</label>
+                    <input {...register("clientType")} className="ClientTypes" type="radio" id="company" name="clientType" value="COMPANY" />
+
+                    <label htmlFor="customer">Customer</label>
+                    <input {...register("clientType")} className="ClientTypes" type="radio" id="customer" name="clientType" value="CUSTOMER" />
+                </div>
+
+                <button disabled={!isValid}>Login</button>
 
             </form>
         </div>

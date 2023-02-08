@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/yup": "^0.32.0",
     "axios": "^1.2.3",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",

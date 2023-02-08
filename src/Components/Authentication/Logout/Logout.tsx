@@ -19,7 +19,7 @@ function Logout(): JSX.Element {
             })
             .catch(err => notificationsService.errorNotification(err));
 
-        navigate("/login");
+        navigate("/home");
     }, []);
 
     return (

@@ -1,14 +1,43 @@
-html, body, #root {
-    height: 100%;
-    width: 100%;
-  }
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
 
-  body{
-    margin: 0;
-  }
+body {
+  margin: 0;
+}
 
- 
-  /* .Toastify__toast--success {
+:root {
+  --primaryColor: #1b1f23;
+  --secondaryColor: #2c2240;
+  --tertiaryColor: #352F44;
+  --textColor: white;
+  --borderColor: gray;
+  --errorColor: tomato;
+  color: white;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* .Toastify__toast--success {
     background-color: green;
     color: white;
   }
@@ -17,5 +46,3 @@ html, body, #root {
     background-color: green;
     color: white;
   } */
-
-  

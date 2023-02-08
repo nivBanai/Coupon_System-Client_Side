@@ -4,6 +4,7 @@ import App from "../../../App";
 import store from "../../../Redux/Store";
 import Login from "../../Authentication/Login/Login";
 import Logout from "../../Authentication/Logout/Logout";
+import Register from "../../Authentication/Register/Register";
 import About from "../../Pages/About/About";
 import Home from "../../Pages/Home/Home";
 import Page404 from "../../Pages/Page404/Page404";
@@ -64,6 +65,8 @@ function Routing(): JSX.Element {
 
                 <Route path="coupons" element={<GetAllCoupons />} />
 
+                <Route path="register" element={(isLoggedIn()) ? <Home /> : <Register />} />
+
                 <Route path="login" element={(isLoggedIn()) ? <Home /> : <Login />} />
 
                 <Route path="logout" element={(isLoggedIn()) ? <Logout /> : <Login />} />
@@ -92,13 +95,13 @@ function Routing(): JSX.Element {
 
                 <Route path="companies/coupons/update/:id" element={(isValidCompany()) ? <UpdateCoupon /> : <Page404 />} />
 
-                <Route path="companies/details" element={(isValidCompany()) ? <GetCompanyDetails /> : <Page404 />} />
+                <Route path="companies/profile" element={(isValidCompany()) ? <GetCompanyDetails /> : <Page404 />} />
 
                 <Route path="coupons/purchase/:id" element={(isValidCustomer()) ? <PurchaseCoupon /> : <Page404 />} />
 
                 <Route path="customers/coupons" element={(isValidCustomer()) ? <GetCustomerCoupons /> : <Page404 />} />
 
-                <Route path="customers/details" element={(isValidCustomer()) ? <GetCustomerDetails /> : <Page404 />} />
+                <Route path="customers/profile" element={(isValidCustomer()) ? <GetCustomerDetails /> : <Page404 />} />
 
                 <Route path="*" element={<Page404 />} />
             </Routes>

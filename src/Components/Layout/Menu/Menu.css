@@ -1,11 +1,23 @@
 .Menu {
-	grid-column: 2 span;
-    grid-row: 10 span;
-    background-color: #3C4048;
+	grid-column: 3 span;
+    grid-row: 18 span;
+    background-color: var(--tertiaryColor);
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-.Link{
+.Menu a{
     color: white;
+    font-size: x-large;
+    margin-top: 75px;
+    text-decoration: none;
+    border-bottom: 2px solid var(--borderColor);
+}
+
+.Menu a:hover{
+    color: var(--borderColor); 
+    font-size: xx-large;
+    /* border-bottom: 2px solid var(--borderColor); */
 }

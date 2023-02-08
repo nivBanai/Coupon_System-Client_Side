@@ -1,5 +1,4 @@
 import './App.css';
-import Footer from './Components/Layout/Footer/Footer';
 import Header from './Components/Layout/Header/Header';
 import Main from './Components/Layout/Main/Main';
 import Menu from './Components/Layout/Menu/Menu';
@@ -12,7 +11,6 @@ function App() {
         <Header />
         <Menu />
         <Main />
-        <Footer />
         <ToastContainer
           limit={3}
           newestOnTop

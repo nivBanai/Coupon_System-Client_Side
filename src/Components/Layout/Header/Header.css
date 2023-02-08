@@ -1,8 +1,21 @@
 .Header {
-	grid-column: 12 span;
-    grid-row: 1 span;
+	grid-column: 20 span;
+    grid-row: 2 span;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #00ABB3;
+    /* overflow-x: hidden; */
+    background-color: var(--secondaryColor);
 }
+
+.Header > a {
+    margin-left: 250px;
+    color: var(--textColor);
+    text-decoration: none;
+}
+
+.Header > a >h1{
+	
+    font-size: xxx-large;
+}
+

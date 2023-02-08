@@ -1,5 +1,5 @@
-.Login {
-    height: 100%;
+.Register {
+	height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -7,8 +7,9 @@
     align-items: center;
 }
 
-.Login form {
-    border-radius: 5px;
+.Register form {
+    border-radius: 25px;
+    width: 800px;
     font-size: large;
     background-color: var(--tertiaryColor) ;
     display: flex;
@@ -19,34 +20,27 @@
     padding: 10px;
 }
 
-.Login form  label, .Login  form  span {
+.Register form label, .Register form span {
     font-size: x-large;
 }
 
-.Login  form  span {
+.Register form  span {
     color: var(--errorColor) ;
 }
 
-.Login form input {
-    border-radius: 20px;
+.Register form input {
     margin-bottom: 20px;
+    border-radius: 20px;
 }
 
-.Login  .Credentials, .Login button{
+.Register  form  button, .Register form input{
    height: 40px;
    width: 400px;
    font-size: larger;
    border-radius: 20px;
 }
 
-.ClientTypes{
-    height: 20px;
-    width: 40px;
-    cursor: pointer;
-    accent-color: var(--primaryColor);
-}
-
-.Login form button:hover:enabled {
+.Register > form > button:hover:enabled {
    background-color: var(--primaryColor);
    color: aliceblue;
 }
