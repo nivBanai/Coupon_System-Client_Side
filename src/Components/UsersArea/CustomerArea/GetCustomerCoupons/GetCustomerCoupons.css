@@ -1,3 +1,149 @@
 .GetCustomerCoupons {
-	
+    height: 100%;
+    width: 100%;
+}
+
+.SearchBarsContainer {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-bottom: 5px solid var(--borderColor); */
+    margin-top: 40px;
+}
+
+.SearchBar {
+    display: flex;
+}
+
+.SearchBar h3 {
+    margin-right: 20px;
+}
+
+.SearchBar select,
+.SearchBar input {
+    color: var(--textColor);
+    border: 1px solid var(--borderColor);
+    border-radius: 10px;
+    background-color: var(--tertiaryColor);
+    text-align: center;
+    appearance: none;
+    cursor: pointer;
+    margin-right: 100px;
+    font-size: 20px;
+    width: 250px;
+}
+
+.SearchBar input::placeholder {
+    color: rgba(255, 255, 255, 0.141);
+}
+
+.SearchBar select option {
+    border: 1px solid var(--borderColor);
+
+}
+
+.Coupons {
+    /* background-color: var(--tertiaryColor); */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px;
+    margin-left: 20px;
+
+
+}
+
+.OwnedCoupon {
+    /* background-color: var(--tertiaryColor); */
+    display:inline-flexbox;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    flex-wrap:wrap;
+    width: 325px;
+    height: 565px;
+    margin: 20px;
+    background-color: var(--tertiaryColor);
+    /* border: 5px solid var(--borderColor); */
+    text-align: center;
+    border: 5px inset var(--borderColor);
+    border-radius: 5%;
+
+
+}
+
+.OwnedCoupon img {
+    height: 200px;
+    width: 200px;
+}
+
+#ownedCouponDesc {
+    height: 50px;
+    font-size: 20px;
+    overflow-y: auto;
+}
+
+#couponHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.ownedCouponIdTitle {
+    width: 300px;
+    font-size: 25px;
+    font-size: 30px;
+    color: var(--primaryColor);
+    text-shadow:
+        -1px -1px 0 var(--borderColor),
+        1px -1px 0 var(--borderColor),
+        -1px 1px 0 var(--borderColor),
+        1px 1px 0 var(--borderColor);
+}
+
+.couponHeaderItems {
+    display: flex;
+    margin: 0;
+}
+
+.itemHeader {
+    font-size: larger;
+    text-decoration: underline;
+    color: cadetblue;
+}
+
+.couponItem {
+    margin: 0;
+    color: var(--textColor);
+    font-size: 20px;
+    text-decoration: none;
+    /* text-decoration: underline solid var(--borderColor); */
+}
+
+#couponFooter {
+    height: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 290px;
+    padding-bottom: 20px;
+}
+
+.displayOwnedCouponPrice {
+    font-size: xx-large;
+    color: darkgray;
+
+}
+
+#displayCategory {
+    font-size: x-large;
+    color: darksalmon;
+}
+
+#displayDate {
+    color: lightblue;
 }

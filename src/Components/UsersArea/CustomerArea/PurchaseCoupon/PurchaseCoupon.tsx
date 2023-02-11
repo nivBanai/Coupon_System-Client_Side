@@ -30,12 +30,12 @@ function PurchaseCoupon(): JSX.Element {
 
     return (
         <div className="PurchaseCoupon">
-            <div>
-                <p>Are you sure you want to purchase #{coupToPurchase.id} ({coupToPurchase.title}) ?</p>
-            </div>
-            <div>
-                <button onClick={cancel}>Cancel</button>
-                <button onClick={confirm}>Confirm</button>
+            <div id="purchaseValidationContainer">
+                <h2>Purchase Coupon #{coupToPurchase.id} ({coupToPurchase.title}) ?</h2>
+                <div className="boi">
+                <button className="decisionButton cancelButton" onClick={cancel}>Cancel</button>
+                <button className="decisionButton confirmButton" onClick={confirm}>Confirm</button>
+                </div>
             </div>
         </div>
     );

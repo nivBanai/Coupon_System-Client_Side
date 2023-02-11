@@ -18,6 +18,7 @@
     align-items: center;
     box-shadow: 50px -50px 25px 15px  var(--borderColor) ;
     padding: 10px;
+    margin-top: 50px;
 }
 
 .Register form label, .Register form span {

@@ -60,7 +60,7 @@ function GetCustomerCoupons(): JSX.Element {
                 (coupons?.length > 0 || originalCoupons.length > 0) ?
                     <>
 
-                        <span>Filter By Category </span>
+                        {/* <span>Filter By Category </span>
                         <select onChange={val => { { setSelectedCategory(val.target.value); console.log("coups:" + coupons); console.log("ogCoupos:" + originalCoupons); } }} id="category" defaultValue={"All"} >
                             <option value={"All"}>All</option>
                             <option value={"CINEMA"}>Cinema</option>
@@ -76,7 +76,7 @@ function GetCustomerCoupons(): JSX.Element {
                         {coupons.map((coup, idx) =>
                             <div key={idx}>
                                 <ol>
-                                    <li>{coup.id}</li>
+                                    <li>{originalCoupons.indexOf(coup) + 1}</li>
                                     <li>{utils.fixedCategory(coup.category)}</li>
                                     <li>{coup.title}</li>
                                     <li>{coup.description}</li>
@@ -87,7 +87,60 @@ function GetCustomerCoupons(): JSX.Element {
                                 </ol>
 
                             </div>
-                        )}</>
+                        )} */
+
+
+
+
+                            <>
+                                <div className="SearchBarsContainer">
+                                    <div className="SearchBar">
+                                        <h3>Filter By Category </h3>
+                                        <select onChange={val => { setSelectedCategory(val.target.value); }} id="category" defaultValue={"All"}>
+                                            <option value={"All"}>All</option>
+                                            <option value={"CINEMA"}>Cinema</option>
+                                            <option value={"FOOD"}>Food</option>
+                                            <option value={"SPORTS_GEAR"}>Sports Gear</option>
+                                            <option value={"TRADING_CARDS"}>Trading Cards</option>
+                                            <option value={"VIDEO_GAMES"}>Video Games</option>
+                                        </select>
+                                    </div>
+                                    <div className="SearchBar">
+                                        <h3>Filter By Max Price</h3>
+                                        <input onChange={(val) => setSelectedPrice(+val.target.value)} id="price" name="price" type="number"
+                                            placeholder="Type Price" />
+                                    </div>
+                                </div><div className="Coupons">
+                                    {coupons.map((coup, idx) => <div className="OwnedCoupon" key={idx}>
+                                        <div id="couponHeader">
+                                            <p className="couponHeaderItems ownedCouponIdTitle">#{originalCoupons.indexOf(coup) + 1}</p>
+                                            <h2 className="couponHeaderItems">{coup.title}</h2>
+                                        </div>
+                                        <p><img src={"https://images.immediate.co.uk/production/volatile/sites/30/2022/08/Corndogs-7832ef6.jpg?quality=90&resize=556,505"} alt="N/A" /></p>
+                                        
+                                        <p className="couponItem" id="displayCategory"> {utils.fixedCategory(coup.category)}</p>
+
+                                        <p id="ownedCouponDesc">{coup.description}</p>
+
+
+                                        <p className="couponItem" id="displayDate"> {utils.fixedDate(coup.startDate)} - {utils.fixedDate(coup.endDate)}</p>
+                                        <div >
+                                            <p  className="displayOwnedCouponPrice">
+                                                {coup.price} &#x20AA;
+                                            </p>
+                                        </div>
+                                    </div>
+                                    )}
+                                </div>
+
+                            </>
+
+
+
+
+
+                        }
+                    </>
 
                     : <div></div>
             }

@@ -8,7 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 5px solid var(--borderColor);
+    /* border-bottom: 5px solid var(--borderColor); */
+    margin-top: 40px;
 }
 
 .SearchBar {
@@ -30,7 +31,7 @@
     cursor: pointer;
     margin-right: 100px;
     font-size: 20px;
-    width: 200px;
+    width: 250px;
 }
 
 .SearchBar input::placeholder {
@@ -43,22 +44,182 @@
 }
 
 .Coupons {
-    padding-left: 140px;
+    /* background-color: var(--tertiaryColor); */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px;
+    margin-left: 20px;
+
+
 }
 
 .Coupon {
-    /* height: 500px; */
-    /* width: 170px; */
+    /* background-color: var(--tertiaryColor); */
 
-    display: inline-flex;
-    flex-direction: column;
+    /* flex-direction: column;
     align-items: center;
-    /* justify-content: flex-start; */
+    justify-content: center; */
+    width: 325px;
+    height: 565px;
     margin: 20px;
-    border: 5px solid var(--borderColor);
+    background-color: var(--tertiaryColor);
+    /* border: 5px solid var(--borderColor); */
+    text-align: center;
+    border: 5px inset var(--borderColor);
+    border-radius: 5%;
+
+
 }
 
 .Coupon img {
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 200px;
+}
+
+#description {
+    /* overflow-y: auto; */
+    height: 40px;
+}
+
+#couponHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+#idTitle {
+    font-size: 25px;
+    font-size: 30px;
+    color: var(--primaryColor);
+    text-shadow:
+    -1px -1px 0 var(--borderColor),
+    1px -1px 0 var(--borderColor),
+    -1px 1px 0 var(--borderColor),
+    1px 1px 0 var(--borderColor);
+}
+
+.couponHeaderItems {
+    display: flex;
+    margin: 0;
+}
+
+.itemHeader {
+    font-size: larger;
+    text-decoration: underline;
+    color: cadetblue;
+}
+
+.couponItem,
+#loginToPurchase {
+    margin: 0;
+    color: var(--textColor);
+    font-size: 20px;
+    text-decoration: none;
+    /* text-decoration: underline solid var(--borderColor); */
+}
+
+#purchaseButton {
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+    /* color: var(--textColor);
+    background-color: var(--primaryColor); */
+    border-radius: 10px;
+    background-color: cadetblue;
+}
+
+#purchaseButton:hover {
+    background-color: var(--primaryColor);
+    color: var(--textColor);
+}
+
+#tooltip {
+    position: relative;
+    font-size: large;
+    cursor: pointer;
+    /* display: inline-block;
+    border-bottom: 1px dotted black; */
+}
+
+#tooltip #tooltiptext {
+    font-size: x-large;
+    visibility: hidden;
+    width: 300px;
+    background-color: var(--borderColor);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 22%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: default;
+}
+
+#tooltip #tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--borderColor) transparent transparent transparent;
+}
+
+#tooltip:hover #tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+#couponFooter {
+height: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 290px;
+    padding-bottom: 20px;
+}
+
+#displayPrice {
+    font-size: xx-large;
+    color: #0EB149;
+
+}
+
+#loginToPurchase:hover {
+    color: var(--borderColor);
+}
+
+#displayCategory {
+    /* font-size: 25px; */
+    font-size: x-large;
+    color: darksalmon;
+}
+
+#displayDate {
+    color: lightblue;
+}
+
+#displayAmount{
+    margin-bottom: 40px;
+}
+
+.displayGreenAmount {
+    color: rgb(159, 246, 159);
+}
+
+.displayOrangeAmount {
+    color: orange;
+}
+
+.displayRedAmount {
+    color: rgb(164, 43, 22);
 }

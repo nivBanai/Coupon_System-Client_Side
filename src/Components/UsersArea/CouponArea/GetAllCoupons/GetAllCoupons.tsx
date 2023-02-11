@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CouponModel } from "../../../../Models/Coupon";
 import { gotAllCouponsAction } from "../../../../Redux/AppStates/CouponAppState";
 import store from "../../../../Redux/Store";
@@ -104,36 +104,50 @@ function GetAllCoupons(): JSX.Element {
                             <div className="SearchBar">
                                 <h3>Filter By Max Price</h3>
                                 <input onChange={(val) => setSelectedPrice(+val.target.value)} id="price" name="price" type="number"
-                                    placeholder="Insert Price" />
+                                    placeholder="Type Price" />
                             </div>
                         </div>
                         <div className="Coupons">
                             {coupons.map((coup, idx) =>
 
                                 <div className="Coupon" key={idx}>
-
-                                    <p>#{coup.id} {coup.title}</p>
+                                    <div id="couponHeader">
+                                        <p className="couponHeaderItems" id="idTitle">#{coup.id}</p>
+                                        <h2 className="couponHeaderItems" >{coup.title}</h2>
+                                    </div>
                                     <p><img src={"https://images.immediate.co.uk/production/volatile/sites/30/2022/08/Corndogs-7832ef6.jpg?quality=90&resize=556,505"} alt="N/A" /></p>
-                                    <p>{utils.fixedCategory(coup.category)}</p>
+                                    {/* <span className="itemHeader">Category:</span> */}
+                                    <p className="couponItem" id="displayCategory"> {utils.fixedCategory(coup.category)}</p>
 
-                                    <p>{coup.description}</p>
-                                    <p> Start Date:{utils.fixedDate(coup.startDate)} - Expired:{utils.fixedDate(coup.endDate)}</p>
-                                    {(coup.amount > 0) ?
-                                        <p>{coup.amount} Left</p>
-                                        : <p>Out Of Stock</p>
-                                    }
+                                    {/* <span className="itemHeader">Description:</span> */}
+                                    {/* <p className="couponItem" id="description">{coup.description}</p> */}
 
-
-
-                                    <p>
-                                        {coup.price} &#x20AA;
-                                        {(isValidCustomer()) ?
-
-                                            <button disabled={(coup.amount === 0)} onClick={() => purchaseCoupon(coup.id)}>Purchase</button>
-
-                                            : <></>}
+                                    <p id="tooltip">*Description*
+                                        <span id="tooltiptext">{coup.description}</span>
                                     </p>
 
+
+                                    {/* <span className="itemHeader">Duration:</span> */}
+                                    <p className="couponItem" id="displayDate"> {utils.fixedDate(coup.startDate)} - {utils.fixedDate(coup.endDate)}</p>
+                                    {/* <span className="itemHeader">Amount:</span> */}
+                                    <p className="couponItem " id="displayAmount" >
+                                        {(coup.amount > 0) ?
+                                            <p className={(coup.amount > 5) ? "displayGreenAmount" : "displayOrangeAmount"}>{coup.amount} Left</p>
+                                            : <p className="displayRedAmount"> Out Of Stock</p>
+                                        }
+                                    </p>
+                                    <div id="couponFooter">
+                                        <p id="displayPrice">
+                                            {coup.price} &#x20AA;
+                                        </p>
+                                        {(isValidCustomer()) ?
+
+                                            <button id="purchaseButton" disabled={(coup.amount === 0)} onClick={() => purchaseCoupon(coup.id)}>Purchase</button>
+
+                                            : (coup.amount) ? <Link id="loginToPurchase" to={"/login"}>Login to purchase</Link>
+                                                : <></>
+                                        }
+                                    </div>
                                 </div>
                             )}
                         </div>

@@ -5,8 +5,10 @@ import store from "../../../Redux/Store";
 import "./AuthMenu.css";
 
 function AuthMenu(): JSX.Element {
+
     const [user, setUser] = useState<ActiveUser>(store.getState().userReducer.user);
     const [showMenu, setShowMenu] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
 
     const isValidAdmin = (): boolean => {
         return (user.token && user.clientType === "ADMINISTRATOR") ? true : false;
@@ -18,51 +20,73 @@ function AuthMenu(): JSX.Element {
         return (user.token && user.clientType === "CUSTOMER") ? true : false;
     };
 
+    const hideMenu = () => {
+        setShowMenu(false);
+    }
+
     useEffect(() => {
         return store.subscribe(() => setUser(store.getState().userReducer.user));
     }, []);
 
+    useEffect(() => {
+        const handleClickOutside = (event: Event) => {
+
+            if (!showMenu) return;
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                console.log("boiiiiiiiiiiiiiiii");
+                console.log(showMenu);
+                hideMenu();
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [ref, showMenu, setShowMenu]);
+
     return (
         <div className="AuthMenu">
             <h2 >Hello, {(user.token) ? user.name : "Guest"}</h2>
-            <div >
+            <div ref={ref}>
                 <button className="DropdownButton" onClick={() => setShowMenu(!showMenu)}>
                     <img src={(user.token && user.profilePic) ? user.profilePic : "https://i1.sndcdn.com/avatars-000737858602-z63nw0-t500x500.jpg"} alt="" />
                 </button>
                 {showMenu && (
-                    <ul className="DropdownMenu">
+                    <ul className="DropdownMenu" >
                         {
                             (isValidAdmin()) ?
                                 <>
                                     <li>
-                                        <Link to={"/logout"}>Logout</Link>
+                                        <Link to={"/logout"} onClick={hideMenu}>Logout</Link>
                                     </li>
                                 </>
                                 :
                                 (isValidCompany()) ?
                                     <>
                                         <li>
-                                            <Link to={"/companies/profile"}>Profile</Link>
+                                            <Link to={"/companies/profile"} onClick={hideMenu} >Profile</Link>
                                         </li>
                                         <li>
-                                            <Link to={"/logout"}>Logout</Link>
+                                            <Link to={"/logout"} onClick={hideMenu}>Logout</Link>
                                         </li>
                                     </>
                                     : (isValidCustomer()) ?
                                         <>
                                             <li>
-                                                <Link to={"/customers/profile"}>Profile</Link>
+                                                <Link to={"/customers/profile"} onClick={hideMenu}>Profile</Link>
                                             </li>
                                             <li>
-                                                <Link to={"/logout"}>Logout</Link>
+                                                <Link to={"/logout"} onClick={hideMenu}>Logout</Link>
                                             </li>
                                         </>
                                         : <>
                                             <li>
-                                                <Link to={"/login"}>Login</Link>
+                                                <Link to={"/login"} onClick={hideMenu}>Login</Link>
                                             </li>
                                             <li>
-                                                <Link to={"/register"}>Register</Link>
+                                                <Link to={"/register"} onClick={hideMenu}>Register</Link>
                                             </li>
 
                                         </>}
