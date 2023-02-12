@@ -38,6 +38,7 @@ function GetCompanyDetails(): JSX.Element {
 
     return (
         <div className="GetCompanyDetails">
+            <h1 className="ProfileTitle">Profile</h1>
             <div className="CardContainer">
                 <img className="ProfilePic" src={(user.profilePic) ? user.profilePic : "https://i1.sndcdn.com/avatars-000737858602-z63nw0-t500x500.jpg"} />
                 <div className="TextContainer">

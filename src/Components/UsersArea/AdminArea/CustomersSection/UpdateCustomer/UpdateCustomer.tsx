@@ -33,7 +33,10 @@ function UpdateCustomer(): JSX.Element {
         password:
             yup.string()
                 .required("password is required")
-                .min(5, "Password must be at least 5 characters")
+                .min(5, "Password must be at least 5 characters"),
+                profilePic:
+            yup.string()
+                .url("Invalid Url")
 
     });
 
@@ -58,6 +61,9 @@ function UpdateCustomer(): JSX.Element {
     return (
         <div className="UpdateCustomer">
             <form onSubmit={handleSubmit(putCustomer)}>
+
+            <h1 className="PageTitles">Update Customer</h1>
+
                 <label htmlFor="id">Id</label>
                 <input disabled id="id" name="id" type="number" value={id} />
 
@@ -69,6 +75,8 @@ function UpdateCustomer(): JSX.Element {
                 <input {...register("email")} id="email" name="email" type="email" placeholder="Email" />
                 {(errors.password) ? <span>{errors.password?.message}</span> : <label htmlFor="password">Password</label>}
                 <input {...register("password")} id="password" name="password" type="password" placeholder="Password" />
+                {(errors.profilePic) ? <span>{errors.profilePic?.message}</span> : <label htmlFor="profilePic">Profile Picture</label>}
+                <input {...register("profilePic")} id="profilePic" name="profilePic" type="text" placeholder="URL" />
                 <button disabled={!isValid || !isDirty}>Update Customer</button>
 
             </form>

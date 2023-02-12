@@ -68,23 +68,26 @@ function Login(): JSX.Element {
         <div className="Login">
             <form onSubmit={handleSubmit(postLogin)}>
 
+                <h1 className="PageTitles">Login</h1>
+
                 {(!errors.email) ? <label htmlFor="email">Email</label> : <span>{errors.email.message}</span>}
                 <input {...register("email")} className="Credentials" type="email" placeholder="Email" />
                 {(!errors.password) ? <label htmlFor="password">Password</label> : <span>{errors.password.message}</span>}
                 <input {...register("password")} className="Credentials" type="password" placeholder="Password" />
 
-                {(!errors.clientType) ? <label htmlFor="clientType">Client</label> : <span>{errors.clientType.message}</span>}
-                <div className="ClientType">
-                    <label htmlFor="admin">Admin</label>
-                    <input {...register("clientType")} className="ClientTypes" type="radio" id="admin" name="clientType" value="ADMINISTRATOR" />
+                <div className="ClientTypesContainer">
+                    {(!errors.clientType) ? <label htmlFor="clientType">Client</label> : <span>{errors.clientType.message}</span>}
+                    <div className="ClientType">
+                        <label htmlFor="admin">Admin</label>
+                        <input {...register("clientType")} className="ClientTypes" type="radio" id="admin" name="clientType" value="ADMINISTRATOR" />
 
-                    <label htmlFor="company">Company</label>
-                    <input {...register("clientType")} className="ClientTypes" type="radio" id="company" name="clientType" value="COMPANY" />
+                        <label htmlFor="company">Company</label>
+                        <input {...register("clientType")} className="ClientTypes" type="radio" id="company" name="clientType" value="COMPANY" />
 
-                    <label htmlFor="customer">Customer</label>
-                    <input {...register("clientType")} className="ClientTypes" type="radio" id="customer" name="clientType" value="CUSTOMER" />
+                        <label htmlFor="customer">Customer</label>
+                        <input {...register("clientType")} className="ClientTypes" type="radio" id="customer" name="clientType" value="CUSTOMER" />
+                    </div>
                 </div>
-
                 <button disabled={!isValid}>Login</button>
 
             </form>

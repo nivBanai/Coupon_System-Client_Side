@@ -116,6 +116,9 @@ function GetCompanyCoupons(): JSX.Element {
             {
                 (coupons.length > 0 || originalCoupons.length > 0) ?
                     <>
+                    <div className="TitleContainer">
+                                    <h1>My Coupons</h1>
+                                </div>
                         <div className="SearchBarsContainer">
                             <div className="SearchBar">
                                 <h3>Filter By Category </h3>

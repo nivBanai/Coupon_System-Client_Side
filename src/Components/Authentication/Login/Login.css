@@ -8,6 +8,7 @@
 }
 
 .Login form {
+    width: 500px;
     border-radius: 5px;
     font-size: large;
     background-color: var(--tertiaryColor) ;
@@ -39,14 +40,31 @@
    border-radius: 20px;
 }
 
+.ClientTypesContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
 .ClientTypes{
     height: 20px;
     width: 40px;
     cursor: pointer;
     accent-color: var(--primaryColor);
+    /* margin-top: 20px; */
+    /* margin-bottom: 20px; */
 }
 
 .Login form button:hover:enabled {
    background-color: var(--primaryColor);
    color: aliceblue;
+}
+
+.PageTitles{
+    font-size: 50px;
+    margin-top: 0;
+    /* text-decoration: underline 5px var(--primaryColor); */
+    border-bottom: 5px solid var(--primaryColor);
 }

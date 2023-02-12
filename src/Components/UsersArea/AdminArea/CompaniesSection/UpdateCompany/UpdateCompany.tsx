@@ -17,7 +17,7 @@ function UpdateCompany(): JSX.Element {
     const id = +(params.id || 0)
     const compToUpdate = store.getState().adminReducer.companies.filter(comp => comp.id === id)[0]
     const [obj, setObj] = useState<CompanyModel>(compToUpdate);
-    let defaultValuesObj = { ...obj};
+    let defaultValuesObj = { ...obj };
 
     useEffect(() => {
         if (!store.getState().userReducer.user.token) {
@@ -36,7 +36,10 @@ function UpdateCompany(): JSX.Element {
         password:
             yup.string()
                 .required("password is required")
-                .min(5, "Password must be at least 5 characters")
+                .min(5, "Password must be at least 5 characters"),
+        profilePic:
+            yup.string()
+                .url("Invalid Url")
 
     });
 
@@ -61,6 +64,9 @@ function UpdateCompany(): JSX.Element {
     return (
         <div className="UpdateCompany">
             <form onSubmit={handleSubmit(putCompany)}>
+
+            <h1 className="PageTitles">Update Company</h1>
+
                 <label htmlFor="id">Id</label>
                 <input disabled id="id" name="id" type="number" value={id} />
 
@@ -70,6 +76,9 @@ function UpdateCompany(): JSX.Element {
                 <input {...register("email")} id="email" name="email" type="email" placeholder="Email" />
                 {(errors.password) ? <span>{errors.password?.message}</span> : <label htmlFor="password">Password</label>}
                 <input {...register("password")} id="password" name="password" type="password" placeholder="Password" />
+                {(errors.profilePic) ? <span>{errors.profilePic?.message}</span> : <label htmlFor="profilePic">Profile Picture</label>}
+                <input {...register("profilePic")} id="profilePic" name="profilePic" type="text" placeholder="URL" />
+
                 <button disabled={!isValid || !isDirty}>Update Company</button>
 
             </form>

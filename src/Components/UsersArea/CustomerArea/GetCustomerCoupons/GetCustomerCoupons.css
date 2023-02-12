@@ -147,3 +147,14 @@
 #displayDate {
     color: lightblue;
 }
+
+.TitleContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TitleContainer h1{
+    font-size: 70px;
+    border-bottom: 10px solid var(--secondaryColor);
+}

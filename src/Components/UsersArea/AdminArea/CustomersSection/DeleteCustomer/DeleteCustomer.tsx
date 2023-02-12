@@ -29,12 +29,12 @@ function DeleteCustomer(): JSX.Element {
 
     return (
         <div className="DeleteCustomer">
-			<div>
-                <p>Are you sure you want to delete customer #{id} ({customer.firstName} {customer.lastName})?</p>
-            </div>
-            <div>
-                <button onClick={cancel}>Cancel</button>
-                <button onClick={confirm}>Confirm</button>
+            <div id="deleteValidationContainer">
+                <h2>Delete Company #{customer.id} - {customer.lastName} {customer.firstName} ?</h2>
+                <div className="DecisionButtonContainer">
+                    <button className="decisionButton cancelButton" onClick={cancel}>Cancel</button>
+                    <button className="decisionButton confirmButton" onClick={confirm}>Confirm</button>
+                </div>
             </div>
         </div>
     );

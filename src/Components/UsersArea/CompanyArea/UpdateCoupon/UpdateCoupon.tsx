@@ -96,6 +96,9 @@ function UpdateCoupon(): JSX.Element {
     return (
         <div className="UpdateCoupon">
             <form onSubmit={handleSubmit(putCoupon)}>
+
+            <h1 className="PageTitles">Update Coupon</h1>
+                
                 <label htmlFor="id">Id</label>
                 <input disabled id="id" name="id" type="number" value={id} />
 

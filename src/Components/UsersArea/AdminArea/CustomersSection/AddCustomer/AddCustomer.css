@@ -1,3 +1,51 @@
 .AddCustomer {
 	
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.AddCustomer form {
+    border-radius: 25px;
+    width: 600px;
+    font-size: large;
+    background-color: var(--tertiaryColor) ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 50px -50px 25px 15px  var(--borderColor) ;
+    padding: 10px;
+    margin-top: 50px;
+   
+}
+
+.AddCustomer form label, .AddCustomer form span {
+    font-size: x-large;
+}
+
+.AddCustomer form  span {
+    color: var(--errorColor) ;
+}
+
+.AddCustomer form input {
+     text-align: center;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+.AddCustomer  form  button, .AddCustomer form input{
+   height: 40px;
+   width: 400px;
+   font-size: larger;
+   border-radius: 20px;
+}
+
+.AddCustomer > form > button:hover:enabled {
+   background-color: var(--primaryColor);
+   color: aliceblue;
 }

@@ -101,6 +101,8 @@ function AddCoupon(): JSX.Element {
         <div className="AddCoupon">
             <form onSubmit={handleSubmit(postCoupon)}>
 
+            <h1 className="PageTitles">Add Coupon</h1>
+
                 {(errors.category) ? <span>{errors.category.message}</span> : <label htmlFor="category">Category</label>}
                 <select {...register("category")} id="category" defaultValue={""} >
                     <option disabled value={""}>Category</option>

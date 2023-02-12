@@ -8,7 +8,7 @@
 }
 
 .Register form {
-    border-radius: 25px;
+    border-radius: 10px;
     width: 800px;
     font-size: large;
     background-color: var(--tertiaryColor) ;
@@ -16,7 +16,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 50px -50px 25px 15px  var(--borderColor) ;
+    box-shadow: 50px -40px 25px 5px  var(--borderColor) ;
     padding: 10px;
     margin-top: 50px;
 }

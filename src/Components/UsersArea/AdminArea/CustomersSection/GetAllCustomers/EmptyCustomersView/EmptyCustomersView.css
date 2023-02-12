@@ -1,0 +1,16 @@
+.EmptyCustomersView {
+	
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.EmptyCustomersView>h1 {
+    font-size: 50px;
+}
+
+.EmptyCustomersView a {
+    color: royalblue;
+}

@@ -4,13 +4,13 @@
 }
 
 
-.SearchBarsContainer {
+.GetCompanyCoupons .SearchBarsContainer {
     height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     /* border-bottom: 5px solid var(--borderColor); */
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .SearchBar {

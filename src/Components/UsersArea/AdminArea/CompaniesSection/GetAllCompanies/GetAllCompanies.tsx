@@ -8,6 +8,7 @@ import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
 import { TbEdit } from "react-icons/tb";
 import { ImBin2 } from "react-icons/im";
 import "./GetAllCompanies.css";
+import EmptyCompaniesView from "./EmptyCompaniesView/EmptyCompaniesView";
 
 function GetAllCompanies(): JSX.Element {
 
@@ -96,7 +97,7 @@ function GetAllCompanies(): JSX.Element {
                             <button id="addCompanyButton" onClick={() => addCompany()}>Add Company</button>
                         </div>
                     </>
-                    : <div></div>
+                    : <EmptyCompaniesView />
             }
         </div>
     );

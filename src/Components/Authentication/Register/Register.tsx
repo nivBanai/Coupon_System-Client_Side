@@ -51,7 +51,7 @@ function Register(): JSX.Element {
     return (
         <div className="Register">
             <form onSubmit={handleSubmit(postRegister)}>
-
+            <h1 className="PageTitles">Register</h1>
                 {(!errors.firstName) ? <label htmlFor="firstName">First Name</label> : <span>{errors.firstName.message}</span>}
                 <input {...register("firstName")} id="firstName" name="firstName" type="text" placeholder="First Name" />
                 {(!errors.lastName) ? <label htmlFor="lastName">Last Name</label> : <span>{errors.lastName.message}</span>}

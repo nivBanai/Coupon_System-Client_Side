@@ -31,7 +31,10 @@ function AddCompany(): JSX.Element {
         password:
             yup.string()
                 .required("password is required")
-                .min(5, "Password must be at least 5 characters")
+                .min(5, "Password must be at least 5 characters"),
+        profilePic:
+            yup.string()
+                .url("Invalid Url")
 
     });
 
@@ -54,13 +57,17 @@ function AddCompany(): JSX.Element {
         <div className="AddCompany">
             <form onSubmit={handleSubmit(postCompany)}>
 
+            <h1 className="PageTitles">Add Company</h1>
+
                 {(errors.name) ? <span>{errors.name?.message}</span> : <label htmlFor="name">Name</label>}
                 <input {...register("name")} id="name" name="name" type="text" placeholder="Name" />
                 {(errors.email) ? <span>{errors.email?.message}</span> : <label htmlFor="email">Email</label>}
                 <input {...register("email")} id="email" name="email" type="email" placeholder="Email" />
                 {(errors.password) ? <span>{errors.password?.message}</span> : <label htmlFor="password">Password</label>}
                 <input {...register("password")} id="password" name="password" type="password" placeholder="Password" />
-                
+                {(errors.profilePic) ? <span>{errors.profilePic?.message}</span> : <label htmlFor="profilePic">Profile Picture</label>}
+                <input {...register("profilePic")} id="profilePic" name="profilePic" type="text" placeholder="URL" />
+
                 <button disabled={!isValid}>Add Company</button>
 
             </form>

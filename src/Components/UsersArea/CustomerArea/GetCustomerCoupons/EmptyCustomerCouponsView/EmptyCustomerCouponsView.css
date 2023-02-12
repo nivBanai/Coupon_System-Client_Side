@@ -13,3 +13,7 @@
 .EmptyCustomerCouponsView  a{
 	color: royalblue;
 }
+
+.EmptyCustomerCouponsView  a:hover{
+	color: var(--borderColor);
+}

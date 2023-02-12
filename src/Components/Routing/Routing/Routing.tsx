@@ -11,7 +11,7 @@ import Page404 from "../../Pages/Page404/Page404";
 import AddCompany from "../../UsersArea/AdminArea/CompaniesSection/AddCompany/AddCompany";
 import DeleteCompany from "../../UsersArea/AdminArea/CompaniesSection/DeleteCompany/DeleteCompany";
 import GetAllCompanies from "../../UsersArea/AdminArea/CompaniesSection/GetAllCompanies/GetAllCompanies";
-import UpdateCompany from "../../UsersArea/AdminArea/CompaniesSection/UpdatedCompany/UpdateCompany";
+import UpdateCompany from "../../UsersArea/AdminArea/CompaniesSection/UpdateCompany/UpdateCompany";
 import AddCustomer from "../../UsersArea/AdminArea/CustomersSection/AddCustomer/AddCustomer";
 import DeleteCustomer from "../../UsersArea/AdminArea/CustomersSection/DeleteCustomer/DeleteCustomer";
 import GetAllCustomers from "../../UsersArea/AdminArea/CustomersSection/GetAllCustomers/GetAllCustomers";

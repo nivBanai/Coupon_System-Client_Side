@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .CardContainer {
@@ -35,4 +36,8 @@
     margin: 0;
     color: var(--borderColor);
     font-size: 23px;
+}
+
+.ProfileTitle{
+    font-size: 50px;
 }

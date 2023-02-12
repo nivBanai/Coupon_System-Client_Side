@@ -35,7 +35,10 @@ function AddCustomer(): JSX.Element {
         password:
             yup.string()
                 .required("password is required")
-                .min(5, "Password must be at least 5 characters")
+                .min(5, "Password must be at least 5 characters"),
+                profilePic:
+                yup.string()
+                    .url("Invalid Url")
 
     });
 
@@ -58,6 +61,8 @@ function AddCustomer(): JSX.Element {
         <div className="AddCustomer">
             <form onSubmit={handleSubmit(postCustomer)}>
 
+            <h1 className="PageTitles">Add Customer</h1>
+
                 {(errors.firstName) ? <span>{errors.firstName?.message}</span> : <label htmlFor="firstName">First Name</label>}
                 <input {...register("firstName")} id="firstName" name="firstName" type="text" placeholder="First Name" />
                 {(errors.lastName) ? <span>{errors.lastName?.message}</span> : <label htmlFor="lastName">Last Name</label>}
@@ -66,6 +71,8 @@ function AddCustomer(): JSX.Element {
                 <input {...register("email")} id="email" name="email" type="email" placeholder="Email" />
                 {(errors.password) ? <span>{errors.password?.message}</span> : <label htmlFor="password">Password</label>}
                 <input {...register("password")} id="password" name="password" type="password" placeholder="Password" />
+                {(errors.profilePic) ? <span>{errors.profilePic?.message}</span> : <label htmlFor="profilePic">Profile Picture</label>}
+                <input {...register("profilePic")} id="profilePic" name="profilePic" type="text" placeholder="URL" />
                 <button disabled={!isValid}>Add Customer</button>
 
             </form>
