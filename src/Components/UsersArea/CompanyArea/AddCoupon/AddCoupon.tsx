@@ -12,17 +12,12 @@ import { CouponPayloadModel } from "../../../../Models/Coupon";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
 import { addedCouponAction } from "../../../../Redux/AppStates/CompanyAppState";
 import notificationsService from "../../../../Services/NotificationsService";
+import { addedCompanyCouponAction } from "../../../../Redux/AppStates/CouponAppState";
 
 function AddCoupon(): JSX.Element {
 
     const navigate = useNavigate();
     const pricePattern = /^\d+(\.\d{2,2})?$/;
-
-    useEffect(() => {
-        if (!store.getState().userReducer.user.token) {
-            navigate("/login");
-        }
-    }, []);
 
     const priceValidator = yup.number()
         .required("price is required")
@@ -75,14 +70,25 @@ function AddCoupon(): JSX.Element {
             .url("Invalid Url")
     });
 
-    const { register, handleSubmit, formState: { errors, isDirty, isValid } } =
+    const { register, handleSubmit, clearErrors, watch, formState: { errors, isDirty, isValid } } =
         useForm<CouponPayloadModel>({ mode: "all", resolver: yupResolver(schema) });
+
+    const endDate = watch("endDate");
+    const startDate = watch("startDate");
+
+    useEffect(() => {
+        const startDateCheck = new Date(startDate);
+        if (startDate && startDateCheck > new Date() && new Date(endDate) > startDateCheck) {
+            clearErrors("startDate")
+        }
+    }, [endDate, startDate]);
 
 
     const postCoupon = async (coupon: CouponPayloadModel) => {
         await companyWebApi.addCoupon(coupon)
             .then(res => {
-                store.dispatch(addedCouponAction(res.data))
+                store.dispatch(addedCouponAction(res.data));
+                store.dispatch(addedCompanyCouponAction(res.data));
                 navigate("/companies/coupons");
             })
             .catch(err => {
@@ -111,7 +117,7 @@ function AddCoupon(): JSX.Element {
                 {(errors.description) ? <span>{errors.description?.message}</span> : <label htmlFor="description">Description</label>}
                 <input {...register("description")} id="description" name="description" type="text" placeholder="Description" />
 
-                {(errors.startDate) ? <span>{errors.endDate && errors.startDate?.message}</span> : <label htmlFor="startDate">Start Date</label>}
+                {(errors.startDate) ? <span>{errors.startDate?.message}</span> : <label htmlFor="startDate">Start Date</label>}
                 <input {...register("startDate")} id="startDate" name="startDate" type="date" />
 
                 {(errors.endDate) ? <span>{errors.endDate?.message}</span> : <label htmlFor="endDate">End Date</label>}
@@ -124,7 +130,7 @@ function AddCoupon(): JSX.Element {
                 <input {...register("price")} id="price" name="price" type="number" step=".01" placeholder="Price" />
 
                 {(errors.image) ? <span>{errors.image?.message}</span> : <label htmlFor="image">Image</label>}
-                <input {...register("image")} id="image" name="image" type="url" placeholder="Image" />
+                <input {...register("image")} id="image" name="image" type="url" placeholder="URL" />
 
                 <button disabled={!isValid}>Add Coupon</button>
 

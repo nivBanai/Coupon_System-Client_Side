@@ -6,6 +6,7 @@ import store from "../../../../Redux/Store";
 import notificationsService from "../../../../Services/NotificationsService";
 import customerWebApi from "../../../../Services/WebApi/CustomerWebApi";
 import utils from "../../../../Utils/Utils";
+import EmptyCustomerCouponsView from "./EmptyCustomerCouponsView/EmptyCustomerCouponsView";
 import "./GetCustomerCoupons.css";
 
 function GetCustomerCoupons(): JSX.Element {
@@ -142,7 +143,7 @@ function GetCustomerCoupons(): JSX.Element {
                         }
                     </>
 
-                    : <div></div>
+                    : <div><EmptyCustomerCouponsView/></div>
             }
         </div>
     );

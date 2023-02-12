@@ -6,6 +6,7 @@ export interface CustomerModel {
     lastName: string;
     email: string;
     password: string;
+    profilePic: string;
     coupons: CouponModel[];
 }
 
@@ -14,4 +15,5 @@ export interface CustomerPayloadModel {
     lastName: string;
     email: string;
     password: string;
+    profilePic: string;
 }

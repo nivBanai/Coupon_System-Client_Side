@@ -32,7 +32,7 @@ function PurchaseCoupon(): JSX.Element {
         <div className="PurchaseCoupon">
             <div id="purchaseValidationContainer">
                 <h2>Purchase Coupon #{coupToPurchase.id} ({coupToPurchase.title}) ?</h2>
-                <div className="boi">
+                <div className="DecisionButtonContainer">
                 <button className="decisionButton cancelButton" onClick={cancel}>Cancel</button>
                 <button className="decisionButton confirmButton" onClick={confirm}>Confirm</button>
                 </div>

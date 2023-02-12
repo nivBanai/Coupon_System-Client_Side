@@ -19,7 +19,7 @@
     padding: 20px;
 }
 
-.boi{
+.DecisionButtonContainer{
     display: flex;
     justify-content: space-between;
     width: 450px;

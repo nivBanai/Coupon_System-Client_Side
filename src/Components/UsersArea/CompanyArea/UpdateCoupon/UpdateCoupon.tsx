@@ -7,6 +7,7 @@ import { CompanyModel, CompanyPayloadModel } from "../../../../Models/Company";
 import { CouponModel, CouponPayloadModel } from "../../../../Models/Coupon";
 import { updatedCompanyAction } from "../../../../Redux/AppStates/AdminAppState";
 import { updatedCouponAction } from "../../../../Redux/AppStates/CompanyAppState";
+import { updatedCompanyCouponAction } from "../../../../Redux/AppStates/CouponAppState";
 import store from "../../../../Redux/Store";
 import notificationsService from "../../../../Services/NotificationsService";
 import adminWebApi from "../../../../Services/WebApi/AdminWebApi";
@@ -83,7 +84,8 @@ function UpdateCoupon(): JSX.Element {
     const putCoupon = async (coupon: CouponPayloadModel) => {
         await companyWebApi.updateCoupon(id, coupon)
             .then(res => {
-                store.dispatch(updatedCouponAction(res.data))
+                store.dispatch(updatedCouponAction(res.data));
+                store.dispatch(updatedCompanyCouponAction(res.data));
                 navigate("/companies/coupons");
             })
             .catch(err => {

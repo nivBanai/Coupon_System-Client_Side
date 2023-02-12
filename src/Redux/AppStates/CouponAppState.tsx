@@ -8,6 +8,9 @@ export class CouponAppState {
 // Step 2 - define all required actions
 export enum ActionType {
     GOT_ALL_COUPONS = "GOT_ALL_COUPONS",
+    COMPANY_ADDED_COUPON = "COMPANY_ADDED_COUPON",
+    COMPANY_UPDATED_COUPON = "COMPANY_UPDATED_COUPON",
+    COMPANY_DELETED_COUPON = "COMPANY_DELETED_COUPON",
     DELETED_COMPANY_COUPONS = "DELETED_COMPANY_COUPONS"
 };
 
@@ -25,6 +28,30 @@ export function gotAllCouponsAction(coupons: CouponModel[]): CouponAction {
     };
 }
 
+export function addedCompanyCouponAction(coupon: CouponModel): CouponAction {
+    return {
+        type: ActionType.COMPANY_ADDED_COUPON,
+        payload: coupon
+    };
+}
+
+export function updatedCompanyCouponAction(coupon: CouponModel): CouponAction {
+    return {
+        type: ActionType.COMPANY_UPDATED_COUPON,
+        payload: coupon
+    };
+}
+
+
+export function deletedCompanyCouponAction(id: number): CouponAction {
+    return {
+        type: ActionType.COMPANY_DELETED_COUPON,
+        payload: id
+    };
+}
+
+
+
 export function deletedCompanyCouponsAction(coupons: CouponModel[]): CouponAction {
     return {
         type: ActionType.DELETED_COMPANY_COUPONS,
@@ -41,6 +68,22 @@ export function couponReducer(currentState: CouponAppState = new CouponAppState(
 
         case ActionType.GOT_ALL_COUPONS: {
             newState.allCoupons = action.payload;
+            break;
+        }
+
+        case ActionType.COMPANY_ADDED_COUPON: {
+            newState.allCoupons.push(action.payload);
+            break;
+        }
+
+        case ActionType.COMPANY_UPDATED_COUPON: {
+            const idx = newState.allCoupons.findIndex(coup => coup.id === action.payload.id);
+            newState.allCoupons[idx] = action.payload;
+            break;
+        }
+
+        case ActionType.COMPANY_DELETED_COUPON: {
+            newState.allCoupons = newState.allCoupons.filter(coup => coup.id !== action.payload);
             break;
         }
 

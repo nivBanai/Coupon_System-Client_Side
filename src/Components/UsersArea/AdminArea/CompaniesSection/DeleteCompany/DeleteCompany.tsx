@@ -33,12 +33,12 @@ function DeleteCompany(): JSX.Element {
 
     return (
         <div className="DeleteCompany">
-            <div>
-                <p>Are you sure you want to delete {company.name} ?</p>
-            </div>
-            <div>
-                <button onClick={cancel}>Cancel</button>
-                <button onClick={confirm}>Confirm</button>
+            <div id="deleteValidationContainer">
+                <h2>Delete Company #{company.id} - {company.name} ?</h2>
+                <div className="DecisionButtonContainer">
+                    <button className="decisionButton cancelButton" onClick={cancel}>Cancel</button>
+                    <button className="decisionButton confirmButton" onClick={confirm}>Confirm</button>
+                </div>
             </div>
         </div>
     );

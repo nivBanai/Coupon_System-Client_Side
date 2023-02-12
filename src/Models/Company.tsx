@@ -5,6 +5,7 @@ export interface CompanyModel {
     name: string;
     email: string;
     password: string;
+    profilePic: string;
     coupons: CouponModel[];
 }
 
@@ -12,4 +13,5 @@ export interface CompanyPayloadModel {
     name: string;
     email: string;
     password: string;
+    profilePic: string;
 }

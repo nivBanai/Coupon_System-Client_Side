@@ -5,6 +5,8 @@ import { gotAllCompaniesAction } from "../../../../../Redux/AppStates/AdminAppSt
 import store from "../../../../../Redux/Store";
 import notificationsService from "../../../../../Services/NotificationsService";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
+import { TbEdit } from "react-icons/tb";
+import { ImBin2 } from "react-icons/im";
 import "./GetAllCompanies.css";
 
 function GetAllCompanies(): JSX.Element {
@@ -65,29 +67,34 @@ function GetAllCompanies(): JSX.Element {
                 (companies?.length > 0 || originalCompanies?.length > 0) ?
 
                     <>
-                        <span>Search</span>
-                        <input onChange={(val) => setSearch(val.target.value)} id="search" name="search" type="text" placeholder="search" />
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Actions</th>
-                                    <span>{search}</span>
-                                </tr>
-                                {companies.map((comp, idx) => <tr key={idx}>
-                                    <td>{comp.id})</td>
-                                    <td>{comp.name}</td>
-                                    <td>{comp.email}</td>
-                                    <td>
-                                        <button onClick={() => deleteCompany(comp.id)}>Delete</button>
-                                        <button onClick={() => updateCompany(comp.id)}>Update</button>
-                                    </td>
-                                </tr>)}
-                            </tbody>
-                        </table>
-                        <button onClick={() => addCompany()}>Add Company</button>
+                        <div className="companiesSearchBar">
+                            <input onChange={(val) => setSearch(val.target.value)} id="search" name="search" type="text" placeholder="Search in companies" />
+                        </div>
+
+                        <div className="TableContainer">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    {companies.map((comp, idx) => <tr key={idx}>
+                                        <td>{comp.id})</td>
+                                        <td><img src={comp.profilePic} alt="N/A" />{comp.name}</td>
+                                        <td>{comp.email}</td>
+                                        <td>
+                                            <button onClick={() => updateCompany(comp.id)}><TbEdit size={40} /></button>
+                                            <button onClick={() => deleteCompany(comp.id)}><ImBin2 size={40} /></button>
+                                        </td>
+                                    </tr>)}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="addCompanyButtonContainer">
+                            <button id="addCompanyButton" onClick={() => addCompany()}>Add Company</button>
+                        </div>
                     </>
                     : <div></div>
             }
