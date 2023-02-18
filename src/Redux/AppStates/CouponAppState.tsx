@@ -3,6 +3,7 @@ import { CouponModel } from "../../Models/Coupon";
 export class CouponAppState {
     // Step 1 - create the app state object
     public allCoupons: CouponModel[] = [];
+    public almostOutOfStockCoupons: CouponModel[] = [];
 }
 
 // Step 2 - define all required actions
@@ -11,7 +12,9 @@ export enum ActionType {
     COMPANY_ADDED_COUPON = "COMPANY_ADDED_COUPON",
     COMPANY_UPDATED_COUPON = "COMPANY_UPDATED_COUPON",
     COMPANY_DELETED_COUPON = "COMPANY_DELETED_COUPON",
-    DELETED_COMPANY_COUPONS = "DELETED_COMPANY_COUPONS"
+    CUSTOMER_PURCHASED_COUPON = "CUSTOMER_PURCHASED_COUPON",
+    DELETED_COMPANY_COUPONS = "DELETED_COMPANY_COUPONS",
+    GOT_ALMOST_OUT_OF_STOCK_COUPONS = "GOT_ALMOST_OUT_OF_STOCK_COUPONS"
 };
 
 // Step 3 - define what is action in terms of data
@@ -42,6 +45,13 @@ export function updatedCompanyCouponAction(coupon: CouponModel): CouponAction {
     };
 }
 
+export function purchasedCustomerCouponAction(coupon: CouponModel): CouponAction {
+    return {
+        type: ActionType.CUSTOMER_PURCHASED_COUPON,
+        payload: coupon
+    };
+}
+
 
 export function deletedCompanyCouponAction(id: number): CouponAction {
     return {
@@ -50,11 +60,16 @@ export function deletedCompanyCouponAction(id: number): CouponAction {
     };
 }
 
-
-
 export function deletedCompanyCouponsAction(coupons: CouponModel[]): CouponAction {
     return {
         type: ActionType.DELETED_COMPANY_COUPONS,
+        payload: coupons
+    };
+}
+
+export function gotAlmostOutOfStockCouponsAction(coupons: CouponModel[]): CouponAction {
+    return {
+        type: ActionType.GOT_ALMOST_OUT_OF_STOCK_COUPONS,
         payload: coupons
     };
 }
@@ -87,8 +102,23 @@ export function couponReducer(currentState: CouponAppState = new CouponAppState(
             break;
         }
 
+        case ActionType.CUSTOMER_PURCHASED_COUPON: {
+            if (newState.almostOutOfStockCoupons.map(coup => coup.id).includes(action.payload.id)) {
+                const idx = newState.almostOutOfStockCoupons.findIndex(coup => coup.id === action.payload.id);
+                newState.almostOutOfStockCoupons[idx] = action.payload;
+            }
+            const idx = newState.allCoupons.findIndex(coup => coup.id === action.payload.id);
+            newState.allCoupons[idx] = action.payload;
+            break;
+        }
+
         case ActionType.DELETED_COMPANY_COUPONS: {
-            newState.allCoupons = newState.allCoupons.filter(coupon => !action.payload.map((coup: { id: number}) => coup.id).includes(coupon.id));
+            newState.allCoupons = newState.allCoupons.filter(coupon => !action.payload.map((coup: { id: number }) => coup.id).includes(coupon.id));
+            break;
+        }
+
+        case ActionType.GOT_ALMOST_OUT_OF_STOCK_COUPONS: {
+            newState.almostOutOfStockCoupons = action.payload;
             break;
         }
     }

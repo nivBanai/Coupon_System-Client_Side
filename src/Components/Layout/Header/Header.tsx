@@ -8,7 +8,7 @@ function Header(): JSX.Element {
 
             <div></div>
             <Link to={"/home"}>
-            <h1 >Couponology</h1>
+                <h1>Savvy Super Saver</h1>
             </Link>
             <AuthMenu />
         </div>

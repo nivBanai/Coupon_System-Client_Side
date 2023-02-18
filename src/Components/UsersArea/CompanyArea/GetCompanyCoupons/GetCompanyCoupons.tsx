@@ -151,7 +151,7 @@ function GetCompanyCoupons(): JSX.Element {
                                         <p className="couponHeaderItems ownedCouponIdTitle">#{originalCoupons.indexOf(coup) + 1}</p>
                                         <h2 className="couponHeaderItems">{coup.title}</h2>
                                     </div>
-                                    <p><img src={"https://images.immediate.co.uk/production/volatile/sites/30/2022/08/Corndogs-7832ef6.jpg?quality=90&resize=556,505"} alt="N/A" /></p>
+                                    <p><img className="CouponImg" src={coup.image} alt="N/A" /></p>
 
                                     <p className="couponItem" id="displayCategory"> {utils.fixedCategory(coup.category)}</p>
 
@@ -161,12 +161,12 @@ function GetCompanyCoupons(): JSX.Element {
 
 
                                     <p className="couponItem" id="displayDate"> {utils.fixedDate(coup.startDate)} - {utils.fixedDate(coup.endDate)}</p>
-                                    <p className="couponItem " id="displayAmount" >
+                                    <div className="couponItem " id="displayAmount" >
                                         {(coup.amount > 0) ?
                                             <p className={(coup.amount > 5) ? "displayGreenAmount" : "displayOrangeAmount"}>{coup.amount} Left</p>
                                             : <p className="displayRedAmount"> Out Of Stock</p>
                                         }
-                                    </p>
+                                    </div>
                                     <div id="companyCouponFooter">
                                         <p className="displayOwnedCouponPrice">
                                             {coup.price} &#x20AA;

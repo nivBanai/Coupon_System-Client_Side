@@ -1,6 +1,6 @@
 .Menu {
 	grid-column: 3 span;
-    grid-row: 18 span;
+    grid-row: 15 span;
     background-color: var(--tertiaryColor);
     display: flex;
     flex-direction: column;

@@ -1,3 +1,33 @@
 .Page404 {
-	
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Page404 img {
+    height: 400px;
+    width: 700px;
+    border-radius: 30px;
+}
+
+.Page404>a {
+    padding: 5px;
+    margin-top: 20px;
+    font-size: x-large;
+    color: var(--textColor);
+    text-decoration: none;
+    background-color: var(--secondaryColor);
+}
+
+.Page404>a:hover {
+    color: var(--borderColor);
+    text-decoration: none;
+    background-color: var(--secondaryColor);
+}
+
+#error404 {
+    font-size: 50px;
 }

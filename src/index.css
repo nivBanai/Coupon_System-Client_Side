@@ -37,6 +37,10 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.CouponImg{
+  border-radius: 15%;
+}
+
 /* .Toastify__toast--success {
     background-color: green;
     color: white;

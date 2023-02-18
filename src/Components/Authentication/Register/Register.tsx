@@ -7,6 +7,8 @@ import notificationsService from "../../../Services/NotificationsService";
 import loginWebApi from "../../../Services/WebApi/LoginWebApi";
 import { useNavigate } from "react-router-dom";
 import { CustomerPayloadModel } from "../../../Models/Customer";
+import { min } from "moment";
+import { toast } from "react-toastify";
 
 function Register(): JSX.Element {
 
@@ -26,7 +28,8 @@ function Register(): JSX.Element {
                 .required("Email is required"),
         password:
             yup.string()
-                .required("Password is required"),
+                .required("Password is required")
+                .min(5, "a minimum of 5 characters are required"),
         confirmPassword:
             yup.string()
                 .oneOf([yup.ref('password')], 'Passwords must match')
@@ -40,8 +43,17 @@ function Register(): JSX.Element {
         useForm<RegisterModel>({ mode: "all", resolver: yupResolver(schema) });
 
     const postRegister = async (customer: CustomerPayloadModel) => {
-        await loginWebApi.register(customer).then(res => {
-            notificationsService.successNotification("Registered Successfully")
+        await loginWebApi.register(customer).then(() => {
+            toast.success(<div>Registered Successfully!<br />Please Login</div>, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark"
+            });
             navigate("/login")
         }).catch(err => {
             notificationsService.errorNotification(err.response.data.value);
@@ -51,7 +63,7 @@ function Register(): JSX.Element {
     return (
         <div className="Register">
             <form onSubmit={handleSubmit(postRegister)}>
-            <h1 className="PageTitles">Register</h1>
+                <h1 className="PageTitles">Register</h1>
                 {(!errors.firstName) ? <label htmlFor="firstName">First Name</label> : <span>{errors.firstName.message}</span>}
                 <input {...register("firstName")} id="firstName" name="firstName" type="text" placeholder="First Name" />
                 {(!errors.lastName) ? <label htmlFor="lastName">Last Name</label> : <span>{errors.lastName.message}</span>}

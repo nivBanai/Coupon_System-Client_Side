@@ -14,6 +14,10 @@ class CouponWebApi {
     public purchaseCoupon(id: number): Promise<AxiosResponse<CouponModel>> {
         return tokenAxios.post<CouponModel>(this.couponApi + "/purchase/" + id);
     }
+
+    public getAlmostOutOfStockCoupons(): Promise<AxiosResponse<CouponModel[]>> {
+        return tokenAxios.get<CouponModel[]>(this.couponApi + "/sort/amount/asc");
+    }
 }
 
 const couponWebApi = new CouponWebApi();

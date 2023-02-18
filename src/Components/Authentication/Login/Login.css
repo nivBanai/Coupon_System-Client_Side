@@ -68,3 +68,15 @@
     /* text-decoration: underline 5px var(--primaryColor); */
     border-bottom: 5px solid var(--primaryColor);
 }
+
+#registerOption{
+    margin-top: 20px;
+}
+
+#registerOption > a{
+    color: rgb(93, 95, 222);
+}
+
+#registerOption > a:hover{
+    color: var(--borderColor)
+}

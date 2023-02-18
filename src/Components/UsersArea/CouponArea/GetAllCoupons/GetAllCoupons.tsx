@@ -6,6 +6,7 @@ import store from "../../../../Redux/Store";
 import notificationsService from "../../../../Services/NotificationsService";
 import couponWebApi from "../../../../Services/WebApi/CouponWebApi";
 import utils from "../../../../Utils/Utils";
+import EmptyCouponsView from "./EmptyCouponsView/EmptyCouponsView";
 import "./GetAllCoupons.css";
 
 function GetAllCoupons(): JSX.Element {
@@ -116,7 +117,7 @@ function GetAllCoupons(): JSX.Element {
                                         <p className="couponHeaderItems" id="idTitle">#{coup.id}</p>
                                         <h2 className="couponHeaderItems" >{coup.title}</h2>
                                     </div>
-                                    <p><img src={"https://images.immediate.co.uk/production/volatile/sites/30/2022/08/Corndogs-7832ef6.jpg?quality=90&resize=556,505"} alt="N/A" /></p>
+                                    <p><img className="CouponImg" src={coup.image} alt="N/A" /></p>
                                     {/* <span className="itemHeader">Category:</span> */}
                                     <p className="couponItem" id="displayCategory"> {utils.fixedCategory(coup.category)}</p>
 
@@ -131,12 +132,12 @@ function GetAllCoupons(): JSX.Element {
                                     {/* <span className="itemHeader">Duration:</span> */}
                                     <p className="couponItem" id="displayDate"> {utils.fixedDate(coup.startDate)} - {utils.fixedDate(coup.endDate)}</p>
                                     {/* <span className="itemHeader">Amount:</span> */}
-                                    <p className="couponItem " id="displayAmount" >
+                                    <div className="couponItem " id="displayAmount" >
                                         {(coup.amount > 0) ?
                                             <p className={(coup.amount > 5) ? "displayGreenAmount" : "displayOrangeAmount"}>{coup.amount} Left</p>
                                             : <p className="displayRedAmount"> Out Of Stock</p>
                                         }
-                                    </p>
+                                    </div>
                                     <div id="couponFooter">
                                         <p id="displayPrice">
                                             {coup.price} &#x20AA;
@@ -154,7 +155,7 @@ function GetAllCoupons(): JSX.Element {
                         </div>
                     </>
 
-                    : <div>No Coupons</div>
+                    : <EmptyCouponsView />
             }
         </div>
     );

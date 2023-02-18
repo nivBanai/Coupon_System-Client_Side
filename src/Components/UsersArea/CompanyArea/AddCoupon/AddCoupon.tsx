@@ -41,10 +41,12 @@ function AddCoupon(): JSX.Element {
                 .required("category is required"),
 
         title: yup.string()
-            .required("title is required"),
+            .required("title is required")
+            .max(35, "Max length of a title is 35 characters"),
 
         description: yup.string()
-            .required("description is required"),
+            .required("description is required")
+            .max(120, "Max length of a description is 120 characters"),
 
         startDate: yup.date()
             .required("start date is required")

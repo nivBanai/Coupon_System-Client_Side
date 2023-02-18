@@ -6,7 +6,7 @@ import { ActiveUser, LoginModel } from "../../../Models/Auth";
 import store from "../../../Redux/Store";
 import { loggedIn } from "../../../Redux/AppStates/UserAppState";
 import loginWebApi from "../../../Services/WebApi/LoginWebApi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import notificationsService from "../../../Services/NotificationsService";
 
@@ -89,6 +89,7 @@ function Login(): JSX.Element {
                     </div>
                 </div>
                 <button disabled={!isValid}>Login</button>
+                <div id="registerOption">Don't own an account? <Link to={"/register"}>Register here</Link></div>
 
             </form>
         </div>
