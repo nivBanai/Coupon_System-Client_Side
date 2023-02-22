@@ -27,7 +27,7 @@ function DeleteCompany(): JSX.Element {
 
     const cancel = async () => {
         navigate("/companies");
-    }
+    };
 
     return (
         <div className="DeleteCompany FlexColPage">

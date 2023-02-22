@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { CouponModel } from "../../../../Models/Coupon";
 import { gotAllCustomerCouponsAction } from "../../../../Redux/AppStates/CustomerAppState";
 import store from "../../../../Redux/Store";

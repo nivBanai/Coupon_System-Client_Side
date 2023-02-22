@@ -29,7 +29,7 @@ function AddCoupon(): JSX.Element {
                 }
                 return true;
             }
-        )
+        );
 
     const schema = yup.object().shape({
 

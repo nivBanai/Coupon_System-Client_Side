@@ -68,7 +68,7 @@ function Login(): JSX.Element {
             .catch(err => {
                 notificationsService.errorNotification(err.response.data.value);
             });
-    }
+    };
 
     return (
         <div className="Login FlexColPage">

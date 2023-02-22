@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ActiveUser, User } from "../../../Models/Auth";
+import { Link } from "react-router-dom";
+import { ActiveUser } from "../../../Models/Auth";
 import store from "../../../Redux/Store";
 import authUtils from "../../../Utils/AuthUtils";
-import utils from "../../../Utils/StringUtils";
 import "./AuthMenu.css";
 
 function AuthMenu(): JSX.Element {
@@ -14,7 +13,7 @@ function AuthMenu(): JSX.Element {
 
     const hideMenu = () => {
         setShowMenu(false);
-    }
+    };
 
     useEffect(() => {
         return store.subscribe(() => setUser(store.getState().userReducer.user));
@@ -26,7 +25,7 @@ function AuthMenu(): JSX.Element {
             if (!showMenu) return;
             if (ref.current && !ref.current.contains(event.target as Node)) {
                 hideMenu();
-            }
+            };
         };
 
         document.addEventListener("click", handleClickOutside);

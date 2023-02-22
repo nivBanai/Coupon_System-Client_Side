@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { deletedCompanyAction, deletedCustomerAction } from "../../../../../Redux/AppStates/AdminAppState";
+import { deletedCustomerAction } from "../../../../../Redux/AppStates/AdminAppState";
 import store from "../../../../../Redux/Store";
 import notificationsService from "../../../../../Services/NotificationsService";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";

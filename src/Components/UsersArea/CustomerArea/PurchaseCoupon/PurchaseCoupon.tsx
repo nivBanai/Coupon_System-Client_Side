@@ -12,7 +12,7 @@ function PurchaseCoupon(): JSX.Element {
 
     const navigate = useNavigate();
     const params = useParams();
-    const id = +(params.id || 0)
+    const id = +(params.id || 0);
     const [coupToPurchase, setCoupToPurchase] = useState<CouponModel>();
 
     useEffect(() => {

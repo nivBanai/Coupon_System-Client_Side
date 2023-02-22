@@ -68,7 +68,7 @@ function Register(): JSX.Element {
             .catch(err => {
                 notificationsService.errorNotification(err.response.data.value);
             });
-    }
+    };
 
     return (
         <div className="Register FlexColPage">

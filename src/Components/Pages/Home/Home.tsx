@@ -17,7 +17,7 @@ function Home(): JSX.Element {
 
     const purchaseCoupon = (id: number) => {
         navigate("/coupons/purchase/" + id);
-    }
+    };
 
     useEffect(() => {
         if (coupons.length === 0) {
