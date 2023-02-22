@@ -7,14 +7,17 @@ function EmptyCompaniesView(): JSX.Element {
 
     const addCompany = () => {
         navigate("add");
-    }
+    };
 
     return (
-        <div className="EmptyCompaniesView">
-			<h1>There Are No Companies Currently</h1>
-            <div id="addCouponButtonContainer">
-                <button id="addCouponButton" onClick={() => addCompany()}>Add Company</button>
+        <div className="EmptyCompaniesView EmptyUserView">
+
+            <h1>There Are No Companies Currently</h1>
+
+            <div className="AddUserButtonContainer">
+                <button className="AddUserButton" onClick={() => addCompany()}>Add Company</button>
             </div>
+
         </div>
     );
 }

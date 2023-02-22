@@ -1,22 +1,19 @@
-import { ActiveUser, User } from '../../Models/Auth';
+import { ActiveUser } from '../../Models/Auth';
+
 export class UserAppState {
-    // Step 1 - Define User global App State
     public user: ActiveUser = { token: "", name: "", clientType: "", profilePic: "" };
 }
 
-// Step 2 - Define all actions
 export enum ActionType {
     LOGGED_IN = "LOGGED_IN",
     LOGGED_OUT = "LOGGED_OUT"
 }
 
-// Step 3 - define what is action in terms of data
 export interface UserAction {
     type: ActionType;
     payload: any;
 }
 
-// Step 4- create creator function
 export function loggedIn(user: ActiveUser): UserAction {
     return {
         type: ActionType.LOGGED_IN,
@@ -31,7 +28,6 @@ export function loggedOut(): UserAction {
     }
 }
 
-// Step 5 - Reducer function perform the required action
 export function userReducer(currentState: UserAppState = new UserAppState(), action: UserAction): UserAppState {
     const newState = { ...currentState }
     switch (action.type) {
@@ -43,7 +39,7 @@ export function userReducer(currentState: UserAppState = new UserAppState(), act
 
         }
         case ActionType.LOGGED_OUT: {
-            newState.user = { token: "", name: "", clientType: "", profilePic:""};
+            newState.user = { token: "", name: "", clientType: "", profilePic: "" };
             break;
         }
     }

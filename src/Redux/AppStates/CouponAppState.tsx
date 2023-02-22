@@ -1,12 +1,10 @@
 import { CouponModel } from "../../Models/Coupon";
 
 export class CouponAppState {
-    // Step 1 - create the app state object
     public allCoupons: CouponModel[] = [];
     public almostOutOfStockCoupons: CouponModel[] = [];
 }
 
-// Step 2 - define all required actions
 export enum ActionType {
     GOT_ALL_COUPONS = "GOT_ALL_COUPONS",
     COMPANY_ADDED_COUPON = "COMPANY_ADDED_COUPON",
@@ -17,13 +15,11 @@ export enum ActionType {
     GOT_ALMOST_OUT_OF_STOCK_COUPONS = "GOT_ALMOST_OUT_OF_STOCK_COUPONS"
 };
 
-// Step 3 - define what is action in terms of data
 export interface CouponAction {
     type: ActionType;
     payload: any;
 }
 
-// Step 4 - creator functions - gets payload regarding the action
 export function gotAllCouponsAction(coupons: CouponModel[]): CouponAction {
     return {
         type: ActionType.GOT_ALL_COUPONS,
@@ -74,7 +70,6 @@ export function gotAlmostOutOfStockCouponsAction(coupons: CouponModel[]): Coupon
     };
 }
 
-// Step 5 - Reducer function perform the required action
 export function couponReducer(currentState: CouponAppState = new CouponAppState(), action: CouponAction): CouponAppState {
 
     const newState = { ...currentState };

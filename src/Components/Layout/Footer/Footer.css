@@ -2,16 +2,15 @@
     grid-column: 3 span;
     grid-row: 3 span;
     background-color: var(--tertiaryColor);
-    /* border-top: 3px solid var(--borderColor); */
     display: flex;
     justify-content: center;
     align-items: flex-end;
 }
 
-.Footer>div {
+.Footer div {
     margin: 20px;
 }
 
-.Footer>div>a {
+.Footer div a {
     color: black;
 }

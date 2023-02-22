@@ -1,15 +1,1 @@
-.EmptyCompanyCouponsView {
-    height: 700px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.EmptyCompanyCouponsView>h1 {
-    font-size: 50px;
-}
-
-.EmptyCompanyCouponsView a {
-    color: royalblue;
-}
+.EmptyCompanyCouponsView {}

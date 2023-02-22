@@ -1,6 +1,6 @@
 import moment from "moment";
 
-class Utils {
+class StringUtils {
 
     public fixedCategory(category: string): string {
         category = category.toLowerCase();
@@ -13,5 +13,5 @@ class Utils {
     }
 }
 
-const utils = new Utils();
-export default utils;
+const stringUtils = new StringUtils();
+export default stringUtils;

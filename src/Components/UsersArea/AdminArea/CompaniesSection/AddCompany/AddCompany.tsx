@@ -23,22 +23,24 @@ function AddCompany(): JSX.Element {
     const schema = yup.object().shape({
         name:
             yup.string()
-                .required("name is required"),
+                .required("Name is required"),
+
         email:
             yup.string()
                 .email("Invalid email pattern")
-                .required("email is required"),
+                .required("Email is required"),
+
         password:
             yup.string()
-                .required("password is required")
-                .min(5, "Password must be at least 5 characters"),
+                .required("Password is required")
+                .min(5, "Password must contain a minimum of 5 characters"),
+
         profilePic:
             yup.string()
                 .url("Invalid Url")
-
     });
 
-    const { register, handleSubmit, formState: { errors, isDirty, isValid } } =
+    const { register, handleSubmit, formState: { errors, isValid } } =
         useForm<CompanyPayloadModel>({ mode: "all", resolver: yupResolver(schema) });
 
 
@@ -50,25 +52,29 @@ function AddCompany(): JSX.Element {
             })
             .catch(err => {
                 notificationsService.errorNotification(err.response.data.value);
-            })
-    }
+            });
+    };
 
     return (
-        <div className="AddCompany">
+        <div className="AddCompany FlexColPage">
+
             <form onSubmit={handleSubmit(postCompany)}>
 
-            <h1 className="PageTitles">Add Company</h1>
+                <h1 className="PageTitles">Add Company</h1>
 
-                {(errors.name) ? <span>{errors.name?.message}</span> : <label htmlFor="name">Name</label>}
-                <input {...register("name")} id="name" name="name" type="text" placeholder="Name" />
-                {(errors.email) ? <span>{errors.email?.message}</span> : <label htmlFor="email">Email</label>}
-                <input {...register("email")} id="email" name="email" type="email" placeholder="Email" />
-                {(errors.password) ? <span>{errors.password?.message}</span> : <label htmlFor="password">Password</label>}
-                <input {...register("password")} id="password" name="password" type="password" placeholder="Password" />
-                {(errors.profilePic) ? <span>{errors.profilePic?.message}</span> : <label htmlFor="profilePic">Profile Picture</label>}
-                <input {...register("profilePic")} id="profilePic" name="profilePic" type="text" placeholder="URL" />
+                {(!errors.name) ? <label className="XLargeTxt" htmlFor="name">Name</label> : <span className="ErrorSpan XLargeTxt">{errors.name?.message}</span>}
+                <input {...register("name")} className="AddFormInput" id="name" name="name" type="text" placeholder="Name" />
 
-                <button disabled={!isValid}>Add Company</button>
+                {(!errors.email) ? <label className="XLargeTxt" htmlFor="email">Email</label> : <span className="ErrorSpan XLargeTxt">{errors.email?.message}</span>}
+                <input {...register("email")} className="AddFormInput" id="email" name="email" type="email" placeholder="Email" />
+
+                {(!errors.password) ? <label className="XLargeTxt" htmlFor="password">Password</label> : <span className="ErrorSpan XLargeTxt">{errors.password?.message}</span>}
+                <input {...register("password")} className="AddFormInput" id="password" name="password" type="password" placeholder="Password" />
+
+                {(!errors.profilePic) ? <label className="XLargeTxt" htmlFor="profilePic">Profile Picture</label> : <span className="ErrorSpan XLargeTxt">{errors.profilePic?.message}</span>}
+                <input {...register("profilePic")} className="AddFormInput" id="profilePic" name="profilePic" type="text" placeholder="URL" />
+
+                <button className="AddFormButton" disabled={!isValid}>Add Company</button>
 
             </form>
         </div>

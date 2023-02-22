@@ -25,10 +25,6 @@ class AdminWebApi {
         return tokenAxios.get<CompanyModel[]>(this.companyApi);
     }
 
-    // public getSingleCompanies(id: number): Promise<AxiosResponse<CompanyModel>> {
-    //     return tokenAxios.get<CompanyModel>(this.companyApi + "/" + id);
-    // }
-
     public addCustomer(customer: CustomerPayloadModel): Promise<AxiosResponse<CustomerModel>> {
         return tokenAxios.post<CustomerModel>(this.customerApi, customer);
     }
@@ -44,10 +40,6 @@ class AdminWebApi {
     public getAllCustomers(): Promise<AxiosResponse<CustomerModel[]>> {
         return tokenAxios.get<CustomerModel[]>(this.customerApi);
     }
-
-    // public getSingleCustomer(id: number): Promise<AxiosResponse<CompanyModel>> {
-    //     return tokenAxios.get<CompanyModel>(this.companyApi + "/" + id);
-    // }
 }
 
 const adminWebApi = new AdminWebApi();

@@ -1,50 +1,16 @@
-.UpdateCompany {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-}
+.UpdateCompany {}
 
 .UpdateCompany form {
     border-radius: 25px;
     width: 600px;
     font-size: large;
-    background-color: var(--tertiaryColor) ;
+    background-color: var(--tertiaryColor);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 50px -50px 25px 15px  var(--borderColor) ;
+    box-shadow: 50px -50px 25px 15px var(--borderColor);
     padding: 10px;
     margin-top: 50px;
-   
-}
 
-.UpdateCompany form label, .UpdateCompany form span {
-    font-size: x-large;
-}
-
-.UpdateCompany form  span {
-    color: var(--errorColor) ;
-}
-
-.UpdateCompany form input {
-     text-align: center;
-    margin-bottom: 20px;
-    border-radius: 20px;
-}
-
-.UpdateCompany  form  button, .UpdateCompany form input{
-   height: 40px;
-   width: 400px;
-   font-size: larger;
-   border-radius: 20px;
-}
-
-.UpdateCompany > form > button:hover:enabled {
-   background-color: var(--primaryColor);
-   color: aliceblue;
 }

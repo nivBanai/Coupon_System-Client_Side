@@ -1,5 +1,4 @@
 import { AxiosResponse } from "axios";
-import { CompanyModel, CompanyPayloadModel } from "../../Models/Company";
 import { CouponModel, CouponPayloadModel } from "../../Models/Coupon";
 import { CustomerModel } from "../../Models/Customer";
 import tokenAxios from "../AxiosToken";

@@ -7,10 +7,10 @@ import "./DeleteCustomer.css";
 
 function DeleteCustomer(): JSX.Element {
 
+    const navigate = useNavigate();
     const params = useParams();
     const id = +(params.id || 0);
     const customer = store.getState().adminReducer.customers.filter(cus => cus.id === id)[0];
-    const navigate = useNavigate();
 
     const confirm = async () => {
         adminWebApi.deleteCustomer(id)
@@ -20,22 +20,27 @@ function DeleteCustomer(): JSX.Element {
             })
             .catch(err => {
                 notificationsService.errorNotification(err.response.data.message);
-            })
-    }
+            });
+    };
 
     const cancel = async () => {
         navigate("/customers");
-    }
+    };
 
     return (
-        <div className="DeleteCustomer">
-            <div id="deleteValidationContainer">
-                <h2>Delete Company #{customer.id} - {customer.lastName} {customer.firstName} ?</h2>
+        <div className="DeleteCustomer FlexColPage">
+
+            <div className="DeleteValidationContainer">
+
+                <h2>Delete Customer #{customer.id} - {customer.lastName} {customer.firstName} ?</h2>
+
                 <div className="DecisionButtonContainer">
-                    <button className="decisionButton cancelButton" onClick={cancel}>Cancel</button>
-                    <button className="decisionButton confirmButton" onClick={confirm}>Confirm</button>
+                    <button className="DecisionButton CancelButton" onClick={cancel}>Cancel</button>
+                    <button className="DecisionButton ConfirmButton" onClick={confirm}>Confirm</button>
                 </div>
+
             </div>
+
         </div>
     );
 }

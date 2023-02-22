@@ -1,9 +1,9 @@
 .AuthMenu {
-    margin-right: 40px;
     width: 250px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-right: 40px;
 }
 
 .AuthMenu img {
@@ -18,13 +18,13 @@
 }
 
 .AuthMenu a {
-    color: white;
+    color: var(--textColor);
     font-size: large;
     text-decoration: none;
 }
 
 .AuthMenu a:hover {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .AuthMenu li {
@@ -32,34 +32,24 @@
     border-bottom: 2px solid var(--borderColor);
 }
 
-/* .dropdown {
-    display: inline-block;
-} */
-
-.DropdownButton {
-    background-color: var(--secondaryColor);
-    cursor: pointer;
-    border: 0;
-}
-
-.DropdownMenu {
+#dropDownMenu {
     height: 110px;
     width: 60px;
     margin-top: 18px;
     position: absolute;
     background-color: var(--primaryColor);
     border: 2px solid var(--borderColor);
-    /* border-radius: 5px; */
-    border-top-right-radius: 20px ;
-    border-bottom-left-radius: 20px ;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
     padding: 10px;
     list-style: none;
     margin-right: 100px;
-    right:  -74px; /* add this line */
+    right: -74px;
     text-align: center;
 }
 
-
-/* .dropdown-menu {
-    display: block;
-} */
+#dropDownButton {
+    background-color: var(--secondaryColor);
+    cursor: pointer;
+    border: 0;
+}

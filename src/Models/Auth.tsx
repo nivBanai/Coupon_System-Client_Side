@@ -1,5 +1,10 @@
 export interface LoginModel {
-    profilePic: any;
+    email: string;
+    password: string;
+    clientType: string;
+}
+
+export interface Credentials {
     email: string;
     password: string;
     clientType: string;
@@ -12,12 +17,6 @@ export interface RegisterModel {
     password: string;
     confirmPassword: string;
     profilePic: string;
-}
-
-export interface Credentials {
-    email: string;
-    password: string;
-    clientType: string;
 }
 
 export interface User {

@@ -1,46 +1,19 @@
-.Login {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+.Login {}
 
 .Login form {
     width: 500px;
     border-radius: 5px;
     font-size: large;
-    background-color: var(--tertiaryColor) ;
+    background-color: var(--tertiaryColor);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 50px -50px 25px 15px  var(--borderColor) ;
+    box-shadow: 50px -50px 25px 15px var(--borderColor);
     padding: 10px;
 }
 
-.Login form  label, .Login  form  span {
-    font-size: x-large;
-}
-
-.Login  form  span {
-    color: var(--errorColor) ;
-}
-
-.Login form input {
-    border-radius: 20px;
-    margin-bottom: 20px;
-}
-
-.Login  .Credentials, .Login button{
-   height: 40px;
-   width: 400px;
-   font-size: larger;
-   border-radius: 20px;
-}
-
-.ClientTypesContainer{
+#clientTypesContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,35 +21,21 @@
     margin-top: 20px;
 }
 
-.ClientTypes{
+.ClientTypes {
     height: 20px;
     width: 40px;
     cursor: pointer;
     accent-color: var(--primaryColor);
-    /* margin-top: 20px; */
-    /* margin-bottom: 20px; */
 }
 
-.Login form button:hover:enabled {
-   background-color: var(--primaryColor);
-   color: aliceblue;
-}
-
-.PageTitles{
-    font-size: 50px;
-    margin-top: 0;
-    /* text-decoration: underline 5px var(--primaryColor); */
-    border-bottom: 5px solid var(--primaryColor);
-}
-
-#registerOption{
+#registerOption {
     margin-top: 20px;
 }
 
-#registerOption > a{
+#registerOption a {
     color: rgb(93, 95, 222);
 }
 
-#registerOption > a:hover{
+#registerOption a:hover {
     color: var(--borderColor)
 }

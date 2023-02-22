@@ -1,24 +1,19 @@
 import { CouponModel } from '../../Models/Coupon';
 
 export class CustomerAppState {
-    // Step 1 - create the app state object
     public coupons: CouponModel[] = [];
 }
 
-// Step 2 - define all required actions
 export enum ActionType {
     GOT_ALL_CUSTOMER_COUPONS = "GOT_ALL_CUSTOMER_COUPONS",
     REMOVED_COUPONS = "REMOVED_COUPON",
     PURCHASED_COUPON = "PURCHASED_COUPON"
 };
 
-// Step 3 - define what is action in terms of data
 export interface CustomerAction {
     type: ActionType;
     payload: any;
 }
-
-// Step 4 - creator functions - gets payload regarding the action
 
 export function gotAllCustomerCouponsAction(coupons: CouponModel[]): CustomerAction {
     return {
@@ -41,7 +36,6 @@ export function purchasedCouponAction(coupon: CouponModel): CustomerAction {
     };
 }
 
-// Step 5 - Reducer function perform the required action
 export function customerReducer(currentState: CustomerAppState = new CustomerAppState(), action: CustomerAction): CustomerAppState {
 
     const newState = { ...currentState };

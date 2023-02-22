@@ -5,46 +5,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .UpdateCustomer form {
     border-radius: 25px;
     width: 600px;
     font-size: large;
-    background-color: var(--tertiaryColor) ;
+    background-color: var(--tertiaryColor);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 50px -40px 25px 5px  var(--borderColor) ;
+    box-shadow: 50px -40px 25px 5px var(--borderColor);
     padding: 10px;
     margin-top: 50px;
-   
-}
 
-.UpdateCustomer form label, .UpdateCustomer form span {
-    font-size: x-large;
-}
-
-.UpdateCustomer form  span {
-    color: var(--errorColor) ;
-}
-
-.UpdateCustomer form input {
-     text-align: center;
-    margin-bottom: 20px;
-    border-radius: 20px;
-}
-
-.UpdateCustomer  form  button, .UpdateCustomer form input{
-   height: 40px;
-   width: 400px;
-   font-size: larger;
-   border-radius: 20px;
-}
-
-.UpdateCustomer > form > button:hover:enabled {
-   background-color: var(--primaryColor);
-   color: aliceblue;
 }

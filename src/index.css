@@ -19,6 +19,29 @@ body {
   color: white;
 }
 
+[data-theme="dark"] {
+  --primaryColor: #1b1f23;
+  --secondaryColor: #2c2240;
+  --tertiaryColor: #352F44;
+  --textColor: white;
+  --borderColor: gray;
+  --errorColor: tomato;
+  --oppositeSecondaryColor: #f0d2e8;
+  color: white;
+}
+
+
+[data-theme="light"] {
+  --primaryColor: #F6E5F5;
+  --secondaryColor: #f0d2e8;
+  --tertiaryColor: #F6E7E6;
+  --textColor: black;
+  --borderColor: #B9CCED;
+  --errorColor: rgb(186, 5, 5);
+  --oppositeSecondaryColor: #2c2240;
+  color: black;
+}
+
 input[type='number'] {
   -moz-appearance: textfield;
 }
@@ -29,6 +52,15 @@ input[type='number']::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.FlexColPage {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 button {
   cursor: pointer;
 }
@@ -37,16 +69,497 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.CouponImg{
+.PageTitles {
+  font-size: 50px;
+  margin-top: 0;
+  border-bottom: 5px solid var(--primaryColor);
+}
+
+.ErrorSpan {
+  color: var(--errorColor);
+}
+
+.XLargeTxt {
+  font-size: x-large;
+}
+
+.AuthField {
+  height: 40px;
+  width: 400px;
+  font-size: larger;
+  border-radius: 20px;
+}
+
+.AddFormInput,
+.AddFormButton,
+.UpdateFormInput,
+.UpdateFormButton {
+  text-align: center;
+  height: 40px;
+  width: 400px;
+  font-size: larger;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.AuthInput,
+.AddFormInput,
+.UpdateFormInput {
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.AuthButton:hover:enabled,
+.AddFormButton:hover:enabled,
+.UpdateFormButton:hover:enabled {
+  background-color: var(--primaryColor);
+  color: var(--textColor);
+}
+
+.Coupons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px;
+  margin-left: 20px;
+}
+
+.Coupon {
+  width: 325px;
+  height: 565px;
+  margin: 20px;
+  background-color: var(--tertiaryColor);
+  text-align: center;
+  border: 5px inset var(--borderColor);
+  border-radius: 5%;
+}
+
+.CouponHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  word-break: break-all;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.CouponHeaderItem {
+  display: flex;
+  margin: 0;
+}
+
+.CouponIdTitle {
+  font-size: 25px;
+  font-size: 30px;
+  color: var(--primaryColor);
+  text-shadow:
+    -1px -1px 0 var(--borderColor),
+    1px -1px 0 var(--borderColor),
+    -1px 1px 0 var(--borderColor),
+    1px 1px 0 var(--borderColor);
+}
+
+.Coupon img {
+  height: 200px;
+  width: 200px;
   border-radius: 15%;
 }
 
-/* .Toastify__toast--success {
-    background-color: green;
-    color: white;
-  }
+.CouponItem {
+  margin: 0;
+  font-size: 20px;
+  text-decoration: none;
+}
 
-  .Toastify__toast--error {
-    background-color: green;
-    color: white;
-  } */
+
+.DisplayCategory {
+  font-size: x-large;
+  color: darksalmon;
+}
+
+.DescTooltip {
+  position: relative;
+  font-size: large;
+  cursor: pointer;
+}
+
+.DescTooltip .DescTooltipText {
+  font-size: x-large;
+  visibility: hidden;
+  width: 300px;
+  background-color: var(--borderColor);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 22%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: default;
+}
+
+.DescTooltip .DescTooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--borderColor) transparent transparent transparent;
+}
+
+.DescTooltip:hover .DescTooltipText {
+  visibility: visible;
+  opacity: 1;
+}
+
+.DisplayDate {
+  color: lightblue;
+}
+
+.DisplayAmount {
+  margin-bottom: 40px;
+}
+
+.DisplayGreenAmount {
+  color: rgb(159, 246, 159);
+}
+
+.DisplayOrangeAmount {
+  color: orange;
+}
+
+.DisplayRedAmount {
+  color: rgb(164, 43, 22);
+}
+
+.DisplayPrice {
+  font-size: xx-large;
+  color: #0EB149;
+}
+
+.PurchaseButton {
+  width: 120px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: cadetblue;
+}
+
+.PurchaseButton:hover {
+  background-color: var(--primaryColor);
+  color: var(--textColor);
+}
+
+.LoginToPurchase {
+  margin: 0;
+  color: var(--textColor);
+  font-size: 20px;
+  text-decoration: none;
+}
+
+
+.LoginToPurchase:hover,
+.EmptyUserCouponsView a:hover {
+  color: var(--borderColor);
+}
+
+.DeleteValidationContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--tertiaryColor);
+  border-radius: 5px;
+  border: 2px solid var(--borderColor);
+  padding: 20px;
+}
+
+.DecisionButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 450px;
+}
+
+.DecisionButton {
+  font-size: xx-large;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+
+}
+
+.ConfirmButton {
+  color: var(--textColor);
+  background-color: royalblue;
+
+}
+
+.ConfirmButton:hover {
+  background-color: rgb(99, 129, 219);
+}
+
+.CancelButton {
+  color: var(--textColor);
+  background-color: gray;
+}
+
+.CancelButton:hover {
+  background-color: rgb(180, 178, 178);
+}
+
+.UsersSearchBar {
+  display: flex;
+}
+
+.UsersSearchBar input {
+  border-radius: 20px;
+  background-color: var(--textColor);
+  text-align: center;
+  appearance: none;
+  cursor: pointer;
+  margin-bottom: 50px;
+  font-size: 20px;
+  width: 400px;
+  height: 35px;
+}
+
+.TableContainer {
+  background-color: var(--tertiaryColor);
+  height: 512px;
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.TableContainer table {
+  height: 512;
+  width: 100%;
+  font-size: x-large;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.TableContainer table tr {
+  height: 85px;
+  max-height: 85px;
+}
+
+.TableContainer table td,
+.TableContainer table th {
+  border: 2px solid var(--borderColor);
+  border-style: ridge;
+
+}
+
+.TableContainer table th {
+  background-color: var(--tertiaryColor);
+  position: sticky;
+  top: 0;
+  color: rgb(42, 164, 134);
+}
+
+.TableContainer table td img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.TableContainer table button {
+  background-color: var(--tertiaryColor);
+  border: none;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.TableContainer table button:hover {
+  background-color: var(--borderColor);
+  font-size: 45;
+}
+
+
+.AddUserButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.AddUserButton {
+  color: var(--textColor);
+  border: 1px solid var(--borderColor);
+  border-radius: 10px;
+  background-color: var(--tertiaryColor);
+  text-align: center;
+  font-size: 35px;
+  width: 500px;
+}
+
+.AddUserButton:hover {
+  background-color: var(--borderColor);
+}
+
+.EmptyUserView {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.EmptyUserCouponsView {
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.EmptyUserView>h1,
+.EmptyUserCouponsView>h1 {
+  font-size: 50px;
+}
+
+.EmptyUserView a,
+.EmptyUserCouponsView a {
+  color: royalblue;
+}
+
+.ProfileCardContainer {
+  margin-bottom: 100px;
+  background-color: var(--tertiaryColor);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--borderColor);
+  border-radius: 4px;
+  box-shadow: 0px 0px 18px 7px var(--borderColor);
+}
+
+.ProfileTitle {
+  font-size: 50px;
+}
+
+.ProfilePic {
+  width: 300px;
+  height: 300px;
+  border-radius: 10%;
+  margin-bottom: 16px;
+}
+
+.ProfileTextContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ProfileEmail {
+  margin: 0;
+  color: var(--borderColor);
+  font-size: 23px;
+}
+
+.TitleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.TitleContainer h1 {
+  font-size: 70px;
+  border-bottom: 10px solid var(--secondaryColor);
+}
+
+.SearchBarsContainer {
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.SearchBar {
+  display: flex;
+}
+
+.SearchBar h3 {
+  margin-right: 20px;
+}
+
+.SearchBar select,
+.SearchBar input {
+  color: var(--textColor);
+  border: 1px solid var(--borderColor);
+  border-radius: 10px;
+  background-color: var(--tertiaryColor);
+  text-align: center;
+  appearance: none;
+  cursor: pointer;
+  margin-right: 100px;
+  font-size: 20px;
+  width: 250px;
+}
+
+.SearchBar input::placeholder {
+  color: rgba(255, 255, 255, 0.141);
+}
+
+.SearchBar select option {
+  border: 1px solid var(--borderColor);
+}
+
+.AddCouponButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.AddCouponButton {
+  color: var(--textColor);
+  border: 1px solid var(--borderColor);
+  border-radius: 10px;
+  background-color: var(--tertiaryColor);
+  text-align: center;
+  font-size: 35px;
+  width: 500px;
+}
+
+.AddCouponButton:hover {
+  background-color: var(--borderColor);
+}
+
+.OwnedCouponImg {
+  height: 200px;
+  width: 200px;
+  border-radius: 15%;
+}
+
+.OwnedCouponIdTitle {
+  width: 300px;
+  font-size: 25px;
+  font-size: 30px;
+  color: var(--primaryColor);
+  text-shadow:
+    -1px -1px 0 var(--borderColor),
+    1px -1px 0 var(--borderColor),
+    -1px 1px 0 var(--borderColor),
+    1px 1px 0 var(--borderColor);
+}
+
+.OwnedCouponDesc {
+  height: 50px;
+  font-size: 20px;
+  overflow-y: auto;
+}
+
+.DisplayOwnedCouponPrice {
+  font-size: xx-large;
+  color: darkgray;
+}

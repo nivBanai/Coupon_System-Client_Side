@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import App from "../../../App";
 import store from "../../../Redux/Store";
+import authUtils from "../../../Utils/AuthUtils";
 import Login from "../../Authentication/Login/Login";
 import Logout from "../../Authentication/Logout/Logout";
 import Register from "../../Authentication/Register/Register";
@@ -31,20 +32,6 @@ function Routing(): JSX.Element {
 
     const [user, setUser] = useState(store.getState().userReducer.user);
 
-    const isLoggedIn = (): boolean => {
-        return (user.token) ? true : false;
-    };
-
-    const isValidAdmin = (): boolean => {
-        return (user.token && user.clientType === "ADMINISTRATOR") ? true : false;
-    };
-    const isValidCompany = (): boolean => {
-        return (user.token && user.clientType === "COMPANY") ? true : false;
-    };
-    const isValidCustomer = (): boolean => {
-        return (user.token && user.clientType === "CUSTOMER") ? true : false;
-    };
-
     useEffect(() => {
         return store.subscribe(() => {
             setUser(store.getState().userReducer.user);
@@ -54,7 +41,9 @@ function Routing(): JSX.Element {
 
     return (
         <div className="Routing">
+
             <Routes>
+
                 <Route path="/" element={<App />} />
 
                 <Route path="home" element={<Home />} />
@@ -65,45 +54,46 @@ function Routing(): JSX.Element {
 
                 <Route path="coupons" element={<GetAllCoupons />} />
 
-                <Route path="register" element={(isLoggedIn()) ? <Home /> : <Register />} />
+                <Route path="register" element={(authUtils.isLoggedIn(user)) ? <Home /> : <Register />} />
 
-                <Route path="login" element={(isLoggedIn()) ? <Home /> : <Login />} />
+                <Route path="login" element={(authUtils.isLoggedIn(user)) ? <Home /> : <Login />} />
 
-                <Route path="logout" element={(isLoggedIn()) ? <Logout /> : <Login />} />
+                <Route path="logout" element={(authUtils.isLoggedIn(user)) ? <Logout /> : <Login />} />
 
-                <Route path="companies" element={(isValidAdmin()) ? <GetAllCompanies /> : <Page404 />} />
+                <Route path="companies" element={(authUtils.isValidAdmin(user)) ? <GetAllCompanies /> : <Page404 />} />
 
-                <Route path="companies/add" element={(isValidAdmin()) ? <AddCompany /> : <Page404 />} />
+                <Route path="companies/add" element={(authUtils.isValidAdmin(user)) ? <AddCompany /> : <Page404 />} />
 
-                <Route path="companies/delete/:id" element={(isValidAdmin()) ? <DeleteCompany /> : <Page404 />} />
+                <Route path="companies/delete/:id" element={(authUtils.isValidAdmin(user)) ? <DeleteCompany /> : <Page404 />} />
 
-                <Route path="companies/update/:id" element={(isValidAdmin()) ? <UpdateCompany /> : <Page404 />} />
+                <Route path="companies/update/:id" element={(authUtils.isValidAdmin(user)) ? <UpdateCompany /> : <Page404 />} />
 
-                <Route path="customers" element={(isValidAdmin()) ? <GetAllCustomers /> : <Page404 />} />
+                <Route path="customers" element={(authUtils.isValidAdmin(user)) ? <GetAllCustomers /> : <Page404 />} />
 
-                <Route path="customers/add" element={(isValidAdmin()) ? <AddCustomer /> : <Page404 />} />
+                <Route path="customers/add" element={(authUtils.isValidAdmin(user)) ? <AddCustomer /> : <Page404 />} />
 
-                <Route path="customers/delete/:id" element={(isValidAdmin()) ? <DeleteCustomer /> : <Page404 />} />
+                <Route path="customers/delete/:id" element={(authUtils.isValidAdmin(user)) ? <DeleteCustomer /> : <Page404 />} />
 
-                <Route path="customers/update/:id" element={(isValidAdmin()) ? <UpdateCustomer /> : <Page404 />} />
+                <Route path="customers/update/:id" element={(authUtils.isValidAdmin(user)) ? <UpdateCustomer /> : <Page404 />} />
 
-                <Route path="companies/coupons" element={(isValidCompany()) ? <GetCompanyCoupons /> : <Page404 />} />
+                <Route path="companies/coupons" element={(authUtils.isValidCompany(user)) ? <GetCompanyCoupons /> : <Page404 />} />
 
-                <Route path="companies/coupons/add" element={(isValidCompany()) ? <AddCoupon /> : <Page404 />} />
+                <Route path="companies/coupons/add" element={(authUtils.isValidCompany(user)) ? <AddCoupon /> : <Page404 />} />
 
-                <Route path="companies/coupons/delete/:id" element={(isValidCompany()) ? <DeleteCoupon /> : <Page404 />} />
+                <Route path="companies/coupons/delete/:id" element={(authUtils.isValidCompany(user)) ? <DeleteCoupon /> : <Page404 />} />
 
-                <Route path="companies/coupons/update/:id" element={(isValidCompany()) ? <UpdateCoupon /> : <Page404 />} />
+                <Route path="companies/coupons/update/:id" element={(authUtils.isValidCompany(user)) ? <UpdateCoupon /> : <Page404 />} />
 
-                <Route path="companies/profile" element={(isValidCompany()) ? <GetCompanyDetails /> : <Page404 />} />
+                <Route path="companies/profile" element={(authUtils.isValidCompany(user)) ? <GetCompanyDetails /> : <Page404 />} />
 
-                <Route path="coupons/purchase/:id" element={(isValidCustomer()) ? <PurchaseCoupon /> : <Page404 />} />
+                <Route path="coupons/purchase/:id" element={(authUtils.isValidCustomer(user)) ? <PurchaseCoupon /> : <Page404 />} />
 
-                <Route path="customers/coupons" element={(isValidCustomer()) ? <GetCustomerCoupons /> : <Page404 />} />
+                <Route path="customers/coupons" element={(authUtils.isValidCustomer(user)) ? <GetCustomerCoupons /> : <Page404 />} />
 
-                <Route path="customers/profile" element={(isValidCustomer()) ? <GetCustomerDetails /> : <Page404 />} />
+                <Route path="customers/profile" element={(authUtils.isValidCustomer(user)) ? <GetCustomerDetails /> : <Page404 />} />
 
                 <Route path="*" element={<Page404 />} />
+
             </Routes>
         </div>
     );

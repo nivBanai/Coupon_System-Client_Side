@@ -19,9 +19,11 @@ function Login(): JSX.Element {
             yup.string()
                 .email("Invalid email")
                 .required("Email is required"),
+
         password:
             yup.string()
                 .required("Password is required"),
+
         clientType:
             yup.string()
                 .required("Client type is required")
@@ -29,66 +31,78 @@ function Login(): JSX.Element {
 
     });
 
-    const { register, handleSubmit, formState: { errors, isDirty, isValid } } =
+    const { register, handleSubmit, formState: { errors, isValid } } =
         useForm<LoginModel>({ mode: "all", resolver: yupResolver(schema) });
 
     const postLogin = async (obj: LoginModel) => {
-        const credentials = { email: obj.email, password: obj.password, profilePic: obj.profilePic, clientType: obj.clientType };
-        await loginWebApi.login(credentials).then(res => {
 
-            const activeUser: ActiveUser = {
-                token: res.data.token,
-                name: res.data.name,
-                profilePic: res.data.profilePic,
-                clientType: obj.clientType
-            }
+        const credentials = { email: obj.email, password: obj.password, clientType: obj.clientType };
 
-            store.dispatch(loggedIn(activeUser));
+        await loginWebApi.login(credentials)
+            .then(res => {
 
-            switch (obj.clientType) {
+                const activeUser: ActiveUser = {
+                    token: res.data.token,
+                    name: res.data.name,
+                    clientType: obj.clientType,
+                    profilePic: res.data.profilePic
+                };
 
-                case "ADMINISTRATOR":
-                    navigate("/home");
-                    break;
+                store.dispatch(loggedIn(activeUser));
 
-                case "COMPANY":
-                    navigate("/companies/coupons");
-                    break;
+                switch (obj.clientType) {
 
-                case "CUSTOMER":
-                    navigate("/customers/coupons");
-                    break;
-            }
-        }).catch(err => {
-            notificationsService.errorNotification(err.response.data.value);
-        });
+                    case "ADMINISTRATOR":
+                        navigate("/home");
+                        break;
+
+                    case "COMPANY":
+                        navigate("/companies/coupons");
+                        break;
+
+                    case "CUSTOMER":
+                        navigate("/customers/coupons");
+                        break;
+                };
+            })
+            .catch(err => {
+                notificationsService.errorNotification(err.response.data.value);
+            });
     }
 
     return (
-        <div className="Login">
+        <div className="Login FlexColPage">
+
             <form onSubmit={handleSubmit(postLogin)}>
 
                 <h1 className="PageTitles">Login</h1>
 
-                {(!errors.email) ? <label htmlFor="email">Email</label> : <span>{errors.email.message}</span>}
-                <input {...register("email")} className="Credentials" type="email" placeholder="Email" />
-                {(!errors.password) ? <label htmlFor="password">Password</label> : <span>{errors.password.message}</span>}
-                <input {...register("password")} className="Credentials" type="password" placeholder="Password" />
+                {(!errors.email) ? <label className="XLargeTxt" htmlFor="email">Email</label> : <span className="ErrorSpan XLargeTxt">{errors.email.message}</span>}
+                <input {...register("email")} className="AuthInput AuthField" type="email" placeholder="Email" />
 
-                <div className="ClientTypesContainer">
-                    {(!errors.clientType) ? <label htmlFor="clientType">Client</label> : <span>{errors.clientType.message}</span>}
-                    <div className="ClientType">
-                        <label htmlFor="admin">Admin</label>
+                {(!errors.password) ? <label className="XLargeTxt" htmlFor="password">Password</label> : <span className="ErrorSpan XLargeTxt">{errors.password.message}</span>}
+                <input {...register("password")} className="AuthInput AuthField" type="password" placeholder="Password" />
+
+                <div id="clientTypesContainer">
+
+                    {(!errors.clientType) ? <label className="XLargeTxt" htmlFor="clientType">Client</label> : <span className="ErrorSpan XLargeTxt">{errors.clientType.message}</span>}
+                    <div className="ClientType AuthInput">
+
+                        <label className="XLargeTxt" htmlFor="admin">Admin</label>
                         <input {...register("clientType")} className="ClientTypes" type="radio" id="admin" name="clientType" value="ADMINISTRATOR" />
 
-                        <label htmlFor="company">Company</label>
+                        <label className="XLargeTxt" htmlFor="company">Company</label>
                         <input {...register("clientType")} className="ClientTypes" type="radio" id="company" name="clientType" value="COMPANY" />
 
-                        <label htmlFor="customer">Customer</label>
+                        <label className="XLargeTxt" htmlFor="customer">Customer</label>
                         <input {...register("clientType")} className="ClientTypes" type="radio" id="customer" name="clientType" value="CUSTOMER" />
+
                     </div>
+
                 </div>
-                <button disabled={!isValid}>Login</button>
+
+                <button className="AuthButton AuthField" disabled={!isValid}>Login</button>
+
                 <div id="registerOption">Don't own an account? <Link to={"/register"}>Register here</Link></div>
 
             </form>

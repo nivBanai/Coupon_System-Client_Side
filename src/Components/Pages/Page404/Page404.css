@@ -1,11 +1,4 @@
-.Page404 {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+.Page404 {}
 
 .Page404 img {
     height: 400px;

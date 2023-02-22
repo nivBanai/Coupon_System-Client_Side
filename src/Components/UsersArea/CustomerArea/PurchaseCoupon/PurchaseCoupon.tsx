@@ -23,8 +23,8 @@ function PurchaseCoupon(): JSX.Element {
         setCoupToPurchase(store.getState().couponReducer.allCoupons.filter(coup => coup.id === id)[0])
     }, []);
 
-    const confirm = async () => {
-        couponWebApi.purchaseCoupon(id)
+    const purchase = async () => {
+        await couponWebApi.purchaseCoupon(id)
             .then(res => {
                 store.dispatch(purchasedCouponAction(res.data));
                 store.dispatch(purchasedCustomerCouponAction(res.data));
@@ -33,22 +33,26 @@ function PurchaseCoupon(): JSX.Element {
             .catch(err => {
                 notificationsService.errorNotification(err.response.data.value);
             })
-    }
+    };
 
     const cancel = async () => {
-        console.log(coupToPurchase);
         navigate("/coupons");
-    }
+    };
 
     return (
-        <div className="PurchaseCoupon">
+        <div className="PurchaseCoupon FlexColPage">
+
             <div id="purchaseValidationContainer">
+
                 <h2>Purchase Coupon #{coupToPurchase?.id} ({coupToPurchase?.title}) ?</h2>
+
                 <div className="DecisionButtonContainer">
-                    <button className="decisionButton cancelButton" onClick={cancel}>Cancel</button>
-                    <button className="decisionButton confirmButton" onClick={confirm}>Confirm</button>
+                    <button className="DecisionButton CancelButton" onClick={cancel}>Cancel</button>
+                    <button className="DecisionButton ConfirmButton" onClick={purchase}>Purchase</button>
                 </div>
+
             </div>
+
         </div>
     );
 }

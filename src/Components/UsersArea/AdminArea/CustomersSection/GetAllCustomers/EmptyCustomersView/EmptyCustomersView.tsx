@@ -10,11 +10,14 @@ function EmptyCustomersView(): JSX.Element {
     }
 
     return (
-        <div className="EmptyCustomersView">
-			<h1>There Are No Companies Currently</h1>
-            <div id="addCouponButtonContainer">
-                <button id="addCouponButton" onClick={() => addCustomer()}>Add Customer</button>
+        <div className="EmptyCustomersView EmptyUserView">
+
+            <h1>There Are No Customers Currently</h1>
+
+            <div className="AddUserButtonContainer">
+                <button className="AddUserButton" onClick={() => addCustomer()}>Add Customer</button>
             </div>
+            
         </div>
     );
 }

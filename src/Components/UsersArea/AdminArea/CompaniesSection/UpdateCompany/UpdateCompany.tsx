@@ -16,39 +16,31 @@ function UpdateCompany(): JSX.Element {
     const params = useParams();
     const id = +(params.id || 0)
     const compToUpdate = store.getState().adminReducer.companies.filter(comp => comp.id === id)[0]
-    const [obj, setObj] = useState<CompanyModel>(compToUpdate);
+    const obj = compToUpdate;
     let defaultValuesObj = { ...obj };
-
-    useEffect(() => {
-        if (!store.getState().userReducer.user.token) {
-            navigate("/login");
-        }
-    }, []);
 
     const schema = yup.object().shape({
         name:
             yup.string()
-                .required("name is required"),
+                .required("Name is required"),
+
         email:
             yup.string()
                 .email("Invalid email pattern")
-                .required("email is required"),
+                .required("Email is required"),
+
         password:
             yup.string()
-                .required("password is required")
-                .min(5, "Password must be at least 5 characters"),
+                .required("Password is required")
+                .min(5, "Password must contain a minimum of 5 characters"),
+
         profilePic:
             yup.string()
                 .url("Invalid Url")
-
     });
 
-
-
-    const { register, handleSubmit, control, formState: { errors, isDirty, isValid } } =
+    const { register, handleSubmit, formState: { errors, isDirty, isValid } } =
         useForm<CompanyModel>({ defaultValues: defaultValuesObj, mode: "all", resolver: yupResolver(schema) });
-
-    // const { dirtyFields } = useFormState({ control });
 
     const putCompany = async (company: CompanyPayloadModel) => {
         await adminWebApi.updateCompany(id, company)
@@ -58,28 +50,32 @@ function UpdateCompany(): JSX.Element {
             })
             .catch(err => {
                 notificationsService.errorNotification(err.response.data.value);
-            })
-    }
+            });
+    };
 
     return (
-        <div className="UpdateCompany">
+        <div className="UpdateCompany FlexColPage">
+
             <form onSubmit={handleSubmit(putCompany)}>
 
-            <h1 className="PageTitles">Update Company</h1>
+                <h1 className="PageTitles">Update Company</h1>
 
-                <label htmlFor="id">Id</label>
-                <input disabled id="id" name="id" type="number" value={id} />
+                <label className="XLargeTxt" htmlFor="id">Id</label>
+                <input disabled className="UpdateFormInput" id="id" name="id" type="number" value={id} />
 
-                {(errors.name) ? <span>{errors.name?.message}</span> : <label htmlFor="name">Name</label>}
-                <input {...register("name")} id="name" name="name" type="text" placeholder="Name" />
-                {(errors.email) ? <span>{errors.email?.message}</span> : <label htmlFor="email">Email</label>}
-                <input {...register("email")} id="email" name="email" type="email" placeholder="Email" />
-                {(errors.password) ? <span>{errors.password?.message}</span> : <label htmlFor="password">Password</label>}
-                <input {...register("password")} id="password" name="password" type="password" placeholder="Password" />
-                {(errors.profilePic) ? <span>{errors.profilePic?.message}</span> : <label htmlFor="profilePic">Profile Picture</label>}
-                <input {...register("profilePic")} id="profilePic" name="profilePic" type="text" placeholder="URL" />
+                <label className="XLargeTxt" htmlFor="name">Name</label>
+                <input disabled className="UpdateFormInput" id="name" name="name" type="text" value={compToUpdate.name} />
 
-                <button disabled={!isValid || !isDirty}>Update Company</button>
+                {(!errors.email) ? <label className="XLargeTxt" htmlFor="email">Email</label> : <span className="ErrorSpan XLargeTxt">{errors.email?.message}</span>}
+                <input {...register("email")} className="UpdateFormInput" id="email" name="email" type="email" />
+
+                {(!errors.password) ? <label className="XLargeTxt" htmlFor="password">Password</label> : <span className="ErrorSpan XLargeTxt">{errors.password?.message}</span>}
+                <input {...register("password")} className="UpdateFormInput" id="password" name="password" type="password" />
+
+                {(!errors.profilePic) ? <label className="XLargeTxt" htmlFor="profilePic">Profile Picture</label> : <span className="ErrorSpan XLargeTxt">{errors.profilePic?.message}</span>}
+                <input {...register("profilePic")} className="UpdateFormInput" id="profilePic" name="profilePic" type="text" placeholder="URL" />
+
+                <button className="UpdateFormButton" disabled={!isValid || !isDirty}>Update Company</button>
 
             </form>
         </div>

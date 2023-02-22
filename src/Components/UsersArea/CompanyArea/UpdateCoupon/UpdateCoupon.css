@@ -18,40 +18,5 @@
     justify-content: center;
     align-items: center;
     box-shadow: 25px -20px 25px -5px var(--borderColor);
-    /* padding: 10px; */
-    /* margin-bottom: 200px; */
     margin-top: 20px;
-    /* padding-bottom: 100px; */
-
-}
-
-.UpdateCoupon form label,
-.UpdateCoupon form span {
-    font-size: x-large;
-}
-
-.UpdateCoupon form span {
-    color: var(--errorColor);
-}
-
-.UpdateCoupon form input,
-.UpdateCoupon form select {
-    margin-bottom: 20px;
-    border-radius: 20px;
-}
-
-.UpdateCoupon form button,
-.UpdateCoupon form input,
-.UpdateCoupon form select {
-    text-align: center;
-    height: 35px;
-    width: 400px;
-    font-size: larger;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.UpdateCoupon>form>button:hover:enabled {
-    background-color: var(--primaryColor);
-    color: aliceblue;
 }

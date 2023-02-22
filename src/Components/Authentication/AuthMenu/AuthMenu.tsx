@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ActiveUser, User } from "../../../Models/Auth";
 import store from "../../../Redux/Store";
+import authUtils from "../../../Utils/AuthUtils";
+import utils from "../../../Utils/StringUtils";
 import "./AuthMenu.css";
 
 function AuthMenu(): JSX.Element {
@@ -9,16 +11,6 @@ function AuthMenu(): JSX.Element {
     const [user, setUser] = useState<ActiveUser>(store.getState().userReducer.user);
     const [showMenu, setShowMenu] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
-
-    const isValidAdmin = (): boolean => {
-        return (user.token && user.clientType === "ADMINISTRATOR") ? true : false;
-    };
-    const isValidCompany = (): boolean => {
-        return (user.token && user.clientType === "COMPANY") ? true : false;
-    };
-    const isValidCustomer = (): boolean => {
-        return (user.token && user.clientType === "CUSTOMER") ? true : false;
-    };
 
     const hideMenu = () => {
         setShowMenu(false);
@@ -29,41 +21,43 @@ function AuthMenu(): JSX.Element {
     }, []);
 
     useEffect(() => {
-        const handleClickOutside = (event: Event) => {
 
+        const handleClickOutside = (event: Event) => {
             if (!showMenu) return;
             if (ref.current && !ref.current.contains(event.target as Node)) {
-                console.log("boiiiiiiiiiiiiiiii");
-                console.log(showMenu);
                 hideMenu();
             }
         };
 
-        document.addEventListener('click', handleClickOutside);
+        document.addEventListener("click", handleClickOutside);
 
         return () => {
-            document.removeEventListener('click', handleClickOutside);
+            document.removeEventListener("click", handleClickOutside);
         };
     }, [ref, showMenu, setShowMenu]);
 
     return (
         <div className="AuthMenu">
-            <h2 >Hello, {(user.token) ? user.name : "Guest"}</h2>
+
+            <h2 >Hello, {(authUtils.isLoggedIn(user)) ? user.name : "Guest"}</h2>
+
             <div ref={ref}>
-                <button className="DropdownButton" onClick={() => setShowMenu(!showMenu)}>
-                    <img src={(user.token && user.profilePic) ? user.profilePic : "https://i1.sndcdn.com/avatars-000737858602-z63nw0-t500x500.jpg"} alt="" />
+
+                <button id="dropDownButton" onClick={() => setShowMenu(!showMenu)}>
+                    <img src={(authUtils.isLoggedIn(user) && user.profilePic) ? user.profilePic : "https://i1.sndcdn.com/avatars-000737858602-z63nw0-t500x500.jpg"} alt="N/A" />
                 </button>
+
                 {showMenu && (
-                    <ul className="DropdownMenu" >
+                    <ul id="dropDownMenu" >
                         {
-                            (isValidAdmin()) ?
+                            (authUtils.isValidAdmin(user)) ?
                                 <>
                                     <li>
                                         <Link to={"/logout"} onClick={hideMenu}>Logout</Link>
                                     </li>
                                 </>
                                 :
-                                (isValidCompany()) ?
+                                (authUtils.isValidCompany(user)) ?
                                     <>
                                         <li>
                                             <Link to={"/companies/profile"} onClick={hideMenu} >Profile</Link>
@@ -72,7 +66,7 @@ function AuthMenu(): JSX.Element {
                                             <Link to={"/logout"} onClick={hideMenu}>Logout</Link>
                                         </li>
                                     </>
-                                    : (isValidCustomer()) ?
+                                    : (authUtils.isValidCustomer(user)) ?
                                         <>
                                             <li>
                                                 <Link to={"/customers/profile"} onClick={hideMenu}>Profile</Link>
@@ -88,17 +82,12 @@ function AuthMenu(): JSX.Element {
                                             <li>
                                                 <Link to={"/register"} onClick={hideMenu}>Register</Link>
                                             </li>
-
-                                        </>}
-
+                                        </>
+                        }
                     </ul>
                 )}
             </div>
-            {/* <div>
-                {(user.token) ?
-                    <><Link to="logout">Logout</Link></> :
-                    <><p><Link to="login">Login </Link> || <Link to="register">Register</Link></p></>}
-            </div> */}
+
         </div >
     );
 }

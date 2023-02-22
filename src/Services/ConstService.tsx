@@ -1,22 +1,22 @@
-abstract class Config{
+abstract class Config {
 
 }
 
-class Development extends Config{
+class Development extends Config {
     public urls = {
-        "base":"http://localhost:8080/api/coupon_system",
-        "companies":"http://localhost:8080/api/coupon_system/companies",
-        "customers":"http://localhost:8080/api/coupon_system/customers",
-        "coupons":"http://localhost:8080/api/coupon_system/coupons"
+        "base": "http://localhost:8080/api/coupon_system",
+        "companies": "http://localhost:8080/api/coupon_system/companies",
+        "customers": "http://localhost:8080/api/coupon_system/customers",
+        "coupons": "http://localhost:8080/api/coupon_system/coupons"
     }
 }
 
-class Production extends Config{
+class Production extends Config {
     public urls = {
-        "base":"http://localhost:8080/api/coupon_system",
-        "companies":"http://localhost:8080/api/coupon_system/companies",
-        "customers":"http://localhost:8080/api/coupon_system/customers",
-        "coupons":"http://localhost:8080/api/coupon_system/coupons"
+        "base": "http://localhost:8080/api/coupon_system",
+        "companies": "http://localhost:8080/api/coupon_system/companies",
+        "customers": "http://localhost:8080/api/coupon_system/customers",
+        "coupons": "http://localhost:8080/api/coupon_system/coupons"
     }
 }
 

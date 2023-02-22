@@ -3,11 +3,14 @@ import Routing from "../../Routing/Routing/Routing";
 import "./Main.css";
 
 function Main(): JSX.Element {
+
     return (
+
         <div className="Main">
-			<Routing />
+            <Routing />
             <Outlet />
         </div>
+
     );
 }
 

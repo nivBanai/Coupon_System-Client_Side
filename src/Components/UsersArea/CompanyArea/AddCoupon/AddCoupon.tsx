@@ -1,12 +1,9 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { CompanyPayloadModel } from "../../../../Models/Company";
-import { addedCompanyAction } from "../../../../Redux/AppStates/AdminAppState";
 import store from "../../../../Redux/Store";
-import adminWebApi from "../../../../Services/WebApi/AdminWebApi";
 import "./AddCoupon.css";
 import { CouponPayloadModel } from "../../../../Models/Coupon";
 import companyWebApi from "../../../../Services/WebApi/CompanyWebApi";
@@ -20,12 +17,12 @@ function AddCoupon(): JSX.Element {
     const pricePattern = /^\d+(\.\d{2,2})?$/;
 
     const priceValidator = yup.number()
-        .required("price is required")
-        .typeError("price is required")
+        .required("Price is required")
+        .typeError("Price is required")
         .positive("Cannot set a negative price")
         .test(
             "is-decimal",
-            "The price should be a decimal with a minimum and maximum of two digits after comma",
+            "The price Needs to be a decimal with a minimum and maximum of two digits after comma",
             (val: any) => {
                 if (val != undefined) {
                     return pricePattern.test(val);
@@ -38,31 +35,31 @@ function AddCoupon(): JSX.Element {
 
         category:
             yup.string()
-                .required("category is required"),
+                .required("Category is required"),
 
         title: yup.string()
-            .required("title is required")
+            .required("Title is required")
             .max(35, "Max length of a title is 35 characters"),
 
         description: yup.string()
-            .required("description is required")
+            .required("Description is required")
             .max(120, "Max length of a description is 120 characters"),
 
         startDate: yup.date()
-            .required("start date is required")
-            .typeError("start date is required")
-            .min(new Date(), "cannot set a past date")
-            .max(yup.ref("endDate"), "start date can't be after end date"),
+            .required("Start date is required")
+            .typeError("Start date is required")
+            .min(new Date(), "Cannot set a past date")
+            .max(yup.ref("endDate"), "Start date can't be after end date"),
 
         endDate: yup.date()
             .default(new Date())
-            .required("end date is required")
-            .typeError("end date is required")
-            .min(yup.ref("startDate"), "end date can't be before start date"),
+            .required("End date is required")
+            .typeError("End date is required")
+            .min(yup.ref("startDate"), "End date can't be before start date"),
 
         amount: yup.number()
-            .required("amount is required")
-            .typeError("amount is required")
+            .required("Amount is required")
+            .typeError("Amount is required")
             .positive("Cannot set a negative amount"),
 
         price:
@@ -72,7 +69,7 @@ function AddCoupon(): JSX.Element {
             .url("Invalid Url")
     });
 
-    const { register, handleSubmit, clearErrors, watch, formState: { errors, isDirty, isValid } } =
+    const { register, handleSubmit, clearErrors, watch, formState: { errors, isValid } } =
         useForm<CouponPayloadModel>({ mode: "all", resolver: yupResolver(schema) });
 
     const endDate = watch("endDate");
@@ -82,7 +79,7 @@ function AddCoupon(): JSX.Element {
         const startDateCheck = new Date(startDate);
         if (startDate && startDateCheck > new Date() && new Date(endDate) > startDateCheck) {
             clearErrors("startDate")
-        }
+        };
     }, [endDate, startDate]);
 
 
@@ -95,18 +92,19 @@ function AddCoupon(): JSX.Element {
             })
             .catch(err => {
                 notificationsService.errorNotification(err.response.data.value);
-            })
-    }
+            });
+    };
 
 
     return (
         <div className="AddCoupon">
+
             <form onSubmit={handleSubmit(postCoupon)}>
 
-            <h1 className="PageTitles">Add Coupon</h1>
+                <h1 className="PageTitles">Add Coupon</h1>
 
-                {(errors.category) ? <span>{errors.category.message}</span> : <label htmlFor="category">Category</label>}
-                <select {...register("category")} id="category" defaultValue={""} >
+                {(!errors.category) ? <label className="XLargeTxt" htmlFor="category">Category</label> : <span className="ErrorSpan XLargeTxt">{errors.category.message}</span>}
+                <select {...register("category")} className="AddFormInput" id="category" defaultValue={""} >
                     <option disabled value={""}>Category</option>
                     <option value={"CINEMA"}>Cinema</option>
                     <option value={"FOOD"}>Food</option>
@@ -115,28 +113,28 @@ function AddCoupon(): JSX.Element {
                     <option value={"VIDEO_GAMES"}>Video Games</option>
                 </select>
 
-                {(errors.title) ? <span>{errors.title?.message}</span> : <label htmlFor="title">Title</label>}
-                <input {...register("title",)} id="title" name="title" type="text" placeholder="Title" />
+                {(!errors.title) ? <label className="XLargeTxt" htmlFor="title">Title</label> : <span className="ErrorSpan XLargeTxt">{errors.title?.message}</span>}
+                <input {...register("title")} className="AddFormInput" id="title" name="title" type="text" placeholder="Title" />
 
-                {(errors.description) ? <span>{errors.description?.message}</span> : <label htmlFor="description">Description</label>}
-                <input {...register("description")} id="description" name="description" type="text" placeholder="Description" />
+                {(!errors.description) ? <label className="XLargeTxt" htmlFor="description">Description</label> : <span className="ErrorSpan XLargeTxt">{errors.description?.message}</span>}
+                <input {...register("description")} className="AddFormInput" id="description" name="description" type="text" placeholder="Description" />
 
-                {(errors.startDate) ? <span>{errors.startDate?.message}</span> : <label htmlFor="startDate">Start Date</label>}
-                <input {...register("startDate")} id="startDate" name="startDate" type="date" />
+                {(!errors.startDate) ? <label className="XLargeTxt" htmlFor="startDate">Start Date</label> : <span className="ErrorSpan XLargeTxt">{errors.startDate?.message}</span>}
+                <input {...register("startDate")} className="AddFormInput" id="startDate" name="startDate" type="date" />
 
-                {(errors.endDate) ? <span>{errors.endDate?.message}</span> : <label htmlFor="endDate">End Date</label>}
-                <input {...register("endDate")} id="endDate" name="endDate" type="date" />
+                {(!errors.endDate) ? <label className="XLargeTxt" htmlFor="endDate">End Date</label> : <span className="ErrorSpan XLargeTxt">{errors.endDate?.message}</span>}
+                <input {...register("endDate")} className="AddFormInput" id="endDate" name="endDate" type="date" />
 
-                {(errors.amount) ? <span>{errors.amount?.message}</span> : <label htmlFor="amount">Amount</label>}
-                <input {...register("amount")} id="amount" name="amount" type="number" placeholder="Amount" />
+                {(!errors.amount) ? <label className="XLargeTxt" htmlFor="amount">Amount</label> : <span className="ErrorSpan XLargeTxt">{errors.amount?.message}</span>}
+                <input {...register("amount")} className="AddFormInput" id="amount" name="amount" type="number" placeholder="Amount" />
 
-                {(errors.price) ? <span>{errors.price?.message}</span> : <label htmlFor="price">Price</label>}
-                <input {...register("price")} id="price" name="price" type="number" step=".01" placeholder="Price" />
+                {(!errors.price) ? <label className="XLargeTxt" htmlFor="price">Price</label> : <span className="ErrorSpan XLargeTxt">{errors.price?.message}</span>}
+                <input {...register("price")} className="AddFormInput" id="price" name="price" type="number" step=".01" placeholder="Price" />
 
-                {(errors.image) ? <span>{errors.image?.message}</span> : <label htmlFor="image">Image</label>}
-                <input {...register("image")} id="image" name="image" type="url" placeholder="URL" />
+                {(!errors.image) ? <label className="XLargeTxt" htmlFor="image">Image</label> : <span className="ErrorSpan XLargeTxt">{errors.image?.message}</span>}
+                <input {...register("image")} className="AddFormInput" id="image" name="image" type="url" placeholder="URL" />
 
-                <button disabled={!isValid}>Add Coupon</button>
+                <button className="AddFormButton" disabled={!isValid}>Add Coupon</button>
 
             </form>
         </div>

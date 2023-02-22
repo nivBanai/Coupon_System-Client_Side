@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { CompanyModel } from "../../../../../Models/Company";
 import { deletedCompanyAction } from "../../../../../Redux/AppStates/AdminAppState";
 import { deletedCompanyCouponsAction } from "../../../../../Redux/AppStates/CouponAppState";
 import store from "../../../../../Redux/Store";
@@ -10,13 +8,13 @@ import "./DeleteCompany.css";
 
 function DeleteCompany(): JSX.Element {
 
+    const navigate = useNavigate();
     const params = useParams();
     const id = +(params.id || 0);
     const company = store.getState().adminReducer.companies.filter(comp => comp.id === id)[0];
-    const navigate = useNavigate();
 
     const confirm = async () => {
-        adminWebApi.deleteCompany(id)
+        await adminWebApi.deleteCompany(id)
             .then(() => {
                 store.dispatch(deletedCompanyAction(id));
                 store.dispatch(deletedCompanyCouponsAction(company.coupons))
@@ -24,22 +22,26 @@ function DeleteCompany(): JSX.Element {
             })
             .catch(err => {
                 notificationsService.errorNotification(err.response.message);
-            })
-    }
+            });
+    };
 
     const cancel = async () => {
         navigate("/companies");
     }
 
     return (
-        <div className="DeleteCompany">
-            <div id="deleteValidationContainer">
+        <div className="DeleteCompany FlexColPage">
+
+            <div className="DeleteValidationContainer">
+
                 <h2>Delete Company #{company.id} - {company.name} ?</h2>
+
                 <div className="DecisionButtonContainer">
-                    <button className="decisionButton cancelButton" onClick={cancel}>Cancel</button>
-                    <button className="decisionButton confirmButton" onClick={confirm}>Confirm</button>
+                    <button className="DecisionButton CancelButton" onClick={cancel}>Cancel</button>
+                    <button className="DecisionButton ConfirmButton" onClick={confirm}>Confirm</button>
                 </div>
             </div>
+
         </div>
     );
 }

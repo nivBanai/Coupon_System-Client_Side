@@ -1,6 +1,5 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { CustomerModel, CustomerPayloadModel } from "../../../../../Models/Customer";
@@ -16,36 +15,36 @@ function UpdateCustomer(): JSX.Element {
     const params = useParams();
     const id = +(params.id || 0)
     const cusToUpdate = store.getState().adminReducer.customers.filter(cus => cus.id === id)[0]
-    const [obj, setObj] = useState<CustomerModel>(cusToUpdate);
+    const obj = cusToUpdate;
     let defaultValuesObj = { ...obj };
 
     const schema = yup.object().shape({
+
         firstName:
             yup.string()
-                .required("name is required"),
+                .required("First name is required"),
+
         lastName:
             yup.string()
-                .required("name is required"),
+                .required("Last name is required"),
+
         email:
             yup.string()
                 .email("Invalid email pattern")
-                .required("email is required"),
+                .required("Email is required"),
+
         password:
             yup.string()
-                .required("password is required")
-                .min(5, "Password must be at least 5 characters"),
-                profilePic:
+                .required("Password is required")
+                .min(5, "Password must contain a minimum of 5 characters"),
+
+        profilePic:
             yup.string()
                 .url("Invalid Url")
-
     });
 
-
-
-    const { register, handleSubmit, control, formState: { errors, isDirty, isValid } } =
+    const { register, handleSubmit, formState: { errors, isDirty, isValid } } =
         useForm<CustomerModel>({ defaultValues: defaultValuesObj, mode: "all", resolver: yupResolver(schema) });
-
-    // const { dirtyFields } = useFormState({ control });
 
     const putCustomer = async (customer: CustomerPayloadModel) => {
         await adminWebApi.updateCustomer(id, customer)
@@ -55,31 +54,38 @@ function UpdateCustomer(): JSX.Element {
             })
             .catch(err => {
                 notificationsService.errorNotification(err.response.data.value);
-            })
-    }
+            });
+    };
 
     return (
         <div className="UpdateCustomer">
+
             <form onSubmit={handleSubmit(putCustomer)}>
 
-            <h1 className="PageTitles">Update Customer</h1>
+                <h1 className="PageTitles">Update Customer</h1>
 
-                <label htmlFor="id">Id</label>
-                <input disabled id="id" name="id" type="number" value={id} />
+                <label className="XLargeTxt" htmlFor="id">Id</label>
+                <input className="UpdateFormInput" disabled id="id" name="id" type="number" value={id} />
 
-                {(errors.firstName) ? <span>{errors.firstName?.message}</span> : <label htmlFor="firstName">First Name</label>}
-                <input {...register("firstName")} id="firstName" name="firstName" type="text" placeholder="First Name" />
-                {(errors.lastName) ? <span>{errors.lastName?.message}</span> : <label htmlFor="lastName">Last Name</label>}
-                <input {...register("lastName")} id="lastName" name="lastName" type="text" placeholder="Last Name" />
-                {(errors.email) ? <span>{errors.email?.message}</span> : <label htmlFor="email">Email</label>}
-                <input {...register("email")} id="email" name="email" type="email" placeholder="Email" />
-                {(errors.password) ? <span>{errors.password?.message}</span> : <label htmlFor="password">Password</label>}
-                <input {...register("password")} id="password" name="password" type="password" placeholder="Password" />
-                {(errors.profilePic) ? <span>{errors.profilePic?.message}</span> : <label htmlFor="profilePic">Profile Picture</label>}
-                <input {...register("profilePic")} id="profilePic" name="profilePic" type="text" placeholder="URL" />
-                <button disabled={!isValid || !isDirty}>Update Customer</button>
+                {(!errors.firstName) ? <label className="XLargeTxt" htmlFor="firstName">First Name</label> : <span className="ErrorSpan XLargeTxt">{errors.firstName?.message}</span>}
+                <input {...register("firstName")} className="UpdateFormInput" id="firstName" name="firstName" type="text" placeholder="First Name" />
+
+                {(!errors.lastName) ? <label className="XLargeTxt" htmlFor="lastName">Last Name</label> : <span className="ErrorSpan XLargeTxt">{errors.lastName?.message}</span>}
+                <input {...register("lastName")} className="UpdateFormInput" id="lastName" name="lastName" type="text" placeholder="Last Name" />
+
+                {(!errors.email) ? <label className="XLargeTxt" htmlFor="email">Email</label> : <span className="ErrorSpan XLargeTxt">{errors.email?.message}</span>}
+                <input {...register("email")} className="UpdateFormInput" id="email" name="email" type="email" placeholder="Email" />
+
+                {(!errors.password) ? <label className="XLargeTxt" htmlFor="password">Password</label> : <span className="ErrorSpan XLargeTxt">{errors.password?.message}</span>}
+                <input {...register("password")} className="UpdateFormInput" id="password" name="password" type="password" placeholder="Password" />
+
+                {(!errors.profilePic) ? <label className="XLargeTxt" htmlFor="profilePic">Profile Picture</label> : <span className="ErrorSpan XLargeTxt">{errors.profilePic?.message}</span>}
+                <input {...register("profilePic")} className="UpdateFormInput" id="profilePic" name="profilePic" type="text" placeholder="URL" />
+                
+                <button className="UpdateFormButton" disabled={!isValid || !isDirty}>Update Customer</button>
 
             </form>
+            
         </div>
     );
 }

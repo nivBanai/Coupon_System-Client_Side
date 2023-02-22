@@ -5,35 +5,24 @@ import { gotAllCustomerCouponsAction } from "../../../../Redux/AppStates/Custome
 import store from "../../../../Redux/Store";
 import notificationsService from "../../../../Services/NotificationsService";
 import customerWebApi from "../../../../Services/WebApi/CustomerWebApi";
-import utils from "../../../../Utils/Utils";
+import utils from "../../../../Utils/StringUtils";
 import EmptyCustomerCouponsView from "./EmptyCustomerCouponsView/EmptyCustomerCouponsView";
 import "./GetCustomerCoupons.css";
 
 function GetCustomerCoupons(): JSX.Element {
 
-    const navigate = useNavigate();
     const [originalCoupons, setOriginalCoupons] = useState<CouponModel[]>(store.getState().customerReducer.coupons);
     const [coupons, setCoupons] = useState<CouponModel[]>(originalCoupons);
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [selectedPrice, setSelectedPrice] = useState<number>(0);
 
     useEffect(() => {
-
-        if (!store.getState().userReducer.user.token) {
-            navigate("/login");
-        }
-        else if (coupons.length === 0) {
+        if (coupons.length === 0) {
             customerWebApi.getAllCustomerCoupons()
                 .then(res => {
-                    // Update local state
                     setOriginalCoupons(res.data);
                     setCoupons(res.data);
-
-                    // Update app state
-
                     store.dispatch(gotAllCustomerCouponsAction(res.data));
-
-                    // notify.success('Woho I got my element from server side!!!')
                 })
                 .catch(err => notificationsService.errorNotification(err.response.data.message));
         }
@@ -53,21 +42,20 @@ function GetCustomerCoupons(): JSX.Element {
             setCoupons(originalCoupons.filter(coup => coup.category.match(selectedCategory) && coup.price < selectedPrice));
         }
     }, [selectedCategory, selectedPrice]
-    )
+    );
 
     return (
         <div className="GetCustomerCoupons">
+
             {
                 (coupons?.length > 0 || originalCoupons.length > 0) ?
                     <>
                         {
-
-
-
                             <>
                                 <div className="TitleContainer">
                                     <h1>My Coupons</h1>
                                 </div>
+
                                 <div className="SearchBarsContainer">
                                     <div className="SearchBar">
                                         <h3>Filter By Category </h3>
@@ -80,41 +68,44 @@ function GetCustomerCoupons(): JSX.Element {
                                             <option value={"VIDEO_GAMES"}>Video Games</option>
                                         </select>
                                     </div>
+
                                     <div className="SearchBar">
                                         <h3>Filter By Max Price</h3>
                                         <input onChange={(val) => setSelectedPrice(+val.target.value)} id="price" name="price" type="number"
                                             placeholder="Type Price" />
                                     </div>
+
                                 </div>
+
                                 <div className="Coupons">
-                                    {coupons.map((coup, idx) => <div className="OwnedCoupon" key={idx}>
-                                        <div id="couponHeader">
-                                            <p className="couponHeaderItems ownedCouponIdTitle">#{originalCoupons.indexOf(coup) + 1}</p>
-                                            <h2 className="couponHeaderItems">{coup.title}</h2>
+                                    {coupons.map((coup, idx) => <div className="CustomerOwnedCoupon" key={idx}>
+
+                                        <div className="CouponHeader">
+                                            <p className="CouponHeaderItem OwnedCouponIdTitle">#{originalCoupons.indexOf(coup) + 1}</p>
+                                            <h2 className="CouponHeaderItem">{coup.title}</h2>
                                         </div>
-                                        <p><img className="CouponImg" src={coup.image} alt="N/A" /></p>
 
-                                        <p className="couponItem" id="displayCategory"> {utils.fixedCategory(coup.category)}</p>
+                                        <p><img className="OwnedCouponImg" src={coup.image} alt="N/A" /></p>
 
-                                        <p id="ownedCouponDesc">{coup.description}</p>
+                                        <p className="CouponItem DisplayCategory" > {utils.fixedCategory(coup.category)}</p>
 
+                                        <p className="OwnedCouponDesc">{coup.description}</p>
 
-                                        <p className="couponItem" id="displayDate"> {utils.fixedDate(coup.startDate)} - {utils.fixedDate(coup.endDate)}</p>
-                                        <div >
-                                            <p className="displayOwnedCouponPrice">
+                                        <p className="CouponItem DisplayDate"> {utils.fixedDate(coup.startDate)} - {utils.fixedDate(coup.endDate)}</p>
+
+                                        <div className="customerCouponFooter" >
+                                            <p className="DisplayOwnedCouponPrice">
                                                 {coup.price} &#x20AA;
                                             </p>
                                         </div>
                                     </div>
                                     )}
                                 </div>
-
                             </>
-
                         }
                     </>
-
-                    : <div><EmptyCustomerCouponsView /></div>
+                    :
+                    <div><EmptyCustomerCouponsView /></div>
             }
         </div>
     );

@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CompanyModel } from "../../../../../Models/Company";
 import { CustomerModel } from "../../../../../Models/Customer";
-import { gotAllCompaniesAction, gotAllCustomersAction } from "../../../../../Redux/AppStates/AdminAppState";
+import { gotAllCustomersAction } from "../../../../../Redux/AppStates/AdminAppState";
 import store from "../../../../../Redux/Store";
 import notificationsService from "../../../../../Services/NotificationsService";
 import adminWebApi from "../../../../../Services/WebApi/AdminWebApi";
@@ -20,34 +19,24 @@ function GetAllCustomers(): JSX.Element {
 
     const addCustomer = () => {
         navigate("add");
-    }
+    };
 
     const deleteCustomer = (id: number) => {
         navigate("delete/" + id);
-    }
+    };
 
     const updateCustomer = (id: number) => {
         navigate("update/" + id);
-    }
+    };
 
     useEffect(() => {
-        const token = store.getState().userReducer.user.token;
 
-        if (!token) {
-            navigate("/login");
-        }
-        else if (customers.length === 0) {
+        if (customers.length === 0) {
             adminWebApi.getAllCustomers()
                 .then(res => {
-                    // Update local state
                     setOriginalCustomers(res.data);
                     setCustomers(res.data);
-
-                    // Update app state
-
                     store.dispatch(gotAllCustomersAction(res.data));
-
-                    // notify.success('Woho I got my element from server side!!!')
                 })
                 .catch(err =>
                     notificationsService.errorNotification(err.response.data.message));
@@ -69,39 +58,50 @@ function GetAllCustomers(): JSX.Element {
     }, [search]);
 
     return (
-        <div className="GetAllCustomers">
+        <div className="GetAllCustomers FlexColPage">
 
             {
-                (customers?.length > 0 || originalCustomers?.length > 0) ?
-
+                (customers.length > 0 || originalCustomers.length > 0) ?
                     <>
-                        <div className="companiesSearchBar">
+                        <div className="UsersSearchBar">
                             <input onChange={(val) => setSearch(val.target.value)} id="search" name="search" type="text" placeholder="Search in customers" />
                         </div>
 
                         <div className="TableContainer">
+
                             <table>
+
                                 <tbody>
+
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Actions</th>
                                     </tr>
+
                                     {customers.map((cus, idx) => <tr key={idx}>
                                         <td>{cus.id})</td>
+
                                         <td><img src={cus.profilePic} alt="N/A" />{cus.lastName} {cus.firstName}</td>
+
                                         <td>{cus.email}</td>
+
                                         <td>
                                             <button onClick={() => updateCustomer(cus.id)}><TbEdit size={40} /></button>
                                             <button onClick={() => deleteCustomer(cus.id)}><ImBin2 size={40} /></button>
                                         </td>
-                                    </tr>)}
+
+                                    </tr>
+                                    )}
                                 </tbody>
+
                             </table>
+
                         </div>
-                        <div id="addCompanyButtonContainer">
-                            <button id="addCompanyButton" onClick={() => addCustomer()}>Add Customer</button>
+
+                        <div className="AddUserButtonContainer">
+                            <button className="AddUserButton" onClick={() => addCustomer()}>Add Customer</button>
                         </div>
                     </>
                     : <EmptyCustomersView />

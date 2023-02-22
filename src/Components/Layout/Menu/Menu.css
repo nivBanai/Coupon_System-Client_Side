@@ -9,7 +9,7 @@
 }
 
 .Menu a{
-    color: white;
+    color: var(--textColor);
     font-size: x-large;
     margin-top: 75px;
     text-decoration: none;
@@ -19,5 +19,4 @@
 .Menu a:hover{
     color: var(--borderColor); 
     font-size: xx-large;
-    /* border-bottom: 2px solid var(--borderColor); */
 }

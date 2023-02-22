@@ -19,34 +19,24 @@ function GetAllCompanies(): JSX.Element {
 
     const addCompany = () => {
         navigate("add");
-    }
+    };
 
     const deleteCompany = (id: number) => {
         navigate("delete/" + id);
-    }
+    };
 
     const updateCompany = (id: number) => {
         navigate("update/" + id);
-    }
+    };
 
     useEffect(() => {
-        const token = store.getState().userReducer.user.token;
 
-        if (!token) {
-            navigate("/login");
-        }
-        else if (companies.length === 0) {
+        if (companies.length === 0) {
             adminWebApi.getAllCompanies()
                 .then(res => {
-                    // Update local state
                     setOriginalCompanies(res.data);
                     setCompanies(res.data);
-
-                    // Update app state
-
                     store.dispatch(gotAllCompaniesAction(res.data));
-
-                    // notify.success('Woho I got my element from server side!!!')
                 })
                 .catch(err => notificationsService.errorNotification(err.response.message));
         }
@@ -55,7 +45,9 @@ function GetAllCompanies(): JSX.Element {
     useEffect(() => {
         if (search) {
             setCompanies(originalCompanies.filter(comp =>
-                comp.id.toString().includes(search) || comp.name.toLowerCase().includes(search.toLowerCase()) || comp.email.toLowerCase().includes(search.toLowerCase())));
+                comp.id.toString().includes(search) ||
+                comp.name.toLowerCase().includes(search.toLowerCase()) ||
+                comp.email.toLowerCase().includes(search.toLowerCase())));
         }
         else {
             setCompanies(originalCompanies);
@@ -63,38 +55,48 @@ function GetAllCompanies(): JSX.Element {
     }, [search]);
 
     return (
-        <div className="GetAllCompanies">
+        <div className="GetAllCompanies FlexColPage">
             {
-                (companies?.length > 0 || originalCompanies?.length > 0) ?
-
+                (companies.length > 0 || originalCompanies.length > 0) ?
                     <>
-                        <div className="companiesSearchBar">
+                        <div className="UsersSearchBar">
                             <input onChange={(val) => setSearch(val.target.value)} id="search" name="search" type="text" placeholder="Search in companies" />
                         </div>
 
                         <div className="TableContainer">
                             <table>
+
                                 <tbody>
+
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Actions</th>
+
                                     </tr>
                                     {companies.map((comp, idx) => <tr key={idx}>
                                         <td>{comp.id})</td>
+
                                         <td><img src={comp.profilePic} alt="N/A" />{comp.name}</td>
+
                                         <td>{comp.email}</td>
+
                                         <td>
                                             <button onClick={() => updateCompany(comp.id)}><TbEdit size={40} /></button>
                                             <button onClick={() => deleteCompany(comp.id)}><ImBin2 size={40} /></button>
                                         </td>
-                                    </tr>)}
+
+                                    </tr>
+                                    )}
                                 </tbody>
+
                             </table>
+
                         </div>
-                        <div id="addCompanyButtonContainer">
-                            <button id="addCompanyButton" onClick={() => addCompany()}>Add Company</button>
+
+                        <div className="AddUserButtonContainer">
+                            <button className="AddUserButton" onClick={() => addCompany()}>Add Company</button>
                         </div>
                     </>
                     : <EmptyCompaniesView />

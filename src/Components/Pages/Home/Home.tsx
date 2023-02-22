@@ -5,21 +5,17 @@ import { gotAlmostOutOfStockCouponsAction } from "../../../Redux/AppStates/Coupo
 import store from "../../../Redux/Store";
 import notificationsService from "../../../Services/NotificationsService";
 import couponWebApi from "../../../Services/WebApi/CouponWebApi";
-import utils from "../../../Utils/Utils";
+import authUtils from "../../../Utils/AuthUtils";
+import utils from "../../../Utils/StringUtils";
 import "./Home.css";
 
 function Home(): JSX.Element {
 
     const navigate = useNavigate();
-    const [user, setUser] = useState(store.getState().userReducer.user);
+    const user = store.getState().userReducer.user;
     const [coupons, setCoupons] = useState<CouponModel[]>(store.getState().couponReducer.almostOutOfStockCoupons);
 
-    const isValidCustomer = (): boolean => {
-        return (user.token && user.clientType === "CUSTOMER") ? true : false;
-    };
-
     const purchaseCoupon = (id: number) => {
-        console.log(coupons);
         navigate("/coupons/purchase/" + id);
     }
 
@@ -54,52 +50,55 @@ function Home(): JSX.Element {
             <h1>Welcome Back!</h1>
 
             {
-
                 (coupons.length > 0) ?
                     <>
                         <div id="homeContainer">
-                            <h1 id="homeCouponsTitle">There Are Only A Few Left, Hurry Up And Check These Coupons Out!</h1>
+                            <h1 id="homeOfferTitle">There Are Only A Few Left, Hurry Up And Check These Coupons Out!</h1>
 
                             <div className="Coupons">
                                 {coupons.map((coup, idx) =>
-
                                     <div className="Coupon" key={idx}>
-                                        <div id="couponHeader">
-                                            <p className="couponHeaderItems" id="idTitle">#{coup.id}</p>
-                                            <h2 className="couponHeaderItems" >{coup.title}</h2>
+
+                                        <div className="CouponHeader">
+                                            <p className="CouponHeaderItem CouponIdTitle">#{coup.id}</p>
+                                            <h2 className="CouponHeaderItem" >{coup.title}</h2>
                                         </div>
-                                        <p><img className="CouponImg" src={coup.image} alt="N/A" /></p>
 
-                                        <p className="couponItem" id="displayCategory"> {utils.fixedCategory(coup.category)}</p>
+                                        <p><img src={coup.image} alt="N/A" /></p>
 
-                                        <p id="tooltip">*Description*
-                                            <span id="tooltiptext">{coup.description}</span>
+                                        <p className="CouponItem DisplayCategory"> {utils.fixedCategory(coup.category)}</p>
+
+                                        <p className="DescTooltip">*Description*
+                                            <span className="DescTooltipText">{coup.description}</span>
                                         </p>
 
-                                        <p className="couponItem" id="displayDate"> {utils.fixedDate(coup.startDate)} - {utils.fixedDate(coup.endDate)}</p>
+                                        <p className="CouponItem DisplayDate"> {utils.fixedDate(coup.startDate)} - {utils.fixedDate(coup.endDate)}</p>
 
-                                        <div className="couponItem " id="displayAmount" >
-                                            <p className={(coup.amount > 5) ? "displayGreenAmount" : "displayOrangeAmount"}>{coup.amount} Left</p>
-
+                                        <div className="CouponItem DisplayAmount">
+                                            <p className={(coup.amount > 5) ? "DisplayGreenAmount" : "DisplayOrangeAmount"}>{coup.amount} Left</p>
                                         </div>
-                                        <div id="couponFooter">
-                                            <p id="displayPrice">
+
+                                        <div id="homeCouponFooter">
+                                            <p className="DisplayPrice">
                                                 {coup.price} &#x20AA;
                                             </p>
-                                            {(isValidCustomer()) ?
+                                            {(authUtils.isValidCustomer(user)) ?
 
-                                                <button id="purchaseButton" disabled={(coup.amount === 0)} onClick={() => purchaseCoupon(coup.id)}>Purchase</button>
+                                                <button className="PurchaseButton" disabled={(coup.amount === 0)} onClick={() => purchaseCoupon(coup.id)}>Purchase</button>
 
-                                                : <Link id="loginToPurchase" to={"/login"}>Login to purchase</Link>
+                                                : <Link className="LoginToPurchase" to={"/login"}>Login to purchase</Link>
                                             }
                                         </div>
+
                                     </div>
                                 )}
+
                             </div>
+                            
                         </div>
                     </>
-
-                    : <div>
+                    :
+                    <div>
                         <img id="homeImg" src="https://media3.giphy.com/media/NBCUdhhWqU4i7VQ34z/200w.webp" alt="" />
                     </div>
 

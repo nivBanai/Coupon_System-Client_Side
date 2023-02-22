@@ -10,12 +10,13 @@ function Menu(): JSX.Element {
     useEffect(() => {
 
         return store.subscribe(() => {
-            setUserClientType(store.getState().userReducer.user.clientType); 
+            setUserClientType(store.getState().userReducer.user.clientType);
         });
     },
         []);
 
     return (
+
         <div className="Menu">
 
             <Link to={"home"}>Home</Link>
@@ -24,25 +25,23 @@ function Menu(): JSX.Element {
 
             <Link to={"coupons"}>Coupons</Link>
 
-            {(userClientType === "ADMINISTRATOR") ?
-                <>
-                    <Link to={"companies"}>Companies</Link>
+            {userClientType === "ADMINISTRATOR" &&
+                (
+                    <>
+                        <Link to={"companies"}>Companies</Link>
 
-                    <Link to={"customers"}>Customers</Link>
+                        <Link to={"customers"}>Customers</Link>
+                    </>
+                )
+            }
 
-                </>
-                : <></>}
-            {(userClientType === "COMPANY") ?
-                <>
-                    <Link to={"companies/coupons"}>My Coupons</Link>
+            {userClientType === "COMPANY" &&
+                (<Link to={"companies/coupons"}>My Coupons</Link>)
+            }
 
-                </>
-                : <></>}
-            {(userClientType === "CUSTOMER") ?
-                <>
-                    <Link to={"customers/coupons"}>My Coupons</Link>
-                </>
-                : <></>}
+            {userClientType === "CUSTOMER" &&
+                (<Link to={"customers/coupons"}>My Coupons</Link>)
+            }
 
         </div>
     );

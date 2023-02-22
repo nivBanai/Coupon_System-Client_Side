@@ -22,22 +22,27 @@ function DeleteCoupon(): JSX.Element {
             })
             .catch(err => {
                 notificationsService.errorNotification(err.response.data.message);
-            })
-    }
+            });
+    };
 
     const cancel = async () => {
         navigate("/companies/coupons");
-    }
+    };
 
     return (
-        <div className="DeleteCoupon">
-            <div id="deleteValidationContainer">
+        <div className="DeleteCoupon FlexColPage">
+
+            <div className="DeleteValidationContainer">
+
                 <h2>Delete Coupon #{store.getState().companyReducer.coupons.indexOf(coupon) + 1} ({coupon.title}) ?</h2>
+
                 <div className="DecisionButtonContainer">
-                    <button className="decisionButton cancelButton" onClick={cancel}>Cancel</button>
-                    <button className="decisionButton confirmButton" onClick={confirm}>Confirm</button>
+                    <button className="DecisionButton CancelButton" onClick={cancel}>Cancel</button>
+                    <button className="DecisionButton ConfirmButton" onClick={confirm}>Confirm</button>
                 </div>
+                
             </div>
+
         </div>
     );
 }

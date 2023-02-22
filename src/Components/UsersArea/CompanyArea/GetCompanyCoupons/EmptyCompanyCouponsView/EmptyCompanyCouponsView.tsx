@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./EmptyCompanyCouponsView.css";
 
 function EmptyCompanyCouponsView(): JSX.Element {
@@ -10,11 +10,14 @@ function EmptyCompanyCouponsView(): JSX.Element {
     }
 
     return (
-        <div className="EmptyCompanyCouponsView">
+        <div className="EmptyCompanyCouponsView EmptyUserCouponsView">
+
             <h1>Your Coupons List Is Currently Empty</h1>
-            <div id="addCouponButtonContainer">
-                <button id="addCouponButton" onClick={() => addCoupon()}>Add Coupon</button>
+
+            <div className="AddCouponButtonContainer">
+                <button className="AddCouponButton" onClick={() => addCoupon()}>Add Coupon</button>
             </div>
+
         </div>
     );
 }
